@@ -1,3 +1,6 @@
+
+import 'currency.dart';
+
 class Wallet extends Currency {
   double amount = 0;
   Wallet();
