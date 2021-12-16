@@ -1,4 +1,6 @@
 
+// ignore_for_file: avoid_print
+
 import 'currency.dart';
 
 class Wallet extends Currency {
