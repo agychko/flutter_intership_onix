@@ -34,18 +34,26 @@ class _MySkreenState extends State<MySkreen> {
       appBar: AppBar(
       ),
       body: Center(
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
-            Text(
-              'Hello',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            MyText(),
           ],
         ),
       ),
     );
   }
 }
+class MyText extends StatefulWidget {
+const MyText ({Key? key}) : super(key: key);
+@override
+State<MyText> createState() => _MyTextState();
+}
+class _MyTextState extends State<MyText> {
+  @override
+  Widget build(BuildContext context) {
+    return Text ('Hello!',
+        style: Theme.of(context).textTheme.headline4,
+    );
+  }
+  }
