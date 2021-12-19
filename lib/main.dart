@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-
       ),
       home: const MySkreen(),
     );
@@ -47,32 +46,44 @@ class _MySkreenState extends State<MySkreen> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            MyText(),
+          children: <Widget>[
+            Text(newText, style: Theme.of(context).textTheme.headline4,),
            ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.calculate),
+            title: Text('Converter'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.attach_money),
+            title: Text('Currencies'),
+          ),
+        ],
       ),
     );
   }
 }
-class MyText extends StatefulWidget {
-const MyText ({Key? key}) : super(key: key);
-@override
-State<MyText> createState() => MyTextState();
-}
-class MyTextState extends State<MyText> {
-  String newText='Hello!';
-DateTime dt = DateTime.now();
- void updateText(){
- setState(() {
-   newText= '$dt';
- });
-
-}
-  @override
-  Widget build(BuildContext context) {
-    return Text (newText,
-        style: Theme.of(context).textTheme.headline4,
-    );
-  }
-  }
+// class MyText extends StatefulWidget {
+// const MyText ({Key? key}) : super(key: key);
+// @override
+// State<MyText> createState() => MyTextState();
+// }
+// class MyTextState extends State<MyText> {
+//   String newText='Hello!';
+// DateTime dt = DateTime.now();
+//  void updateText(){
+//  setState(() {
+//    newText= '$dt';
+//  });
+//
+// }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Text (newText,
+//         style: Theme.of(context).textTheme.headline4,
+//     );
+//   }
+//   }
