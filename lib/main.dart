@@ -36,7 +36,7 @@ class _MySkreenState extends State<MySkreen> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: const <Widget>[
             MyText(),
           ],
         ),
@@ -50,9 +50,14 @@ const MyText ({Key? key}) : super(key: key);
 State<MyText> createState() => _MyTextState();
 }
 class _MyTextState extends State<MyText> {
+  String newText='Hello!';
+DateTime dt = DateTime.now();
+ void updateText(){
+ newText= '$dt';
+}
   @override
   Widget build(BuildContext context) {
-    return Text ('Hello!',
+    return Text ('$newText',
         style: Theme.of(context).textTheme.headline4,
     );
   }
