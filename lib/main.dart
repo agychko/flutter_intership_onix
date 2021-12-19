@@ -59,3 +59,26 @@ class _MyHomePageState extends State<MyHomePage> {
          );
   }
 }
+class MySkreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+      ),
+      body: Center(
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+
+            Text(
+              'Hello',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
