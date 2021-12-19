@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+
       ),
       home: const MySkreen(),
     );
@@ -27,18 +28,28 @@ class MySkreen extends StatefulWidget {
   State<MySkreen> createState() => _MySkreenState();
 }
 class _MySkreenState extends State<MySkreen> {
-@override
+  String newText='Hello!';
+  DateTime dt = DateTime.now();
+  void updateText(){
+    setState(() {
+      newText= '$dt';
+    });
+
+  }
+  @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Update'),
+        leading:IconButton(icon:const Icon(Icons.update), onPressed: updateText,),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
             MyText(),
-          ],
+           ],
         ),
       ),
     );
@@ -47,17 +58,20 @@ class _MySkreenState extends State<MySkreen> {
 class MyText extends StatefulWidget {
 const MyText ({Key? key}) : super(key: key);
 @override
-State<MyText> createState() => _MyTextState();
+State<MyText> createState() => MyTextState();
 }
-class _MyTextState extends State<MyText> {
+class MyTextState extends State<MyText> {
   String newText='Hello!';
 DateTime dt = DateTime.now();
  void updateText(){
- newText= '$dt';
+ setState(() {
+   newText= '$dt';
+ });
+
 }
   @override
   Widget build(BuildContext context) {
-    return Text ('$newText',
+    return Text (newText,
         style: Theme.of(context).textTheme.headline4,
     );
   }
