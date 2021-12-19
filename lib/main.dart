@@ -59,8 +59,13 @@ class _MyHomePageState extends State<MyHomePage> {
          );
   }
 }
-class MySkreen extends StatelessWidget {
+class MySkreen extends StatefulWidget {
+  const MySkreen ({Key? key}) : super(key: key);
   @override
+  State<MySkreen> createState() => _MySkreenState();
+}
+class _MySkreenState extends State<MySkreen> {
+@override
   Widget build(BuildContext context) {
 
     return Scaffold(
