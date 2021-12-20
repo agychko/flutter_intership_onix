@@ -52,15 +52,9 @@ class _MySkreenState extends State<MySkreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.calculate),
-            title: Text('Converter'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.attach_money),
-            title: Text('Currencies'),
-          ),
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.calculate), label: 'Converter'),
+          BottomNavigationBarItem(icon: Icon(Icons.attach_money), label:'Currencies'),
         ],
       ),
     );
