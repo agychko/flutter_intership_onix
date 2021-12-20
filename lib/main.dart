@@ -18,13 +18,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MySkreen(),
+      home: const MyScreen(),
     );
   }
 }
 
-class MySkreen extends StatelessWidget {
-  const MySkreen ({Key? key}) : super(key: key);
+class MyScreen extends StatefulWidget {
+  const MyScreen ({Key? key}) : super(key: key);
+
+  @override
+  State<MyScreen> createState() => MyScreenState();
+}
+class MyScreenState extends State<MyScreen> {
 
   @override
   Widget build(BuildContext context) {
