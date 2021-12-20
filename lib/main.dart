@@ -21,33 +21,22 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MySkreen extends StatefulWidget {
+class MySkreen extends StatelessWidget {
   const MySkreen ({Key? key}) : super(key: key);
-  @override
-  State<MySkreen> createState() => _MySkreenState();
-}
-class _MySkreenState extends State<MySkreen> {
-  String newText='Hello!';
-  DateTime dt = DateTime.now();
-  void updateText(){
-    setState(() {
-      newText= '$dt';
-    });
 
-  }
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Update'),
-        leading:IconButton(icon:const Icon(Icons.update), onPressed: updateText,),
+        // leading:IconButton(icon:const Icon(Icons.update), onPressed: updateText,),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(newText, style: Theme.of(context).textTheme.headline4,),
+            Text('newText', style: Theme.of(context).textTheme.headline4,),
            ],
         ),
       ),
