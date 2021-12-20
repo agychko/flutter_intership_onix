@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+final key = GlobalKey<MyTextState>();
+
 void main() {
   runApp(const MyApp());
 }
@@ -30,13 +32,16 @@ class MySkreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Update'),
-        // leading:IconButton(icon:const Icon(Icons.update), onPressed: updateText,),
+        leading:IconButton(
+          icon:const Icon(Icons.update),
+          onPressed: () => key.currentState?.updateText(),
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('newText', style: Theme.of(context).textTheme.headline4,),
+            MyText (key: key,)
            ],
         ),
       ),
@@ -49,24 +54,22 @@ class MySkreen extends StatelessWidget {
     );
   }
 }
-// class MyText extends StatefulWidget {
-// const MyText ({Key? key}) : super(key: key);
-// @override
-// State<MyText> createState() => MyTextState();
-// }
-// class MyTextState extends State<MyText> {
-//   String newText='Hello!';
-// DateTime dt = DateTime.now();
-//  void updateText(){
-//  setState(() {
-//    newText= '$dt';
-//  });
-//
-// }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text (newText,
-//         style: Theme.of(context).textTheme.headline4,
-//     );
-//   }
-//   }
+class MyText extends StatefulWidget {
+const MyText ({Key? key}) : super(key: key);
+@override
+State<MyText> createState() => MyTextState();
+}
+class MyTextState extends State<MyText> {
+  String newText='Hello!';
+DateTime dt = DateTime.now();
+ void updateText(){
+   newText= '$dt';
+   setState(() {});
+}
+  @override
+  Widget build(BuildContext context) {
+    return Text (newText,
+        style: Theme.of(context).textTheme.headline4,
+    );
+  }
+  }
