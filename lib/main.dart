@@ -30,8 +30,20 @@ class MyScreen extends StatefulWidget {
   State<MyScreen> createState() => MyScreenState();
 }
 class MyScreenState extends State<MyScreen> {
+    int _selectedTab=0;
+    static List<Widget> widgetOptions = <Widget>[
+      MyText(key: key,),
+      const Text(''),
+    ];
 
-  @override
+    void _onItemTapped(int index) {
+      setState(() {
+        _selectedTab = index;
+      });
+    }
+
+
+    @override
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -43,21 +55,18 @@ class MyScreenState extends State<MyScreen> {
         ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            MyText (key: key,)
-           ],
-        ),
+        child: widgetOptions.elementAt(_selectedTab),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedTab,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.calculate), label: 'Converter'),
           BottomNavigationBarItem(icon: Icon(Icons.attach_money), label:'Currencies'),
         ],
-      ),
-    );
-  }
+        onTap: _onItemTapped,
+        ),
+        );
+     }
 }
 class MyText extends StatefulWidget {
 const MyText ({Key? key}) : super(key: key);
