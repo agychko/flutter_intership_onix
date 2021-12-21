@@ -14,7 +14,7 @@ class MyScreenState extends State<MyScreen> {
   int _selectedTab=0;
   static List<Widget> widgetOptions = <Widget>[
     MyText(key: key,),
-    const Text(''),
+    const Text('Currencies'),
   ];
 
   void _onItemTapped(int index) {
@@ -29,11 +29,11 @@ class MyScreenState extends State<MyScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update'),
-        leading:IconButton(
+        title: (_selectedTab==0)? const Text('Update'):Container(),
+        leading:(_selectedTab==0)? IconButton(
           icon:const Icon(Icons.update),
           onPressed: () => key.currentState?.updateText(),
-        ),
+        ):Container(),
       ),
       body: Center(
         child: widgetOptions.elementAt(_selectedTab),
