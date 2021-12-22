@@ -26,8 +26,22 @@ class MyTextState extends State<MyText> {
               side: const BorderSide(color:Colors.blue, width: 4.0, style: BorderStyle.solid)
       ),
       ),
-      child: Text (newText,
-      style: Theme.of(context).textTheme.headline4,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children:<Widget>[
+        Text (newText,
+        style: const TextStyle(color: Colors.blue,fontSize: 24,),
+        //  style: Theme.of(context).textTheme.headline4,
+      ),
+       const TextField(
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.search),
+          suffixIcon: Icon(Icons.mic),
+          border: OutlineInputBorder(),
+          labelText: 'Search',
+          ),
+      ),
+      ],
     ),
     );
   }
