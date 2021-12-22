@@ -33,12 +33,16 @@ class MyTextState extends State<MyText> {
         style: const TextStyle(color: Colors.blue,fontSize: 24,),
         //  style: Theme.of(context).textTheme.headline4,
       ),
-       const TextField(
-        decoration: InputDecoration(
-          prefixIcon: Icon(Icons.search),
-          suffixIcon: Icon(Icons.mic),
-          border: OutlineInputBorder(),
-          labelText: 'Search',
+        TextField(
+        
+         decoration: InputDecoration(
+             filled: true,
+             fillColor: Colors.black12,
+             prefixIcon: const Icon(Icons.search),
+             suffixIcon: const Icon(Icons.mic),
+             border: OutlineInputBorder(borderRadius: BorderRadius.circular(25.0),),
+             hintText: 'Search',
+             // contentPadding: EdgeInsets.all(10)
           ),
       ),
       ],
