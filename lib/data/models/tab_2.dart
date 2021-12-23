@@ -22,12 +22,14 @@ class MyTabState extends State<MyTab> {
       // child: Center(
           child: TextButton (
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children:const <Widget>[
             Icon(Icons.arrow_upward),
+            SizedBox(width: 10),
             Text("Upload"),
            ],
           ),
-
             style: TextButton.styleFrom(
               alignment: Alignment.center,
               fixedSize: const Size.fromHeight(40),
@@ -35,7 +37,7 @@ class MyTabState extends State<MyTab> {
               backgroundColor: Colors.blue,
               shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
               textStyle: const TextStyle(
-
+                leadingDistribution: TextLeadingDistribution.proportional,
                 fontSize: 24,
               )
             ),
