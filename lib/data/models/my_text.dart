@@ -27,23 +27,24 @@ class MyTextState extends State<MyText> {
       ),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children:<Widget>[
-        Text (newText,
+          Text (newText,
         style: const TextStyle(color: Colors.blue,fontSize: 24,),
-        //  style: Theme.of(context).textTheme.headline4,
-      ),
-        TextField(
-        
-         decoration: InputDecoration(
+        ),
+          const SizedBox(height: 30),
+          TextField(
+           decoration: InputDecoration(
              filled: true,
-             fillColor: Colors.black12,
+             fillColor: Colors.white12,
              prefixIcon: const Icon(Icons.search),
+             prefixIconColor: Colors.grey,
              suffixIcon: const Icon(Icons.mic),
-             border: OutlineInputBorder(borderRadius: BorderRadius.circular(25.0),),
+             suffixIconColor: Colors.grey,
+             border: OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
              hintText: 'Search',
-             // contentPadding: EdgeInsets.all(10)
-          ),
+             hintStyle: const TextStyle(color: Colors.grey,fontSize: 20,),
+             ),
       ),
       ],
     ),
