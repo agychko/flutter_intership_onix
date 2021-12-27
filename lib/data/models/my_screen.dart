@@ -28,6 +28,7 @@ class MyScreenState extends State<MyScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: (_selectedTab==0)? const Text('Update'):Container(),
         leading:(_selectedTab==0)? IconButton(

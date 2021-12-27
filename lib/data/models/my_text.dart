@@ -22,10 +22,7 @@ class MyTextState extends State<MyText> {
         decoration: ShapeDecoration(
           color: Colors.white,
           shadows: const [ BoxShadow(spreadRadius: 2, blurRadius: 7, offset: Offset(0, 3)),],
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
-              // side: const BorderSide(color:Colors.blue, width: 4.0, style: BorderStyle.solid)
-      ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       ),
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -45,53 +42,65 @@ class MyTextState extends State<MyText> {
              border: OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
              hintText: 'Search',
              hintStyle: const TextStyle(color: Colors.grey,fontSize: 20,),
-             ),
+           ),
       ),
           const SizedBox(height: 30),
           Card(
-             child: Column(
-            children:[ ListTile(
-            leading: Image.network ('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/255px-Flag_of_Europe.svg.png', width: 75, height: 100, fit:BoxFit.fill),
-              title: const Text('EUR'),
-              subtitle: const Text('Euro'),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              minVerticalPadding: 25,
-              minLeadingWidth: 100,
+              color: Colors.white,
+              elevation: 20,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+              child: Column(
+                children:[
+                ListTile(
+                  leading: Image.network ('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/255px-Flag_of_Europe.svg.png', width: 75, height: 100, fit:BoxFit.fill),
+                  title: const Text('EUR'),
+                  subtitle: const Text('Euro'),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(15,5, 15, 5),
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(color: Colors.black,fontSize: 28),
+                    decoration: InputDecoration(
+                      suffixIcon: Icon(Icons.euro),
+                      hintText: '0.00',
+                      hintStyle: TextStyle(color: Colors.grey,fontSize: 28),
+                      contentPadding: EdgeInsets.all(8.0),
+                    ),
               ),
-              const TextField(
-              decoration: InputDecoration(
-              suffixIcon: Icon(Icons.euro),
+                ),
+               ],
               ),
             ),
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-             ),
-             margin: const EdgeInsets.all(20),
-            color: Colors.white,
-            elevation: 10,
             ),
           const SizedBox(height: 30),
           Card(
             child: Column(
-              children:[ ListTile(
-                leading: Image.network ('https://flagcdn.com/w160/us.jpg', width: 75, height: 100, fit:BoxFit.fill),
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children:[
+                ListTile(
+                leading: Image.network ('https://flagcdn.com/w160/us.jpg', width: 75, height: 100, fit:BoxFit.fill, ),
                 title: const Text('USD'),
                 subtitle: const Text('American Dollar'),
                 trailing: const Icon(Icons.arrow_forward_ios),
-                minVerticalPadding: 25,
-                minLeadingWidth: 100,
-              ),
+                ),
                 const TextField(
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(color: Colors.black,fontSize: 28),
                   decoration: InputDecoration(
                     suffixIcon: Icon(Icons.attach_money),
+                    hintText: '0.00',
+                    hintStyle: TextStyle(color: Colors.grey,fontSize: 28),
+                    contentPadding: EdgeInsets.all(20),
                   ),
                 ),
               ],
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-            ),
+              ),
             margin: const EdgeInsets.all(20),
             color: Colors.white,
-            elevation: 10,
+            elevation: 20,
           ),
       ],
     ),
