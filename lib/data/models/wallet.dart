@@ -1,13 +1,16 @@
-
 // ignore_for_file: avoid_print
 
 import 'currency.dart';
 
 class Wallet extends Currency {
   double amount = 0;
+
   Wallet();
+
   Wallet.usd() : super.usd();
+
   Wallet.euro() : super.euro();
+
   Wallet.uah() : super.uah();
 
   void addAmount(double a) {
