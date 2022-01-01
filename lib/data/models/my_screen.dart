@@ -36,7 +36,17 @@ class MyScreenState extends State<MyScreen> {
           onPressed: () => key.currentState?.updateText(),
         ) : Container(),
       ),
-      body: Center(
+      body: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
+        decoration: ShapeDecoration(
+          color: Colors.white,
+          shadows: const [
+            BoxShadow(spreadRadius: 2, blurRadius: 7, offset: Offset(0, 3)),
+          ],
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+        ),
         child: widgetOptions.elementAt(_selectedTab),
       ),
       bottomNavigationBar: BottomNavigationBar(
