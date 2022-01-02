@@ -11,13 +11,14 @@ class MyText extends StatefulWidget {
 class MyTextState extends State<MyText> {
   String newText = 'Hello!';
   DateTime dt = DateTime.now();
+  int select = 0;
+  List<Wallet> wallet = [Wallet.euro(),Wallet.usd()];
 
   void updateText() {
     newText = '$dt';
     setState(() {});
 
-    int select = 0;
-    List<Wallet> wallet = [Wallet.euro(),Wallet.usd()];
+
   }
 
   @override
@@ -62,21 +63,18 @@ class MyTextState extends State<MyText> {
               child: Column(
                 children: [
                   ListTile(
-                    leading: Container(
-                      width: 75,
-                      decoration: ShapeDecoration(
-                        image: const DecorationImage(
-                            image: NetworkImage(
-                                'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/255px-Flag_of_Europe.svg.png')),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7)),
-                        shadows: const [
-                          BoxShadow(
-                              color: Colors.grey,
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              offset: Offset(2, 2))
-                        ],
+                    leading: SizedBox(
+                      height: 70, width: 70,
+                      child: Card(
+                        elevation: 18,
+                        clipBehavior: Clip.antiAlias,
+                        shape:const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                        ),
+                        child: Image.network(
+                          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/255px-Flag_of_Europe.svg.png',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                     title: const Text('EUR'),
