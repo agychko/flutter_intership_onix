@@ -11,16 +11,19 @@ class MyText extends StatefulWidget {
 class MyTextState extends State<MyText> {
   String newText = 'Hello!';
   DateTime dt = DateTime.now();
-  int select = 0;
+  int one = 0;
+  int two = 1;
   List<Wallet> wallet = [Wallet.euro(),Wallet.usd()];
 
   void updateText() {
     newText = '$dt';
     setState(() {});
-
-
   }
-
+   switchCurrency (){
+    (one==0)? one=1:one=0;
+    (two==0)? two=1:two=0;
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -71,14 +74,11 @@ class MyTextState extends State<MyText> {
                         shape:const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
-                        child: Image.network(
-                          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/255px-Flag_of_Europe.svg.png',
-                          fit: BoxFit.fill,
-                        ),
+                        child: wallet[one].flag
                       ),
                     ),
-                    title: const Text('EUR'),
-                    subtitle: const Text('Euro'),
+                    title: Text(wallet[one].symbol),
+                    subtitle: Text(wallet[one].name),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                   const Padding(
@@ -114,7 +114,7 @@ class MyTextState extends State<MyText> {
                   child: const Text('=', style: TextStyle(fontSize: 30)),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {switchCurrency();},
                   style: ElevatedButton.styleFrom(
                     primary: Colors.white,
                     onPrimary: Colors.grey,
@@ -148,14 +148,11 @@ class MyTextState extends State<MyText> {
                         shape:const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
-                        child: Image.network(
-                          'https://flagcdn.com/w160/us.jpg',
-                          fit: BoxFit.fill,
-                        ),
+                        child: wallet[two].flag
                       ),
                     ),
-                    title: const Text('USD'),
-                    subtitle: const Text('American Dollar'),
+                    title:  Text(wallet[two].symbol),
+                    subtitle: Text(wallet[two].name),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                   const Padding(
