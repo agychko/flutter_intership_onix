@@ -21,7 +21,7 @@ class CurrenciesTabState extends State<CurrenciesTab> {
         itemBuilder: (context, index){
           return ListTile(
             leading: SizedBox(
-              width: 70, height: 60,
+              width: 70, height: 70,
               child: Card(
                 elevation: 18,
                 clipBehavior: Clip.antiAlias,
