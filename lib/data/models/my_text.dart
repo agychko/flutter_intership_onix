@@ -27,7 +27,7 @@ class MyTextState extends State<MyText> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Column(
         children: <Widget>[
           Text(
@@ -109,7 +109,7 @@ class MyTextState extends State<MyText> {
                     primary: Colors.white,
                     onPrimary: Colors.grey,
                     elevation: 20,
-                    padding: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(8),
                   ),
                   child: const Text('=', style: TextStyle(fontSize: 30)),
                 ),
