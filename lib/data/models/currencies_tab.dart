@@ -1,3 +1,4 @@
+import 'package:first/data/models/currency.dart';
 import 'package:flutter/material.dart';
 
 class CurrenciesTab extends StatefulWidget {
@@ -8,17 +9,20 @@ class CurrenciesTab extends StatefulWidget {
 }
 
 class CurrenciesTabState extends State<CurrenciesTab> {
+
+  List <Currency> currencsies = [Currency.euro(),Currency.usd(),Currency.uah()];
   @override
   Widget build(BuildContext context) {
     return Container (
       color: Colors.blue,
       child: ListView.builder(
+          itemCount: 3,
           itemBuilder: (context, index){
             return Card(
               color: Colors.white,
               child: ListTile(
-               title: Text('$index'),
-               subtitle: const Text('asdddd'),
+               title: Text(currencsies[index].name),
+               subtitle: Text(currencsies[index].symbol),
               ),
             );
           }
