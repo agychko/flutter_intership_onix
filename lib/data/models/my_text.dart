@@ -62,7 +62,7 @@ class MyTextState extends State<MyText> {
             color: Colors.white,
             elevation: 20,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+              padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
               child: Column(
                 children: [
                   ListTile(
@@ -81,19 +81,19 @@ class MyTextState extends State<MyText> {
                     subtitle: Text(wallet[one].name),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      style: TextStyle(color: Colors.black, fontSize: 28),
-                      decoration: InputDecoration(
-                        suffixIcon: Icon(Icons.euro),
-                        hintText: '0.00',
-                        hintStyle: TextStyle(color: Colors.grey, fontSize: 28),
-                        contentPadding: EdgeInsets.all(8.0),
-                      ),
-                    ),
-                  ),
+                   Padding(
+                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+                     child: TextField(
+                       keyboardType: TextInputType.number,
+                       style: const TextStyle(color: Colors.black, fontSize: 28),
+                       decoration: InputDecoration(
+                         suffixIcon: wallet[one].icon,
+                         hintText: '0.00',
+                         hintStyle: const TextStyle(color: Colors.grey, fontSize: 28),
+                         contentPadding: const EdgeInsets.all(8.0),
+                       ),
+                     ),
+                   ),
                 ],
               ),
             ),
@@ -119,7 +119,7 @@ class MyTextState extends State<MyText> {
                     primary: Colors.white,
                     onPrimary: Colors.grey,
                     elevation: 20,
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(14),
                   ),
                   child: Row(
                     children: const [
@@ -155,19 +155,19 @@ class MyTextState extends State<MyText> {
                     subtitle: Text(wallet[two].name),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      style: TextStyle(color: Colors.black, fontSize: 28),
-                      decoration: InputDecoration(
-                        suffixIcon: Icon(Icons.attach_money),
-                        hintText: '0.00',
-                        hintStyle: TextStyle(color: Colors.grey, fontSize: 28),
-                        contentPadding: EdgeInsets.all(8),
-                      ),
-                    ),
-                  ),
+                   Padding(
+                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+                     child: TextField(
+                       keyboardType: TextInputType.number,
+                       style: const TextStyle(color: Colors.black, fontSize: 28),
+                       decoration: InputDecoration(
+                         suffixIcon: wallet[two].icon,
+                         hintText: '0.00',
+                         hintStyle: const TextStyle(color: Colors.grey, fontSize: 28),
+                         contentPadding: const EdgeInsets.all(8),
+                       ),
+                     ),
+                   ),
                 ],
               ),
             ),
