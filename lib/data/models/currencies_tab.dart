@@ -21,8 +21,10 @@ class CurrenciesTabState extends State<CurrenciesTab> {
             return Card(
               color: Colors.white,
               child: ListTile(
+                leading: currencsies[index].flag,
                title: Text(currencsies[index].name),
                subtitle: Text(currencsies[index].symbol),
+                trailing: const Icon(Icons.arrow_forward_ios),
               ),
             );
           }
