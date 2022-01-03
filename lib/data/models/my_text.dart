@@ -59,8 +59,6 @@ class MyTextState extends State<MyText> {
           ),
           const SizedBox(height: 40),
           Card(
-            // color: Colors.white,
-            elevation: 20,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5, 30, 5, 30),
               child: Column(
@@ -69,11 +67,7 @@ class MyTextState extends State<MyText> {
                     leading: SizedBox(
                       height: 70, width: 70,
                       child: Card(
-                        elevation: 18,
                         clipBehavior: Clip.antiAlias,
-                        shape:const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
                         child: wallet[one].flag
                       ),
                     ),
@@ -82,16 +76,15 @@ class MyTextState extends State<MyText> {
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                    Padding(
-                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+                     padding: const EdgeInsets.fromLTRB(16, 0, 5, 10),
                      child: TextField(
                        keyboardType: TextInputType.number,
-                       style: const TextStyle(color: Colors.black, fontSize: 28),
+                       style: Theme.of(context).textTheme.headline5,
                        decoration: InputDecoration(
                          suffixIcon: wallet[one].icon,
                          hintText: '0.00',
-                         hintStyle: const TextStyle(color: Colors.grey, fontSize: 28),
-                         contentPadding: const EdgeInsets.all(8.0),
-                       ),
+                         hintStyle: Theme.of(context).textTheme.headline5,
+                         ),
                      ),
                    ),
                 ],
@@ -99,26 +92,24 @@ class MyTextState extends State<MyText> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+            padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    // primary: Colors.white,
-                    // onPrimary: Colors.grey,
-                    // elevation: 20,
+                    elevation: 20,
                     padding: const EdgeInsets.all(8),
                   ),
-                  child: const Text('=', style: TextStyle(fontSize: 30)),
+                  child: const Text('=',
+                      style: TextStyle(fontSize: 30)
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {switchCurrency();},
                   style: ElevatedButton.styleFrom(
-                    // primary: Colors.white,
-                    // onPrimary: Colors.grey,
-                    // elevation: 20,
+                    elevation: 20,
                     padding: const EdgeInsets.all(14),
                   ),
                   child: Row(
@@ -132,8 +123,6 @@ class MyTextState extends State<MyText> {
             ),
           ),
           Card(
-            // color: Colors.white,
-            elevation: 20,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 30),
               child: Column(
@@ -143,11 +132,7 @@ class MyTextState extends State<MyText> {
                     leading: SizedBox(
                       height: 70, width: 70,
                       child: Card(
-                        elevation: 18,
                         clipBehavior: Clip.antiAlias,
-                        shape:const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
                         child: wallet[two].flag
                       ),
                     ),
@@ -156,15 +141,14 @@ class MyTextState extends State<MyText> {
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                    Padding(
-                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+                     padding: const EdgeInsets.fromLTRB(16, 0, 5, 10),
                      child: TextField(
                        keyboardType: TextInputType.number,
-                       style: const TextStyle(color: Colors.black, fontSize: 28),
+                       style: Theme.of(context).textTheme.headline5,
                        decoration: InputDecoration(
                          suffixIcon: wallet[two].icon,
                          hintText: '0.00',
-                         hintStyle: const TextStyle(color: Colors.grey, fontSize: 28),
-                         contentPadding: const EdgeInsets.all(8),
+                         hintStyle: Theme.of(context).textTheme.headline5,
                        ),
                      ),
                    ),

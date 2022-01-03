@@ -23,11 +23,7 @@ class CurrenciesTabState extends State<CurrenciesTab> {
             leading: SizedBox(
               width: 70, height: 70,
               child: Card(
-                elevation: 18,
                 clipBehavior: Clip.antiAlias,
-                shape:const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
                 child: currencies[index].flag,
               ),
             ),
