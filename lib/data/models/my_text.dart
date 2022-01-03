@@ -30,24 +30,20 @@ class MyTextState extends State<MyText> {
       padding: const EdgeInsets.all(15),
       child: Column(
         children: <Widget>[
-          Text(
-            newText,
-            // style: const TextStyle(
-            //   color: Colors.blue,
-            //   fontSize: 24,
-            // ),
-          ),
+          Text(newText, style: Theme.of(context).textTheme.headline6),
           const SizedBox(height: 20),
           TextField(
             style: const TextStyle(color: Colors.black, fontSize: 20),
             decoration: InputDecoration(
-              filled: true,
+              filled: false,
               fillColor: Colors.white12,
               prefixIcon: const Icon(Icons.search),
               prefixIconColor: Colors.grey,
               suffixIcon: const Icon(Icons.mic),
               suffixIconColor: Colors.grey,
-              border:
+              enabledBorder:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
+              focusedBorder:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
               hintText: 'Search',
               hintStyle: const TextStyle(
@@ -99,7 +95,6 @@ class MyTextState extends State<MyText> {
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    elevation: 20,
                     padding: const EdgeInsets.all(8),
                   ),
                   child: const Text('=',
@@ -109,7 +104,6 @@ class MyTextState extends State<MyText> {
                 ElevatedButton(
                   onPressed: () {switchCurrency();},
                   style: ElevatedButton.styleFrom(
-                    elevation: 20,
                     padding: const EdgeInsets.all(14),
                   ),
                   child: Row(
