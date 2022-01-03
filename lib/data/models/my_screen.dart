@@ -24,7 +24,6 @@ class MyScreenState extends State<MyScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

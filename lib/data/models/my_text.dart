@@ -27,7 +27,7 @@ class MyTextState extends State<MyText> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+      padding: const EdgeInsets.all(15),
       child: Column(
         children: <Widget>[
           Text(
@@ -57,12 +57,12 @@ class MyTextState extends State<MyText> {
               contentPadding: const EdgeInsets.all(8.0),
             ),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 40),
           Card(
             color: Colors.white,
             elevation: 20,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
+              padding: const EdgeInsets.fromLTRB(5, 30, 5, 30),
               child: Column(
                 children: [
                   ListTile(
@@ -135,7 +135,7 @@ class MyTextState extends State<MyText> {
             color: Colors.white,
             elevation: 20,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+              padding: const EdgeInsets.fromLTRB(10, 30, 10, 30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
