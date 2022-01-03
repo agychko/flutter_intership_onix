@@ -35,17 +35,7 @@ class MyScreenState extends State<MyScreen> {
           onPressed: () => key.currentState?.updateText(),
         ) : Container(),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Card(
-          elevation: 12,
-          clipBehavior: Clip.antiAlias,
-          shape:const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          child: widgetOptions.elementAt(_selectedTab),
-        ),
-      ),
+      body: widgetOptions.elementAt(_selectedTab),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTab,
         items: const [

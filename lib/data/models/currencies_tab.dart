@@ -10,14 +10,14 @@ class CurrenciesTab extends StatefulWidget {
 
 class CurrenciesTabState extends State<CurrenciesTab> {
 
-  List <Currency> currencsies = [Currency.euro(),Currency.usd(),Currency.uah()];
+  List <Currency> currencies = [Currency.euro(),Currency.usd(),Currency.uah()];
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       separatorBuilder: (context, index)=>const Divider(
         color: Colors.grey, height: 40, thickness: 0.5, indent: 20, endIndent: 20,
       ),
-        itemCount: currencsies.length,
+        itemCount: currencies.length,
         itemBuilder: (context, index){
           return ListTile(
             leading: SizedBox(
@@ -28,11 +28,11 @@ class CurrenciesTabState extends State<CurrenciesTab> {
                 shape:const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
-                child: currencsies[index].flag,
+                child: currencies[index].flag,
               ),
             ),
-           title: Text(currencsies[index].name),
-           subtitle: Text(currencsies[index].symbol),
+           title: Text(currencies[index].name),
+           subtitle: Text(currencies[index].symbol),
             trailing: const Icon(Icons.arrow_forward_ios),
           );
         }

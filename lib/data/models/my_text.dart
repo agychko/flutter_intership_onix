@@ -32,10 +32,10 @@ class MyTextState extends State<MyText> {
         children: <Widget>[
           Text(
             newText,
-            style: const TextStyle(
-              color: Colors.blue,
-              fontSize: 24,
-            ),
+            // style: const TextStyle(
+            //   color: Colors.blue,
+            //   fontSize: 24,
+            // ),
           ),
           const SizedBox(height: 20),
           TextField(
@@ -59,7 +59,7 @@ class MyTextState extends State<MyText> {
           ),
           const SizedBox(height: 40),
           Card(
-            color: Colors.white,
+            // color: Colors.white,
             elevation: 20,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5, 30, 5, 30),
@@ -106,9 +106,9 @@ class MyTextState extends State<MyText> {
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.grey,
-                    elevation: 20,
+                    // primary: Colors.white,
+                    // onPrimary: Colors.grey,
+                    // elevation: 20,
                     padding: const EdgeInsets.all(8),
                   ),
                   child: const Text('=', style: TextStyle(fontSize: 30)),
@@ -116,9 +116,9 @@ class MyTextState extends State<MyText> {
                 ElevatedButton(
                   onPressed: () {switchCurrency();},
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.grey,
-                    elevation: 20,
+                    // primary: Colors.white,
+                    // onPrimary: Colors.grey,
+                    // elevation: 20,
                     padding: const EdgeInsets.all(14),
                   ),
                   child: Row(
@@ -132,7 +132,7 @@ class MyTextState extends State<MyText> {
             ),
           ),
           Card(
-            color: Colors.white,
+            // color: Colors.white,
             elevation: 20,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 30),
