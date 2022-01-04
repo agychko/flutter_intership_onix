@@ -30,35 +30,6 @@ class MyTextState extends State<MyText> {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: <Widget>[
-          Text(newText, style: Theme.of(context).textTheme.headline6),
-          const SizedBox(height: 20),
-          TextField(
-            style: const TextStyle(color: Colors.black, fontSize: 20),
-            decoration: InputDecoration(
-              filled: false,
-              fillColor: Colors.white12,
-              prefixIcon: const Icon(Icons.search),
-              prefixIconColor: Colors.grey,
-              suffixIcon: const Icon(Icons.mic),
-              suffixIconColor: Colors.grey,
-              enabledBorder:
-                  OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color.fromRGBO(0, 60, 143, 1), width: 1),
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-              focusedBorder:
-                  OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color.fromRGBO(0, 60, 143, 1), width: 1.5),
-                      borderRadius: BorderRadius.circular(25.0)
-                  ),
-              hintText: 'Search',
-              hintStyle: const TextStyle(
-                color: Colors.grey,
-                fontSize: 20,
-              ),
-              contentPadding: const EdgeInsets.all(8.0),
-            ),
-          ),
           const SizedBox(height: 40),
           Card(
             child: Padding(
