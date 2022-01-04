@@ -27,7 +27,7 @@ class MyTextState extends State<MyText> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(20),
       child: Column(
         children: <Widget>[
           Text(newText, style: Theme.of(context).textTheme.headline6),
@@ -42,9 +42,15 @@ class MyTextState extends State<MyText> {
               suffixIcon: const Icon(Icons.mic),
               suffixIconColor: Colors.grey,
               enabledBorder:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
+                  OutlineInputBorder(
+                    borderSide: const BorderSide(color: Color.fromRGBO(0, 60, 143, 1), width: 1),
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
               focusedBorder:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
+                  OutlineInputBorder(
+                      borderSide: const BorderSide(color: Color.fromRGBO(0, 60, 143, 1), width: 1.5),
+                      borderRadius: BorderRadius.circular(25.0)
+                  ),
               hintText: 'Search',
               hintStyle: const TextStyle(
                 color: Colors.grey,

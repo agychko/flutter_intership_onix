@@ -22,7 +22,7 @@ class Currency {
     rateToUah = 30.7277;
   }
   Currency.uah() {
-    flag = flag = Image.network('https://flagcdn.com/w80/ua.png',fit: BoxFit.fill);
+    flag = Image.network('https://flagcdn.com/w80/ua.png',fit: BoxFit.fill);
 
     name = "Гривня";
     symbol = "UAH";
