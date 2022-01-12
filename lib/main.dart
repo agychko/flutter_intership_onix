@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Montserrat',
         textTheme: const TextTheme(
           headline1: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
           headline2: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
