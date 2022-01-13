@@ -1,3 +1,4 @@
+import 'package:first/data/models/currencies_tab.dart';
 import 'package:flutter/material.dart';
 import 'my_text.dart';
 import 'settings_screen.dart';
@@ -15,7 +16,7 @@ class MyScreenState extends State<MyScreen> {
   int _selectedTab = 0;
   static List<Widget> widgetOptions = <Widget>[
     MyText(key: key,),
-    SettingsScreen(key: key,),
+    CurrenciesTab(key: key,),
   ];
 
   void _onItemTapped(int index) {
@@ -37,7 +38,12 @@ class MyScreenState extends State<MyScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: (){},
+            onPressed: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context)=>const SettingsScreen()),
+              );
+            },
           ),
         ],
       ),

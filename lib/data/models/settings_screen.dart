@@ -13,13 +13,17 @@ class SettingsScreenState extends State <SettingsScreen> {
       appBar: AppBar(
         leading:  IconButton(
             icon: const Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: const Text('Setting'),
         actions: [
           IconButton(
             icon: const Icon(Icons.done),
-            onPressed: (){},
+            onPressed: (){
+              Navigator.pop(context, true);
+            },
           ),
         ],
       ),
