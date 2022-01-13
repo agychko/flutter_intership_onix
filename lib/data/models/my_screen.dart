@@ -34,6 +34,12 @@ class MyScreenState extends State<MyScreen> {
           icon: const Icon(Icons.update),
           onPressed: () => key.currentState?.updateText(),
         ) : Container(),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: (){},
+          ),
+        ],
       ),
       body: widgetOptions.elementAt(_selectedTab),
       bottomNavigationBar: BottomNavigationBar(

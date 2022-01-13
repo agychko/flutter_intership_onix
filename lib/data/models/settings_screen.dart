@@ -10,6 +10,19 @@ class SettingsScreenState extends State <SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading:  IconButton(
+            icon: const Icon(Icons.arrow_back),
+          onPressed: () {},
+        ),
+        title: const Text('Setting'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.done),
+            onPressed: (){},
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Container(
