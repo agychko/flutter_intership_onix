@@ -17,7 +17,7 @@ class Currency {
   }
   Currency.euro() {
     flag = Image.network('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/255px-Flag_of_Europe.svg.png',fit: BoxFit.fill);
-    icon = SvgPicture.asset('assets/symbol_euro_icon.svg', color: const Color.fromRGBO(0, 60, 143, 0.8), width: 24,);
+    icon = SvgPicture.asset('assets/symbol_euro_icon.svg', color: const Color.fromRGBO(0, 60, 143, 0.8), width: 24, height: 24,);
     name = "Євро";
     symbol = "EUR";
     rateToUah = 30.7277;

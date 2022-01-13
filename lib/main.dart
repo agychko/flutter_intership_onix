@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
         ),
         appBarTheme:
             const AppBarTheme(backgroundColor: Color.fromRGBO(0, 60, 143, 1)),
-        scaffoldBackgroundColor: const Color.fromRGBO(236, 239, 241, 1),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Color.fromRGBO(0, 60, 143, 1),
           unselectedItemColor: Color.fromRGBO(66, 165, 245, 1),

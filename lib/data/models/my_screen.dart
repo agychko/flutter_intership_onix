@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'my_text.dart';
-import 'currencies_tab.dart';
+import 'settings_screen.dart';
 
 final key = GlobalKey<MyTextState>();
 
@@ -15,7 +15,7 @@ class MyScreenState extends State<MyScreen> {
   int _selectedTab = 0;
   static List<Widget> widgetOptions = <Widget>[
     MyText(key: key,),
-    CurrenciesTab(key: key,),
+    SettingsScreen(key: key,),
   ];
 
   void _onItemTapped(int index) {
