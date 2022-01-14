@@ -15,10 +15,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        fontFamily: 'Montserrat',
+
         textTheme: Theme.of(context).textTheme.apply(
               bodyColor: const Color.fromRGBO(0, 60, 143, 1),
               displayColor: const Color.fromRGBO(0, 60, 143, 1),
+          fontFamily: 'Montserrat',
             ),
         appBarTheme:
             const AppBarTheme(backgroundColor: Color.fromRGBO(0, 60, 143, 1)),
