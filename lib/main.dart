@@ -14,23 +14,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primarySwatch: Colors.blue,
         fontFamily: 'Montserrat',
-        textTheme: const TextTheme(
-          headline1: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-          headline2: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-          headline3: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-          headline4: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-          headline5: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-          headline6: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-          subtitle1:
-              TextStyle(fontSize: 20, color: Color.fromRGBO(0, 60, 143, 1)),
-          subtitle2: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-          bodyText1: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-          bodyText2: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-          caption: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-          button: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-          overline: TextStyle(color: Color.fromRGBO(0, 60, 143, 1)),
-        ),
+        textTheme: Theme.of(context).textTheme.apply(
+              bodyColor: const Color.fromRGBO(0, 60, 143, 1),
+              displayColor: const Color.fromRGBO(0, 60, 143, 1),
+            ),
         appBarTheme:
             const AppBarTheme(backgroundColor: Color.fromRGBO(0, 60, 143, 1)),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
