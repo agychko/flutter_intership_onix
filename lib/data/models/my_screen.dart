@@ -1,6 +1,7 @@
+import 'package:first/data/models/currencies_tab.dart';
 import 'package:flutter/material.dart';
 import 'my_text.dart';
-import 'currencies_tab.dart';
+import 'settings_screen.dart';
 
 final key = GlobalKey<MyTextState>();
 
@@ -34,6 +35,17 @@ class MyScreenState extends State<MyScreen> {
           icon: const Icon(Icons.update),
           onPressed: () => key.currentState?.updateText(),
         ) : Container(),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context)=>const SettingsScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: widgetOptions.elementAt(_selectedTab),
       bottomNavigationBar: BottomNavigationBar(

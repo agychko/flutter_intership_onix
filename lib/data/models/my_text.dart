@@ -54,6 +54,9 @@ class MyTextState extends State<MyText> {
                        keyboardType: TextInputType.number,
                        style: Theme.of(context).textTheme.headline5,
                        decoration: InputDecoration(
+                         suffixIconConstraints: const BoxConstraints(
+                           minHeight: 20, minWidth: 20
+                         ),
                          suffixIcon: wallet[one].icon,
                          hintText: '0.00',
                          hintStyle: Theme.of(context).textTheme.headline5,
@@ -117,6 +120,9 @@ class MyTextState extends State<MyText> {
                        keyboardType: TextInputType.number,
                        style: Theme.of(context).textTheme.headline5,
                        decoration: InputDecoration(
+                         suffixIconConstraints: const BoxConstraints(
+                             minHeight: 20, minWidth: 20
+                         ),
                          suffixIcon: wallet[two].icon,
                          hintText: '0.00',
                          hintStyle: Theme.of(context).textTheme.headline5,
