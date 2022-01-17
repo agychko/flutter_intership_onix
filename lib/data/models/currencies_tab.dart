@@ -1,5 +1,6 @@
 
 
+import 'package:first/data/models/currency_repository.dart';
 import 'package:flutter/material.dart';
 
 class CurrenciesTab extends StatefulWidget {
@@ -10,48 +11,62 @@ class CurrenciesTab extends StatefulWidget {
 }
 
 class CurrenciesTabState extends State<CurrenciesTab> {
-
-  // List <Currency> currencies = [Currency.euro(),Currency.usd(),Currency.uah()];
-  @override
-  Widget build(BuildContext context) {
-    return const Text('');
-    //   return FutureBuilder (
-    //     future: _calculation,
-    //       builder: (BuildContext context, AsyncSnapshot <CurrencyRepository> snapshot) {
-    //           if (snapshot.hasError) {
-    //             return const Text('Error');
-    //           }
-    //           if (snapshot.hasData) {
-    //             // return ListView.separated(
-    //             //     separatorBuilder: (context, index)=>const Divider(
-    //             //       color: Colors.grey, height: 40, thickness: 0.5, indent: 20, endIndent: 20,
-    //             //     ),
-    //             //     itemCount: 3,
-    //             //     itemBuilder: (context, index){
-    //             //       return ListTile(
-    //             //         leading: SizedBox(
-    //             //           width: 70, height: 70,
-    //             //           child: Card(
-    //             //             clipBehavior: Clip.antiAlias,
-    //             //             child: Image.network(snapshot.data!.euro[0]),
-    //             //           ),
-    //             //         ),
-    //             //         title: Text(snapshot.data!.euro[1]),
-    //             //         subtitle: Text(snapshot.data!.euro[0]),
-    //             //         trailing: const Icon(Icons.arrow_forward_ios),
-    //             //       );
-    //                 // }
-    //             // );;
-    //           }
-    //           else {
-    //             return const Text('Loading...');
-    //           }
-    //       },
-    //   );
-    // }
-    // final Future<CurrencyRepository> _calculation = Future<CurrencyRepository>.delayed(const Duration(seconds: 2),
-    //       ()=> context,
-    // );
+  Future<CurrencyRepository> getData() {
+    return Future.delayed(const Duration(seconds: 2), () {
+      return CurrencyRepository();
+    });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        builder: (context, snapshot) {
+
+          if (snapshot.connectionState == ConnectionState.done) {
+
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  '${snapshot.error} occured',
+                  style: const TextStyle(fontSize: 18),
+                ),
+              );
+
+            } else if (snapshot.hasData) {
+
+              final data = snapshot.data;
+              return Center (
+                  child:
+                  Text('$data', style: const TextStyle(fontSize: 18),),
+                  // ListView.separated(
+                  //   separatorBuilder: (context, index)=>const Divider(
+                  //     color: Colors.grey, height: 40, thickness: 0.5, indent: 20, endIndent: 20,
+                  //   ),
+                  //   itemCount: 3,
+                  //   itemBuilder: (context, index){
+                  //     return ListTile(
+                  //       leading: SizedBox(
+                  //         width: 70, height: 70,
+                  //         child: Card(
+                  //           clipBehavior: Clip.antiAlias,
+                  //           child: snapshot.data.,
+                  //         ),
+                  //       ),
+                  //       title: Text(snapshot.data!.symbol[index]),
+                  //       subtitle: Text(snapshot.data!.name[index]),
+                  //       trailing: const Icon(Icons.arrow_forward_ios),
+                  //     );
+                  //   }
+                  // ),
+              );
+            }
+          }
+
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+        future: getData(),
+    );
+  }
 }
