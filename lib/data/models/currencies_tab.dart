@@ -1,6 +1,6 @@
 
-
 import 'package:first/data/models/currency_repository.dart';
+import 'package:first/data/models/repository.dart';
 import 'package:flutter/material.dart';
 
 class CurrenciesTab extends StatefulWidget {
@@ -9,64 +9,58 @@ class CurrenciesTab extends StatefulWidget {
   @override
   State<CurrenciesTab> createState() => CurrenciesTabState();
 }
-
 class CurrenciesTabState extends State<CurrenciesTab> {
-  Future<CurrencyRepository> getData() {
-    return Future.delayed(const Duration(seconds: 2), () {
-      return CurrencyRepository();
-    });
-  }
-
+  final currencyRepository = CurrencyRepository();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        builder: (context, snapshot) {
-
+        builder: (BuildContext context, AsyncSnapshot<List<Repository>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-
             if (snapshot.hasError) {
-              return Center(
+              return const Center(
                 child: Text(
-                  '${snapshot.error} occured',
-                  style: const TextStyle(fontSize: 18),
+                  'Could not load currencies',
+                  style: TextStyle(fontSize: 20),
                 ),
               );
-
-            } else if (snapshot.hasData) {
-
-              final data = snapshot.data;
-              return Center (
-                  child:
-                  Text('$data', style: const TextStyle(fontSize: 18),),
-                  // ListView.separated(
-                  //   separatorBuilder: (context, index)=>const Divider(
-                  //     color: Colors.grey, height: 40, thickness: 0.5, indent: 20, endIndent: 20,
-                  //   ),
-                  //   itemCount: 3,
-                  //   itemBuilder: (context, index){
-                  //     return ListTile(
-                  //       leading: SizedBox(
-                  //         width: 70, height: 70,
-                  //         child: Card(
-                  //           clipBehavior: Clip.antiAlias,
-                  //           child: snapshot.data.,
-                  //         ),
-                  //       ),
-                  //       title: Text(snapshot.data!.symbol[index]),
-                  //       subtitle: Text(snapshot.data!.name[index]),
-                  //       trailing: const Icon(Icons.arrow_forward_ios),
-                  //     );
-                  //   }
-                  // ),
+            }  if (snapshot.hasData) {
+              final repository = snapshot.data ?? [];
+              if (repository.isEmpty) {
+                return const Center(
+                    child: Text(
+                      'No currencies found',
+                      style: TextStyle(fontSize: 20),
+                    )
+                );
+              }
+              return
+                ListView.separated(
+                  separatorBuilder: (context, index)=>const Divider(
+                    color: Colors.grey, height: 40, thickness: 0.5, indent: 20, endIndent: 20,
+                  ),
+                  itemCount: repository.length,
+                  itemBuilder: (context, index){
+                    return ListTile(
+                      leading: SizedBox(
+                        width: 70, height: 70,
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          child: repository[index].flag,
+                        ),
+                      ),
+                      title: Text(repository[index].name),
+                      subtitle: Text(repository[index].symbol),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    );
+                  }
               );
             }
           }
-
           return const Center(
             child: CircularProgressIndicator(),
           );
         },
-        future: getData(),
+        future: currencyRepository.getData(),
     );
   }
 }
