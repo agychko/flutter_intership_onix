@@ -1,7 +1,9 @@
 
 
+import 'dart:async';
 import 'package:first/data/models/currency.dart';
-import 'package:first/data/models/repository.dart';
+
+enum Event {event_1, event_2, event_3}
 
 class CurrencyRepository {
 
@@ -11,19 +13,35 @@ class CurrencyRepository {
     Currency.uah()
   ];
 
-  Future<List<Repository>> getData() {
-    return Future.delayed(const Duration(seconds: 2), () {
+
+
+  Future<List<Currency>> getData() {
+    return Future.delayed(const Duration(milliseconds: 500), () {
       return List.generate(
           3,
-      (index)=>
-      Repository(
-          flag: currencies[index].flag,
-          icon: currencies[index].icon,
-          name: currencies[index].name,
-          symbol: currencies[index].symbol,
-          rateToUah: currencies[index].rateToUah
-      )
+      (index)=>currencies[index]
       );
     });
     }
-}
+
+  final inputEventController = StreamController<Event>();
+  final outputEventController = StreamController<Currency>();
+  Currency change = Currency();
+  void changeCurrency (Event event){
+    if (event==Event.event_1) {change=Currency.euro();}
+    else
+    if (event==Event.event_2) {change=Currency.usd();}
+    else
+    if (event==Event.event_3) {change=Currency.uah();}
+    else
+    {throw Exception('Wrong Event Type');}
+    outputEventController.sink.add(change);
+  }
+  CurrencyRepository(){
+    inputEventController.stream.listen(changeCurrency);
+  }
+  void dispose() {
+    inputEventController.close();
+    outputEventController.close();
+  }
+  }

@@ -1,7 +1,8 @@
 
+import 'package:first/data/models/currency.dart';
 import 'package:first/data/models/currency_repository.dart';
-import 'package:first/data/models/repository.dart';
 import 'package:flutter/material.dart';
+
 
 class CurrenciesTab extends StatefulWidget {
   const CurrenciesTab ({Key? key}) : super(key: key);
@@ -11,10 +12,16 @@ class CurrenciesTab extends StatefulWidget {
 }
 class CurrenciesTabState extends State<CurrenciesTab> {
   final currencyRepository = CurrencyRepository();
+  int i =0;
+  Currency chengeCurrency = Currency();
+  // Stream<Currency> chenge() async*{
+  //   await Future<Currency>  currencyRepository.getData();
+  //   yield chengeCurrency;
+  // };
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        builder: (BuildContext context, AsyncSnapshot<List<Repository>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Currency>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
               return const Center(
@@ -24,33 +31,31 @@ class CurrenciesTabState extends State<CurrenciesTab> {
                 ),
               );
             }  if (snapshot.hasData) {
-              final repository = snapshot.data ?? [];
-              if (repository.isEmpty) {
-                return const Center(
-                    child: Text(
-                      'No currencies found',
-                      style: TextStyle(fontSize: 20),
-                    )
-                );
-              }
+
               return
                 ListView.separated(
                   separatorBuilder: (context, index)=>const Divider(
                     color: Colors.grey, height: 40, thickness: 0.5, indent: 20, endIndent: 20,
                   ),
-                  itemCount: repository.length,
+                  itemCount: snapshot.data!.length,
                   itemBuilder: (context, index){
+                    final currency = snapshot.data![index];
                     return ListTile(
                       leading: SizedBox(
                         width: 70, height: 70,
                         child: Card(
                           clipBehavior: Clip.antiAlias,
-                          child: repository[index].flag,
+                          child: currency.flag,
                         ),
                       ),
-                      title: Text(repository[index].name),
-                      subtitle: Text(repository[index].symbol),
-                      trailing: const Icon(Icons.arrow_forward_ios),
+                      title: Text(currency.name),
+                      subtitle: Text(currency.symbol),
+                      trailing: IconButton(
+                          icon: const Icon(Icons.arrow_forward_ios),
+                        onPressed:(){
+                          currencyRepository.inputEventController.sink.add(Event.event_1);
+                        },
+                      ),
                     );
                   }
               );
