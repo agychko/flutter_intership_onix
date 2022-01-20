@@ -14,9 +14,9 @@ class MyTextState extends State<MyText> {
 
   String newText = 'Hello!';
   DateTime dt = DateTime.now();
-  int one = 0;
-  int two = 1;
-  int three = 2;
+  Currency one = Currency();
+  Currency two = Currency();
+  Currency three = Currency();
 
 
   void updateText() {
@@ -52,8 +52,8 @@ class MyTextState extends State<MyText> {
               builder:
                   (BuildContext context, AsyncSnapshot<Currency> snapshot) {
                 if (snapshot.hasData) {
-                  final currency = snapshot.data!;
-
+                  final currency1 = snapshot.data!;
+                  one=currency1;
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(5, 30, 5, 30),
@@ -65,10 +65,10 @@ class MyTextState extends State<MyText> {
                               width: 70,
                               child: Card(
                                   clipBehavior: Clip.antiAlias,
-                                  child: currency.flag),
+                                  child: one.flag),
                             ),
-                            title: Text(currency.symbol),
-                            subtitle: Text(currency.name),
+                            title: Text(one.symbol),
+                            subtitle: Text(one.name),
                             trailing: IconButton(
                               icon: const Icon(Icons.arrow_forward_ios),
                               onPressed: () {
@@ -85,7 +85,7 @@ class MyTextState extends State<MyText> {
                               decoration: InputDecoration(
                                 suffixIconConstraints: const BoxConstraints(
                                     minHeight: 18, minWidth: 18),
-                                suffixIcon: currency.icon,
+                                suffixIcon: one.icon,
                                 hintText: '0.00',
                                 hintStyle:
                                     Theme.of(context).textTheme.headline5,
@@ -134,8 +134,8 @@ class MyTextState extends State<MyText> {
               builder:
                   (BuildContext context, AsyncSnapshot<Currency> snapshot) {
                 if (snapshot.hasData) {
-                  final currency = snapshot.data!;
-
+                  final currency2 = snapshot.data!;
+                  two=currency2;
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 30, 10, 30),
@@ -149,10 +149,10 @@ class MyTextState extends State<MyText> {
                               width: 70,
                               child: Card(
                                   clipBehavior: Clip.antiAlias,
-                                  child: currency.flag),
+                                  child: two.flag),
                             ),
-                            title: Text(currency.symbol),
-                            subtitle: Text(currency.name),
+                            title: Text(two.symbol),
+                            subtitle: Text(two.name),
                             trailing: IconButton(
                               icon: const Icon(Icons.arrow_forward_ios),
                               onPressed: () {
@@ -169,7 +169,7 @@ class MyTextState extends State<MyText> {
                               decoration: InputDecoration(
                                 suffixIconConstraints: const BoxConstraints(
                                     minHeight: 20, minWidth: 20),
-                                suffixIcon: currency.icon,
+                                suffixIcon: two.icon,
                                 hintText: '0.00',
                                 hintStyle:
                                     Theme.of(context).textTheme.headline5,
