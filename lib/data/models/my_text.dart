@@ -41,6 +41,7 @@ class MyTextState extends State<MyText> {
     if (one == 0) {one = 1;}
     if (one == 1) {one = 2;}
     if (one == 2) {one = 0;}
+    setState(() {});
   }
 
   @override
@@ -52,9 +53,9 @@ class MyTextState extends State<MyText> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: currencyRepository.eventController.stream,
-        // initialData: [],
-        builder: (BuildContext context, AsyncSnapshot<List<Currency>> snapshot) {
+        stream: currencyRepository.outputEventController.stream,
+        initialData: Currency.euro(),
+        builder: (BuildContext context, AsyncSnapshot<Currency> snapshot) {
           if (snapshot.hasData) {
             final currency = snapshot.data!;
 
@@ -74,15 +75,15 @@ class MyTextState extends State<MyText> {
                               width: 70,
                               child: Card(
                                   clipBehavior: Clip.antiAlias,
-                                  child: currency[one].flag
+                                  child: currency.flag
                                  ),
                             ),
-                            title: Text(currency[one].symbol),
-                            subtitle: Text(currency[one].name),
+                            title: Text(currency.symbol),
+                            subtitle: Text(currency.name),
                             trailing: IconButton(
                               icon: const Icon(Icons.arrow_forward_ios),
                               onPressed: () {
-                                changeCurrency1();
+                                currencyRepository.inputEventController.sink.add(Event.event_1);
                               },
                             ),
                           ),
@@ -94,7 +95,7 @@ class MyTextState extends State<MyText> {
                               decoration: InputDecoration(
                                 suffixIconConstraints: const BoxConstraints(
                                     minHeight: 18, minWidth: 18),
-                                suffixIcon: currency[one].icon,
+                                suffixIcon: currency.icon,
                                 hintText: '0.00',
                                 hintStyle:
                                     Theme.of(context).textTheme.headline5,
@@ -148,10 +149,10 @@ class MyTextState extends State<MyText> {
                               width: 70,
                               child: Card(
                                   clipBehavior: Clip.antiAlias,
-                                  child: currency[two].flag),
+                                  child: currency.flag),
                             ),
-                            title: Text(currency[two].symbol),
-                            subtitle: Text(currency[two].name),
+                            title: Text(currency.symbol),
+                            subtitle: Text(currency.name),
                             trailing: IconButton(
                               icon: const Icon(Icons.arrow_forward_ios),
                               onPressed: () {
@@ -167,7 +168,7 @@ class MyTextState extends State<MyText> {
                               decoration: InputDecoration(
                                 suffixIconConstraints: const BoxConstraints(
                                     minHeight: 20, minWidth: 20),
-                                suffixIcon: currency[two].icon,
+                                suffixIcon: currency.icon,
                                 hintText: '0.00',
                                 hintStyle:
                                     Theme.of(context).textTheme.headline5,
