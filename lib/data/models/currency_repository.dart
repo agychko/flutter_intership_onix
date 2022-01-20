@@ -22,9 +22,9 @@ class CurrencyRepository {
     }
 
 
-  final eventController = StreamController<List<Currency>>();
   final inputEventController = StreamController<Event>();
-  final outputEventController = StreamController<Currency>();
+  final outputEventController1 = StreamController<Currency>();
+  final outputEventController2 = StreamController<Currency>();
 
   int count1=0;
   int count2=0;
@@ -32,11 +32,9 @@ class CurrencyRepository {
   Currency currency = Currency();
 
   void changeCurrency (Event event){
-
       if (event == Event.event_1) {
         count1++;
       }
-
       if ((count1%=3) == 0) {
         currency = Currency.euro();
       }
@@ -46,15 +44,27 @@ class CurrencyRepository {
       if ((count1%=3) == 2) {
         currency = Currency.uah();
       }
+     outputEventController1.sink.add(currency);
 
-     outputEventController.sink.add(currency);
+    if (event == Event.event_2) {
+      count2++;
+    }
+    if ((count2%=3) == 0) {
+      currency = Currency.euro();
+    }
+    if ((count2%=3) == 1) {
+      currency = Currency.usd();
+    }
+    if ((count2%=3) == 2) {
+      currency = Currency.uah();
+    }
+    outputEventController2.sink.add(currency);
   }
 
   CurrencyRepository(){
-    eventController.sink.add(currencies);
     inputEventController.stream.listen(changeCurrency);
   }
   void dispose() {
-    eventController.close();
+    outputEventController1.close();
   }
   }
