@@ -53,7 +53,7 @@ class CurrenciesTabState extends State<CurrenciesTab> {
                       trailing: IconButton(
                           icon: const Icon(Icons.arrow_forward_ios),
                         onPressed:(){
-                          currencyRepository.inputEventController.sink.add(Event.event_1);
+
                         },
                       ),
                     );
