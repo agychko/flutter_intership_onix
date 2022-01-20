@@ -12,12 +12,7 @@ class CurrenciesTab extends StatefulWidget {
 }
 class CurrenciesTabState extends State<CurrenciesTab> {
   final currencyRepository = CurrencyRepository();
-  int i =0;
-  Currency chengeCurrency = Currency();
-  // Stream<Currency> chenge() async*{
-  //   await Future<Currency>  currencyRepository.getData();
-  //   yield chengeCurrency;
-  // };
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(

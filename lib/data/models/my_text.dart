@@ -17,6 +17,7 @@ class MyTextState extends State<MyText> {
 
   void updateText() {
     newText = '$dt';
+
     setState(() {});
   }
 
@@ -46,6 +47,7 @@ class MyTextState extends State<MyText> {
                       padding: const EdgeInsets.fromLTRB(5, 30, 5, 30),
                       child: Column(
                         children: [
+                          Text((currencyRepository.count1).toString()),
                           ListTile(
                             leading: SizedBox(
                               height: 70,
@@ -130,6 +132,7 @@ class MyTextState extends State<MyText> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
+                          Text((currencyRepository.count2).toString()),
                           ListTile(
                             horizontalTitleGap: 20,
                             leading: SizedBox(
