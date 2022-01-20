@@ -14,22 +14,9 @@ class MyTextState extends State<MyText> {
 
   String newText = 'Hello!';
   DateTime dt = DateTime.now();
-  Currency one = Currency();
-  Currency two = Currency();
-  Currency three = Currency();
-
 
   void updateText() {
     newText = '$dt';
-    setState(() {});
-  }
-
-  switchCurrency() {
-    three = one;
-    one = two;
-    two = three;
-    // (one == 0) ? one = 1 : one = 0;
-    // (two == 0) ? two = 1 : two = 0;
     setState(() {});
   }
 
@@ -52,8 +39,8 @@ class MyTextState extends State<MyText> {
               builder:
                   (BuildContext context, AsyncSnapshot<Currency> snapshot) {
                 if (snapshot.hasData) {
-                  final currency1 = snapshot.data!;
-                  one=currency1;
+                  final one = snapshot.data!;
+
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(5, 30, 5, 30),
@@ -113,7 +100,8 @@ class MyTextState extends State<MyText> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    switchCurrency();
+                    currencyRepository.inputEventController.sink
+                        .add(Event.event_3);
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(14),
@@ -130,12 +118,12 @@ class MyTextState extends State<MyText> {
           ),
           StreamBuilder(
               stream: currencyRepository.outputEventController2.stream,
-              initialData: Currency.euro(),
+              initialData: Currency.usd(),
               builder:
                   (BuildContext context, AsyncSnapshot<Currency> snapshot) {
                 if (snapshot.hasData) {
-                  final currency2 = snapshot.data!;
-                  two=currency2;
+                  final two = snapshot.data!;
+
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 30, 10, 30),
@@ -181,7 +169,7 @@ class MyTextState extends State<MyText> {
                     ),
                   );
                 }
-                return const LinearProgressIndicator();
+                return const CircularProgressIndicator();
               }),
         ],
       ),

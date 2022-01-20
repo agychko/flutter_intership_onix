@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:first/data/models/currency.dart';
 
-enum Event {event_1, event_2}
+enum Event {event_1, event_2, event_3, event_4}
 
 class CurrencyRepository {
 
@@ -27,38 +27,72 @@ class CurrencyRepository {
   final outputEventController2 = StreamController<Currency>();
 
   int count1=0;
-  int count2=0;
+  int count2=1;
+  int count3=2;
 
-  Currency currency = Currency();
+
+  Currency currency1 = Currency();
+  Currency currency2 = Currency();
 
   void changeCurrency (Event event){
       if (event == Event.event_1) {
         count1++;
+        if ((count1%=3) == 0) {
+          currency1 = Currency.euro();
+        }
+        if ((count1%=3) == 1) {
+          currency1 = Currency.usd();
+        }
+        if ((count1%=3) == 2) {
+          currency1 = Currency.uah();
+        }
+        outputEventController1.sink.add(currency1);
       }
-      if ((count1%=3) == 0) {
-        currency = Currency.euro();
-      }
-      if ((count1%=3) == 1) {
-        currency = Currency.usd();
-      }
-      if ((count1%=3) == 2) {
-        currency = Currency.uah();
-      }
-     outputEventController1.sink.add(currency);
+
 
     if (event == Event.event_2) {
       count2++;
+      if ((count2%=3) == 0) {
+        currency2 = Currency.euro();
+      }
+      if ((count2%=3) == 1) {
+        currency2 = Currency.usd();
+      }
+      if ((count2%=3) == 2) {
+        currency2 = Currency.uah();
+      }
+      outputEventController2.sink.add(currency2);
     }
-    if ((count2%=3) == 0) {
-      currency = Currency.euro();
-    }
-    if ((count2%=3) == 1) {
-      currency = Currency.usd();
-    }
-    if ((count2%=3) == 2) {
-      currency = Currency.uah();
-    }
-    outputEventController2.sink.add(currency);
+
+      if (event == Event.event_3) {
+        count3=count2;
+        count2=count1;
+        count1=count3;
+        if ((count2%=3) == 0) {
+          currency2 = Currency.euro();
+        }
+        if ((count2%=3) == 1) {
+          currency2 = Currency.usd();
+        }
+        if ((count2%=3) == 2) {
+          currency2 = Currency.uah();
+        }
+        outputEventController2.sink.add(currency2);
+      }
+
+      if (event == Event.event_3) {
+        count1=count3;
+        if ((count1%=3) == 0) {
+          currency1 = Currency.euro();
+        }
+        if ((count1%=3) == 1) {
+          currency1 = Currency.usd();
+        }
+        if ((count1%=3) == 2) {
+          currency1 = Currency.uah();
+        }
+        outputEventController1.sink.add(currency1);
+      }
   }
 
   CurrencyRepository(){
@@ -66,5 +100,6 @@ class CurrencyRepository {
   }
   void dispose() {
     outputEventController1.close();
+    inputEventController.close();
   }
   }
