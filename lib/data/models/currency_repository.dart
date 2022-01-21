@@ -26,16 +26,14 @@ class CurrencyRepository {
   final inputEventController = StreamController<Event>();
   final outputEventController1 = StreamController<Currency>();
   final outputEventController2 = StreamController<Currency>();
-  final outputEventController3 = StreamController<double>();
 
   int count1=0;//???
   int count2=0;//???
   int count3=0;
 
-  double rate =1;
 
-  Currency currency1 = Currency();
-  Currency currency2 = Currency();
+  Currency currency1 = Currency.euro();
+  Currency currency2 = Currency.euro();
 
 
   void changeCurrency (Event event) async {
@@ -44,8 +42,9 @@ class CurrencyRepository {
     SharedPreferences prefs2 = await SharedPreferences.getInstance();
 
     if (event == Event.event_1) {
-        count1++;
+
         count1 = ((prefs1.getInt('counter1') ?? 0) + 1);
+        count1++;
         prefs1.setInt('counter1', count1);
 
         if ((count1%3) == 0) {
@@ -58,8 +57,8 @@ class CurrencyRepository {
           currency1 = Currency.uah();
         }
         outputEventController1.sink.add(currency1);
+        outputEventController2.sink.add(currency2);
       }
-
 
     if (event == Event.event_2) {
       count2++;
@@ -76,6 +75,7 @@ class CurrencyRepository {
         currency2 = Currency.uah();
       }
       outputEventController2.sink.add(currency2);
+      outputEventController1.sink.add(currency1);
     }
 
       if (event == Event.event_3) {
@@ -92,7 +92,8 @@ class CurrencyRepository {
         if ((count2%3) == 2) {
           currency2 = Currency.uah();
         }
-        outputEventController2.sink.add(currency2);
+        outputEventController1.sink.add(currency2);
+        outputEventController2.sink.add(currency1);
       }
 
       if (event == Event.event_3) {
@@ -112,8 +113,9 @@ class CurrencyRepository {
       }
 
     if (event == Event.event_4) {
-      rate=currency1.rateToUah/currency2.rateToUah;
-      outputEventController3.sink.add(rate);
+
+      outputEventController1.sink.add(currency1);
+      outputEventController2.sink.add(currency2);
     }
   }
 

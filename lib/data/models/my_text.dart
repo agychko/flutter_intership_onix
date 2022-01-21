@@ -14,8 +14,11 @@ class MyTextState extends State<MyText> {
 
   String newText = 'Hello!';
   DateTime dt = DateTime.now();
+  double rate1 = 0.00;
+  double rate2 = 0.00;
 
   var input = TextEditingController();
+
   var output = TextEditingController();
 
   void updateText() {
@@ -32,20 +35,7 @@ class MyTextState extends State<MyText> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: currencyRepository.outputEventController3.stream,
-        initialData: 0.00,
-        builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
-          if (snapshot.hasData) {
-
-            void changeF() {
-              output.text=(snapshot.data!*double.parse(input.text)).toString();
-            }
-            void dataRate(){
-              currencyRepository.inputEventController.sink
-                  .add(Event.event_4);
-            }
-            return Padding(
+    return Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: <Widget>[
@@ -57,7 +47,7 @@ class MyTextState extends State<MyText> {
                           AsyncSnapshot<Currency> snapshot) {
                         if (snapshot.hasData) {
                           final one = snapshot.data!;
-
+                          rate1=one.rateToUah;
                           return Card(
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(5, 30, 5, 30),
@@ -118,8 +108,10 @@ class MyTextState extends State<MyText> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            changeF();
-                            dataRate();
+                            currencyRepository.inputEventController.sink
+                                .add(Event.event_4);
+                            (input.text=='')?input.text='0':input.text=input.text;
+                            output.text = (double.parse(input.text) * rate1 / rate2).toString();
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.all(8),
@@ -131,6 +123,7 @@ class MyTextState extends State<MyText> {
                           onPressed: () {
                             currencyRepository.inputEventController.sink
                                 .add(Event.event_3);
+
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.all(14),
@@ -152,6 +145,7 @@ class MyTextState extends State<MyText> {
                           AsyncSnapshot<Currency> snapshot) {
                         if (snapshot.hasData) {
                           final two = snapshot.data!;
+                          rate2=two.rateToUah;
 
                           return Card(
                             child: Padding(
@@ -186,6 +180,7 @@ class MyTextState extends State<MyText> {
                                     padding:
                                         const EdgeInsets.fromLTRB(16, 0, 5, 10),
                                     child: TextField(
+                                      readOnly: true,
                                       controller: output,
                                       keyboardType: TextInputType.number,
                                       style:
@@ -212,8 +207,5 @@ class MyTextState extends State<MyText> {
                 ],
               ),
             );
-          }
-          return const CircularProgressIndicator();
-        });
   }
 }
