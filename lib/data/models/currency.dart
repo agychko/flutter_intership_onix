@@ -24,7 +24,7 @@ class Currency {
   }
   Currency.uah() {
     flag = Image.network('https://flagcdn.com/w80/ua.png',fit: BoxFit.fill);
-    icon = SvgPicture.asset('assets/hryvnia_sign_icon.svg', color: const Color.fromRGBO(0, 60, 143, 1), width: 24,);
+    icon = SvgPicture.asset('assets/hryvnia_sign_icon.svg', color: const Color.fromRGBO(0, 60, 143, 1), width: 18,);
     name = "Гривня";
     symbol = "UAH";
     rateToUah = 1;
