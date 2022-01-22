@@ -59,7 +59,6 @@ class MyTextState extends State<MyText> {
                               padding: const EdgeInsets.fromLTRB(5, 30, 5, 30),
                               child: Column(
                                 children: [
-                                  Text((currencyRepository.count1).toString()),
                                   ListTile(
                                     leading: SizedBox(
                                       height: 70,
@@ -127,7 +126,6 @@ class MyTextState extends State<MyText> {
                           onPressed: () {
                             currencyRepository.inputEventController.sink
                                 .add(Event.event_3);
-
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.all(14),
@@ -159,7 +157,6 @@ class MyTextState extends State<MyText> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text((currencyRepository.count2).toString()),
                                   ListTile(
                                     horizontalTitleGap: 20,
                                     leading: SizedBox(

@@ -40,18 +40,18 @@ class CurrencyRepository {
     if (event == Event.event_1) {
       count1 = ((prefs1.getInt('counter1') ?? 0) + 1);
       prefs1.setInt('counter1', count1);
-      outputEventController1.sink.add(currencies[count1%3]);
+      outputEventController1.sink.add(currencies[count1%=3]);
       }
 
     if (event == Event.event_2) {
       count2 = ((prefs2.getInt('counter2') ?? 0) + 1);
       prefs2.setInt('counter2', count2);
-      outputEventController2.sink.add(currencies[count2%3]);
+      outputEventController2.sink.add(currencies[count2%=3]);
     }
 
       if (event == Event.event_3) {
-        outputEventController1.sink.add(currencies[count2%3]);
-        outputEventController2.sink.add(currencies[count1%3]);
+        outputEventController1.sink.add(currencies[count2%=3]);
+        outputEventController2.sink.add(currencies[count1%=3]);
 
         count3=count2;
         count2=count1;
@@ -63,10 +63,10 @@ class CurrencyRepository {
     if (event == Event.event_4) {
       count1 = ((prefs1.getInt('counter1') ?? 0));
       prefs1.setInt('counter1', count1);
-      outputEventController1.sink.add(currencies[count1%3]);
+      outputEventController1.sink.add(currencies[count1%=3]);
       count2 = ((prefs2.getInt('counter2') ?? 0));
       prefs2.setInt('counter2', count2);
-      outputEventController2.sink.add(currencies[count2%3]);
+      outputEventController2.sink.add(currencies[count2%=3]);
     }
   }
 
