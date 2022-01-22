@@ -34,6 +34,12 @@ class MyTextState extends State<MyText> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    currencyRepository.loadCounter();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
               padding: const EdgeInsets.all(20),
@@ -42,7 +48,7 @@ class MyTextState extends State<MyText> {
                   const SizedBox(height: 40),
                   StreamBuilder(
                       stream: currencyRepository.outputEventController1.stream,
-                      initialData: Currency.euro(),
+                      // initialData: Currency.euro(),
                       builder: (BuildContext context,
                           AsyncSnapshot<Currency> snapshot) {
                         if (snapshot.hasData) {
