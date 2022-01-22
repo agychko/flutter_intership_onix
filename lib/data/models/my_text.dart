@@ -48,7 +48,7 @@ class MyTextState extends State<MyText> {
                   const SizedBox(height: 40),
                   StreamBuilder(
                       stream: currencyRepository.outputEventController1.stream,
-                      // initialData: Currency.euro(),
+                      initialData: Currency.euro(),
                       builder: (BuildContext context,
                           AsyncSnapshot<Currency> snapshot) {
                         if (snapshot.hasData) {
@@ -114,8 +114,6 @@ class MyTextState extends State<MyText> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            currencyRepository.inputEventController.sink
-                                .add(Event.event_4);
                             (input.text=='')?input.text='0':input.text=input.text;
                             output.text = (double.parse(input.text) * rate1 / rate2).toString();
                           },

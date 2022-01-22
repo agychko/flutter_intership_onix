@@ -31,8 +31,7 @@ class CurrencyRepository {
   int count3=0;
 
   void loadCounter(){
-      changeCurrency(Event.event_1);
-      changeCurrency(Event.event_2);
+      changeCurrency(Event.event_4);
   }
   void changeCurrency (Event event) async {
     SharedPreferences prefs1 = await SharedPreferences.getInstance();
@@ -60,9 +59,15 @@ class CurrencyRepository {
 
         count1=count3;
         prefs1.setInt('counter1', count1);
-
       }
-
+    if (event == Event.event_4) {
+      count1 = ((prefs1.getInt('counter1') ?? 0));
+      prefs1.setInt('counter1', count1);
+      outputEventController1.sink.add(currencies[count1%3]);
+      count2 = ((prefs2.getInt('counter2') ?? 0));
+      prefs2.setInt('counter2', count2);
+      outputEventController2.sink.add(currencies[count2%3]);
+    }
   }
 
   CurrencyRepository(){
