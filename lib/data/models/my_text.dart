@@ -18,12 +18,10 @@ class MyTextState extends State<MyText> {
   double rate2 = 0.00;
 
   var input = TextEditingController();
-
   var output = TextEditingController();
 
   void updateText() {
     newText = '$dt';
-
     setState(() {});
   }
 
@@ -82,7 +80,6 @@ class MyTextState extends State<MyText> {
                                     padding:
                                         const EdgeInsets.fromLTRB(16, 0, 5, 10),
                                     child: TextField(
-
                                       controller: input,
                                       keyboardType: TextInputType.number,
                                       style:
@@ -114,7 +111,9 @@ class MyTextState extends State<MyText> {
                         ElevatedButton(
                           onPressed: () {
                             (input.text=='')?input.text='0':input.text=input.text;
-                            output.text = (double.parse(input.text) * rate1 / rate2).toString();
+                            output.text = (double.parse(input.text) * rate1 / rate2).toStringAsFixed(4);
+                            input.selection = TextSelection.fromPosition(TextPosition(offset: input.text.length));
+
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.all(8),
