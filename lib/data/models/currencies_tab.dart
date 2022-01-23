@@ -1,7 +1,6 @@
 
 import 'package:first/data/models/currency.dart';
 import 'package:first/data/models/currency_repository.dart';
-import 'package:first/data/models/my_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,7 +12,6 @@ class CurrenciesTab extends StatefulWidget {
 }
 class CurrenciesTabState extends State<CurrenciesTab> {
   final currencyRepository = CurrencyRepository();
-  final myScreen = MyScreenState();
 
   @override
   Widget build(BuildContext context) {
