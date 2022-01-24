@@ -37,53 +37,62 @@ class ConverterScreenState extends State<ConverterScreen> {
         ],
       ),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 40),
-            Consumer<ConverterScreenProvider>(
-              builder: (context, provider, child) {
-                return
-                CurrencyCard(currency:provider.converter.currencyTop);
-              }
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      // (input.text=='')?input.text='0':input.text=input.text;
-                      // output.text = (double.parse(input.text) * rate1 / rate2).toStringAsFixed(4);
-                      // input.selection = TextSelection.fromPosition(TextPosition(offset: input.text.length));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(8),
-                    ),
-                    child: const Text('=', style: TextStyle(fontSize: 30)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(14),
-                    ),
-                    child: Row(
-                      children: const [
-                        Icon(Icons.import_export),
-                        Text('Switch Currencies'),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Consumer<ConverterScreenProvider>(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 40),
+              Consumer<ConverterScreenProvider>(
                 builder: (context, provider, child) {
                   return
-                    CurrencyCard(currency:provider.converter.currencyDown);
+                  CurrencyCard(currency:provider.converter.currencyTop,
+                    onChanged: (currency) {
+                    provider.currencyTopChanged(currency);
+                    },);
                 }
-            ),
-          ],
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // (input.text=='')?input.text='0':input.text=input.text;
+                        // output.text = (double.parse(input.text) * rate1 / rate2).toStringAsFixed(4);
+                        // input.selection = TextSelection.fromPosition(TextPosition(offset: input.text.length));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(8),
+                      ),
+                      child: const Text('=', style: TextStyle(fontSize: 30)),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(14),
+                      ),
+                      child: Row(
+                        children: const [
+                          Icon(Icons.import_export),
+                          Text('Switch Currencies'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Consumer<ConverterScreenProvider>(
+                  builder: (context, provider, child) {
+                    return
+                      CurrencyCard(currency:provider.converter.currencyDown,
+                        onChanged: (currency ) {
+                        provider.currencyDownChanged(currency);
+                        },);
+                  }
+              ),
+            ],
+          ),
         ),
       ),
     );

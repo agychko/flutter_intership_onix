@@ -1,4 +1,5 @@
 
+import 'package:first/screens/currencies_screen/currency_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,23 +39,11 @@ class CurrenciesScreenState extends State<CurrenciesScreen> {
                   ),
                   itemCount: provider.currencies.length,
                   itemBuilder: (context, index){
-                    return ListTile(
-                      leading: SizedBox(
-                        width: 70, height: 70,
-                        child: Card(
-                          clipBehavior: Clip.antiAlias,
-                          child: Image.network(provider.currencies[index].flag, fit: BoxFit.fill),
-                        ),
-                      ),
-                      title: Text(provider.currencies[index].name),
-                      subtitle: Text(provider.currencies[index].symbol),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.arrow_forward_ios),
-                        onPressed:(){
-                          Navigator.pop(context, provider.currencies[index]);
-
+                    return CurrencyItem(
+                        currency: provider.currencies[index],
+                        onSelected: (currency) {
+                          Navigator.pop(context, currency);
                         },
-                      ),
                     );
                   }
               );

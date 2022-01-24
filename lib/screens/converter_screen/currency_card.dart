@@ -1,10 +1,21 @@
+import 'package:first/data/model/callbacks.dart';
 import 'package:first/data/model/currency.dart';
 import 'package:first/screens/currencies_screen/currencies_screen.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyCard extends StatelessWidget {
-  const CurrencyCard({Key? key, required this.currency}) : super(key: key);
+  const CurrencyCard({Key? key, required this.currency, required this.onChanged}) : super(key: key);
   final Currency currency;
+  final CurrencyCallback onChanged;
+
+  void _onChangeCurrencyPressed(BuildContext context) async {
+    var newCurrency = await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const CurrenciesScreen()));
+
+    if (newCurrency != null) {
+      onChanged(newCurrency);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +37,8 @@ class CurrencyCard extends StatelessWidget {
               subtitle: Text(currency.name),
               trailing: IconButton(
                 icon: const Icon(Icons.arrow_forward_ios),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context)=>const CurrenciesScreen()));
-
+                onPressed: ()  {
+                  _onChangeCurrencyPressed(context);
                 },
               ),
             ),
