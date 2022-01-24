@@ -3,7 +3,7 @@ import 'package:first/data/model/currency.dart';
 
 class CurrenciesSource {
   Future<List<Currency>> getCurrencies() => Future.delayed(
-      const Duration(milliseconds: 2000),
+      const Duration(milliseconds: 500),
           () => [
         Currency(
             0,

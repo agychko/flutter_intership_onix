@@ -13,8 +13,8 @@ class CurrenciesRepository {
 
   Future<Converter> getConverterData() async {
     var currencies = await _currenciesSource.getCurrencies();
-    var idTop = await _preferencesSource.getCurrencyFromId() ?? 0;
-    var idDown = await _preferencesSource.getCurrencyToId() ?? 1;
+    var idTop = await _preferencesSource.getCurrencyTopId() ?? 0;
+    var idDown = await _preferencesSource.getCurrencyDownId() ?? 1;
     var currencyTop = currencies.firstWhere((item) => (item.id == idTop));
     var currencyDown = currencies.firstWhere((item) => (item.id == idDown));
     return Converter(currencyTop, currencyDown);
@@ -24,7 +24,7 @@ class CurrenciesRepository {
       _currenciesSource.getCurrencies();
 
   Future<void> updateSelectedCurrencies(int idTop, int idDown) async {
-    await _preferencesSource.setCurrencyFromId(idTop);
-    await _preferencesSource.setCurrencyToId(idDown);
+    await _preferencesSource.setCurrencyTopId(idTop);
+    await _preferencesSource.setCurrencyDownId(idDown);
   }
 }

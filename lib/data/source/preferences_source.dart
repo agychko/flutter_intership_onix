@@ -1,30 +1,30 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesSource {
-  final String _currencyFromId = 'currency_from_id';
-  final String _currencyToId = 'currency_to_id';
+  final String _currencyTopId = 'currency_top_id';
+  final String _currencyDownId = 'currency_down_id';
 
   Future<SharedPreferences> _getPreferences() async {
     return SharedPreferences.getInstance();
   }
 
-  Future<int?> getCurrencyFromId() async {
+  Future<int?> getCurrencyTopId() async {
     var preferences = await _getPreferences();
-    return preferences.getInt(_currencyFromId);
+    return preferences.getInt(_currencyTopId);
   }
 
-  Future<int?> getCurrencyToId() async {
+  Future<int?> getCurrencyDownId() async {
     var preferences = await _getPreferences();
-    return preferences.getInt(_currencyToId);
+    return preferences.getInt(_currencyDownId);
   }
 
-  Future<void> setCurrencyFromId(int id) async {
+  Future<void> setCurrencyTopId(int id) async {
     var preferences = await _getPreferences();
-    preferences.setInt(_currencyFromId, id);
+    preferences.setInt(_currencyTopId, id);
   }
 
-  Future<void> setCurrencyToId(int id) async {
+  Future<void> setCurrencyDownId(int id) async {
     var preferences = await _getPreferences();
-    preferences.setInt(_currencyToId, id);
+    preferences.setInt(_currencyDownId, id);
   }
 }

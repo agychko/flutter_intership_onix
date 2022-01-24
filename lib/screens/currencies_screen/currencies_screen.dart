@@ -25,6 +25,7 @@ class CurrenciesScreenState extends State<CurrenciesScreen> {
         body: Consumer<CurrenciesScreenProvider>(
           builder: (context, provider, child) {
             if (provider.isLoading) {
+
               return const Center(child: CircularProgressIndicator());
             }
             if (provider.currencies.isEmpty) {
@@ -50,6 +51,7 @@ class CurrenciesScreenState extends State<CurrenciesScreen> {
                       trailing: IconButton(
                         icon: const Icon(Icons.arrow_forward_ios),
                         onPressed:(){
+                          Navigator.pop(context, provider.currencies[index]);
 
                         },
                       ),

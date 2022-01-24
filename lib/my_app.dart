@@ -1,6 +1,6 @@
 
-import 'package:first/screens/currencies_screen/currencies_screen.dart';
-import 'package:first/screens/currencies_screen/currencies_screen_provider.dart';
+import 'package:first/screens/converter_screen/converter_screen.dart';
+import 'package:first/screens/converter_screen/converter_screen_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -60,8 +60,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: ChangeNotifierProvider(
-          create: (context) => CurrenciesScreenProvider(),
-          child: const CurrenciesScreen()
+          create: (context) => ConverterScreenProvider(),
+          child: const ConverterScreen()
       ),
     );
   }

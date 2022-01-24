@@ -1,6 +1,9 @@
 // import 'package:first/screens/converter_screen/currency_card.dart';
+import 'package:first/screens/converter_screen/converter_screen_provider.dart';
+import 'package:first/screens/converter_screen/currency_card.dart';
 import 'package:first/screens/settings_screen/settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ConverterScreen extends StatefulWidget {
   const ConverterScreen({Key? key}) : super(key: key);
@@ -37,7 +40,12 @@ class ConverterScreenState extends State<ConverterScreen> {
         child: Column(
           children: <Widget>[
             const SizedBox(height: 40),
-            // CurrencyCard(currency: currency),
+            Consumer<ConverterScreenProvider>(
+              builder: (context, provider, child) {
+                return
+                CurrencyCard(currency:provider.converter.currencyTop);
+              }
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
               child: Row(
@@ -69,7 +77,12 @@ class ConverterScreenState extends State<ConverterScreen> {
                 ],
               ),
             ),
-            // CurrencyCard(currency: currency),
+            Consumer<ConverterScreenProvider>(
+                builder: (context, provider, child) {
+                  return
+                    CurrencyCard(currency:provider.converter.currencyDown);
+                }
+            ),
           ],
         ),
       ),
