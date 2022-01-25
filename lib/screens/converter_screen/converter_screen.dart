@@ -1,4 +1,3 @@
-// import 'package:first/screens/converter_screen/currency_card.dart';
 import 'package:first/screens/converter_screen/converter_screen_provider.dart';
 import 'package:first/screens/converter_screen/currency_card.dart';
 import 'package:first/screens/settings_screen/settings_screen.dart';
@@ -22,7 +21,9 @@ class ConverterScreenState extends State<ConverterScreen> {
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.update),
-          onPressed: () {},
+          onPressed: () {
+
+          },
         ),
         actions: [
           IconButton(
@@ -46,10 +47,13 @@ class ConverterScreenState extends State<ConverterScreen> {
               Consumer<ConverterScreenProvider>(
                 builder: (context, provider, child) {
                   if (provider.isLoading) {
-                    return Container();
+                    return
+                      // Container();
+                    const CircularProgressIndicator();
                   }
                   return
                   CurrencyCard(currency:provider.converter.currencyTop,
+                    controller: provider.topController,
                     onChanged: (currency) {
                     provider.currencyTopChanged(currency);
                     },);
@@ -62,16 +66,13 @@ class ConverterScreenState extends State<ConverterScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // (input.text=='')?input.text='0':input.text=input.text;
-                        // output.text = (double.parse(input.text) * rate1 / rate2).toStringAsFixed(4);
-                        // input.selection = TextSelection.fromPosition(TextPosition(offset: input.text.length));
+                        Provider.of<ConverterScreenProvider>(context, listen: false).convert();
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(8),
                       ),
                       child: const Text('=', style: TextStyle(fontSize: 30)),
                     ),
-
                     ElevatedButton(
                       onPressed: () {
                         Provider.of<ConverterScreenProvider>(context, listen: false).switchCurrencies();
@@ -86,20 +87,23 @@ class ConverterScreenState extends State<ConverterScreen> {
                         ],
                       ),
                     ),
-
                   ],
                 ),
               ),
               Consumer<ConverterScreenProvider>(
                   builder: (context, provider, child) {
                     if (provider.isLoading) {
-                      return Container();
+                      return
+                        // Container();
+                      const CircularProgressIndicator();
                     }
                     return
                       CurrencyCard(currency:provider.converter.currencyDown,
+                        controller: provider.bottomController,
                         onChanged: (currency ) {
                         provider.currencyDownChanged(currency);
-                        },);
+                        },
+                      );
                   }
               ),
             ],

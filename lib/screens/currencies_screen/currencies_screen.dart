@@ -13,7 +13,6 @@ class CurrenciesScreen extends StatefulWidget {
 }
 class CurrenciesScreenState extends State<CurrenciesScreen> {
 
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

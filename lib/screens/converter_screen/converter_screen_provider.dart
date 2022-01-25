@@ -1,6 +1,3 @@
-
-
-
 import 'package:first/data/model/converter.dart';
 import 'package:first/data/model/currency.dart';
 import 'package:first/data/repository/currencies_repository.dart';
@@ -13,12 +10,13 @@ class ConverterScreenProvider extends ChangeNotifier {
   CurrenciesRepository(CurrenciesSource(), PreferencesSource());
 
   bool isLoading = false;
-  // double initialValue = 0;
-  // double convertedValue = 0;
+  var topController = TextEditingController();
+  var bottomController = TextEditingController();
   late Converter converter;
 
   ConverterScreenProvider() {
     _getConverterData();
+    convert();
   }
 
   void _getConverterData() async {
@@ -26,7 +24,6 @@ class ConverterScreenProvider extends ChangeNotifier {
     notifyListeners();
     converter = await _currenciesRepository.getConverterData();
     isLoading = false;
-    notifyListeners();
   }
 
   void currencyTopChanged(Currency currency) async {
@@ -35,7 +32,6 @@ class ConverterScreenProvider extends ChangeNotifier {
     await _currenciesRepository.updateSelectedCurrencies(
         currency.id, converter.currencyDown.id);
     converter.currencyTop = currency;
-    // convert(initialValue);
     isLoading = false;
   }
 
@@ -45,7 +41,6 @@ class ConverterScreenProvider extends ChangeNotifier {
     await _currenciesRepository.updateSelectedCurrencies(
         converter.currencyTop.id, currency.id);
     converter.currencyDown = currency;
-    // convert(initialValue);
     isLoading = false;
   }
 
@@ -57,7 +52,14 @@ class ConverterScreenProvider extends ChangeNotifier {
     converter.currencyDown = currencyTop;
     await _currenciesRepository.updateSelectedCurrencies(
         converter.currencyDown.id, converter.currencyTop.id);
-    // convert(initialValue);
   }
-
+  void convert() async{
+  (topController.text=='')?topController.text='0':topController.text=topController.text;
+  bottomController.text = (double.parse(topController.text)
+      * converter.currencyTop.rateToUah
+      / converter.currencyDown.rateToUah).toStringAsFixed(4);
+  topController.selection = TextSelection.fromPosition(
+      TextPosition(offset: topController.text.length)
+  );
+  }
 }
