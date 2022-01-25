@@ -18,6 +18,7 @@ class SettingsScreenState extends State <SettingsScreen> {
           },
         ),
         title: const Text('Setting'),
+        centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.done),

@@ -19,6 +19,7 @@ class ConverterScreenState extends State<ConverterScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Converter'),
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.update),
           onPressed: () {},
@@ -44,6 +45,9 @@ class ConverterScreenState extends State<ConverterScreen> {
               const SizedBox(height: 40),
               Consumer<ConverterScreenProvider>(
                 builder: (context, provider, child) {
+                  if (provider.isLoading) {
+                    return Container();
+                  }
                   return
                   CurrencyCard(currency:provider.converter.currencyTop,
                     onChanged: (currency) {
@@ -67,8 +71,11 @@ class ConverterScreenState extends State<ConverterScreen> {
                       ),
                       child: const Text('=', style: TextStyle(fontSize: 30)),
                     ),
+
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Provider.of<ConverterScreenProvider>(context, listen: false).switchCurrencies();
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(14),
                       ),
@@ -79,11 +86,15 @@ class ConverterScreenState extends State<ConverterScreen> {
                         ],
                       ),
                     ),
+
                   ],
                 ),
               ),
               Consumer<ConverterScreenProvider>(
                   builder: (context, provider, child) {
+                    if (provider.isLoading) {
+                      return Container();
+                    }
                     return
                       CurrencyCard(currency:provider.converter.currencyDown,
                         onChanged: (currency ) {

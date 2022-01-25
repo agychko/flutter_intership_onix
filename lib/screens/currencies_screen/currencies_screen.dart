@@ -20,7 +20,14 @@ class CurrenciesScreenState extends State<CurrenciesScreen> {
       create: (context) => CurrenciesScreenProvider(),
       child: Scaffold(
         appBar: AppBar(
+          leading:  IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
           title: const Text('Currencies'),
+          centerTitle: true,
         ),
 
         body: Consumer<CurrenciesScreenProvider>(

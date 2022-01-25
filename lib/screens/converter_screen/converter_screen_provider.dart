@@ -50,6 +50,7 @@ class ConverterScreenProvider extends ChangeNotifier {
   }
 
   void switchCurrencies() async {
+    notifyListeners();
     var currencyTop = converter.currencyTop;
     var currencyDown = converter.currencyDown;
     converter.currencyTop = currencyDown;
