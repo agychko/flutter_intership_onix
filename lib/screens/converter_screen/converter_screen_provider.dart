@@ -16,14 +16,14 @@ class ConverterScreenProvider extends ChangeNotifier {
 
   ConverterScreenProvider() {
     _getConverterData();
-    convert();
   }
 
   void _getConverterData() async {
     isLoading = true;
-    notifyListeners();
     converter = await _currenciesRepository.getConverterData();
+    convert();
     isLoading = false;
+    notifyListeners();
   }
 
   void currencyTopChanged(Currency currency) async {

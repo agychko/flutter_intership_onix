@@ -48,8 +48,8 @@ class ConverterScreenState extends State<ConverterScreen> {
                 builder: (context, provider, child) {
                   if (provider.isLoading) {
                     return
-                      // Container();
-                    const CircularProgressIndicator();
+                      Container();
+                    // const CircularProgressIndicator();
                   }
                   return
                   CurrencyCard(currency:provider.converter.currencyTop,
