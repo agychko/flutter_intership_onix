@@ -15,6 +15,7 @@ class CurrenciesSource {
         ),
         Currency(
             1,
+            // 'https://flagcdn.com/w80/eu.png',
             'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/255px-Flag_of_Europe.svg.png',
             ' €',
             'Euro',
