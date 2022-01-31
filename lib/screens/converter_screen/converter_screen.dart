@@ -1,3 +1,5 @@
+
+import 'package:first/data/model/currency_response.dart';
 import 'package:first/data/source/rates_api.dart';
 import 'package:first/screens/converter_screen/converter_screen_provider.dart';
 import 'package:first/screens/converter_screen/currency_card.dart';
@@ -13,6 +15,7 @@ class ConverterScreen extends StatefulWidget {
 }
 
 class ConverterScreenState extends State<ConverterScreen> {
+ CurrencyResponse? currencyResponse;
   @override
   Widget build(BuildContext context) {
 
@@ -24,7 +27,7 @@ class ConverterScreenState extends State<ConverterScreen> {
         leading: IconButton(
           icon: const Icon(Icons.update),
           onPressed: () {
-          RatesApi().getRates();
+RatesApi().getRates();
           },
         ),
         actions: [
@@ -45,6 +48,7 @@ class ConverterScreenState extends State<ConverterScreen> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: <Widget>[
+              // Text(currencyResponse!.rates!.eUR.toString()),
               const SizedBox(height: 40),
               Consumer<ConverterScreenProvider>(
                 builder: (context, provider, child) {

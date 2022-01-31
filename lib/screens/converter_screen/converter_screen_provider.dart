@@ -56,8 +56,8 @@ class ConverterScreenProvider extends ChangeNotifier {
   void convert() async{
   (topController.text=='')?topController.text='0':topController.text=topController.text;
   bottomController.text = (double.parse(topController.text)
-      * converter.currencyTop.rateToUah
-      / converter.currencyDown.rateToUah).toStringAsFixed(4);
+      * converter.currencyDown.rate
+      / converter.currencyTop.rate).toStringAsFixed(4);
   topController.selection = TextSelection.fromPosition(
       TextPosition(offset: topController.text.length)
   );

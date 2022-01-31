@@ -1,24 +1,41 @@
-class CurrencyResponse {
-  final bool success;
-  final int timestamp;
-  final String base;
-  final String date;
-  final Map rates;
+import 'rates.dart';
 
-  CurrencyResponse ({
-    required this.success,
-    required this.timestamp,
-    required this.base,
-    required this.date,
-    required this.rates
-  });
-  factory CurrencyResponse.fromJson(json) {
-    return CurrencyResponse(
-        success: json['success'],
-        timestamp: json['timestamp'],
-        base: json['base'],
-        date: json['date'],
-      rates: json['rates']
-    );
+class CurrencyResponse {
+  bool? success;
+  int? timestamp;
+  String? base;
+  String? date;
+  Rates? rates;
+
+  CurrencyResponse(
+      {this.success, this.timestamp, this.base, this.date, this.rates});
+
+  CurrencyResponse.fromJson(Map<String, dynamic> json) {
+    success = json['success'];
+    timestamp = json['timestamp'];
+    base = json['base'];
+    date = json['date'];
+    rates = json['rates'] != null ? Rates.fromJson(json['rates']) : null;
   }
 }
+
+// class CurrencyResponse {
+//   final String ccy;
+//   final String baseCCy;
+//   final String buy;
+//   final String sale;
+//
+//   CurrencyResponse(
+//       {required this.ccy,
+//         required this.baseCCy,
+//         required this.buy,
+//         required this.sale});
+//
+//   factory CurrencyResponse.fromJson(Map<dynamic, dynamic> json) {
+//     return CurrencyResponse(
+//         ccy: json['ccy'],
+//         baseCCy: json['base_ccy'],
+//         buy: json['buy'],
+//         sale: json['sale']);
+//   }
+// }
