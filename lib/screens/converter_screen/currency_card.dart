@@ -38,7 +38,7 @@ class _CurrencyCardState extends State<CurrencyCard> {
                 width: 70,
                 child: Card(
                     clipBehavior: Clip.antiAlias,
-                    child: Image.network(widget.currency.flag, fit: BoxFit.cover,),
+                    child: Image.network(widget.currency.flag, fit: BoxFit.fill,),
                 ),
               ),
               title: Text(widget.currency.symbol),

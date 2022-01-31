@@ -1,6 +1,5 @@
 
 import 'package:first/data/model/currency_response.dart';
-import 'package:first/data/source/rates_api.dart';
 import 'package:first/screens/converter_screen/converter_screen_provider.dart';
 import 'package:first/screens/converter_screen/currency_card.dart';
 import 'package:first/screens/settings_screen/settings_screen.dart';
@@ -27,7 +26,7 @@ class ConverterScreenState extends State<ConverterScreen> {
         leading: IconButton(
           icon: const Icon(Icons.update),
           onPressed: () {
-RatesApi().getRates();
+
           },
         ),
         actions: [
@@ -54,8 +53,8 @@ RatesApi().getRates();
                 builder: (context, provider, child) {
                   if (provider.isLoading) {
                     return
-                      Container();
-                    // const CircularProgressIndicator();
+                      // Container();
+                    const CircularProgressIndicator();
                   }
                   return
                   CurrencyCard(currency:provider.converter.currencyTop,
