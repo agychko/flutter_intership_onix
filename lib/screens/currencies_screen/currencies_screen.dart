@@ -1,5 +1,6 @@
 
 import 'package:first/screens/currencies_screen/currency_item.dart';
+import 'package:first/screens/error_message/error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,8 +33,13 @@ class CurrenciesScreenState extends State<CurrenciesScreen> {
         body: Consumer<CurrenciesScreenProvider>(
           builder: (context, provider, child) {
             if (provider.isLoading) {
-
               return const Center(child: CircularProgressIndicator());
+            }
+            if (provider.error != null) {
+              return ErrorMessage(
+                error: provider.error ?? '',
+                onTap: () => provider.getCurrencyList(),
+              );
             }
             if (provider.currencies.isEmpty) {
               return const Center(child: Text('No Currencies Found'));

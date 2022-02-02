@@ -1,52 +1,31 @@
 
+import 'dart:io';
+
 import 'package:first/data/model/currency.dart';
+import 'package:first/data/response/data_response.dart';
 
 import 'dart:convert';
-import 'package:first/data/model/rates.dart';
+import 'package:first/data/response/rates.dart';
 import 'package:http/http.dart' as http;
 
 class CurrenciesSource {
-  // Future<List<Currency>> getCurrencies() => Future.delayed(
-  //     const Duration(milliseconds: 500),
-  //         () => [
-  //       Currency(
-  //           0,
-  //           'https://flagcdn.com/w80/ua.png',
-  //           '₴',
-  //           'Ukrainian Hryvna',
-  //           'UAH',
-  //           1.0
-  //       ),
-  //       Currency(
-  //           1,
-  //           // 'https://flagcdn.com/w80/eu.png',
-  //           'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/255px-Flag_of_Europe.svg.png',
-  //           ' €',
-  //           'Euro',
-  //           'EUR',
-  //           30.7277
-  //       ),
-  //       Currency(
-  //           2,
-  //           'https://flagcdn.com/w80/us.png',
-  //           '\$',
-  //           'American dollar',
-  //           'USD',
-  //           27.3317
-  //       )
-  //     ]);
+
   final String baseUrl = 'http://api.exchangeratesapi.io/v1/';
 
-  Future<List<Currency>> getCurrencies() async {
+  Future<DataResponse<List<Currency>>> getCurrencies() async {
     try {
       var url = Uri.parse('${baseUrl}latest?access_key=20d6efe31f3aa7a147dd9c380381aebe&format=1');
       var response = await http.get(url);
       var jsonResponse = jsonDecode(response.body);
       var currencies = jsonResponse['rates'];
       var rates = Rates.fromJson(currencies);
-      return Future.delayed(
-          const Duration(milliseconds: 500),
-              () => [
+
+      // throw const SocketException('Error Internet');
+      // throw const HttpException('Error 404');
+      // throw const FormatException('Invalid Json');
+
+      return Future.delayed(const Duration(milliseconds: 500),
+              () => DataResponse.success([
             Currency(
                 0,
                 'https://flagcdn.com/w80/ua.png',
@@ -128,9 +107,17 @@ class CurrenciesSource {
                     'CNY',
                     rates.cNY!.toDouble()
                 ),
-          ]);
+          ]
+      ),
+      );
+    } on SocketException {
+      return DataResponse.error('Connection Error');
+    } on HttpException {
+      return DataResponse.error('Http Error');
+    } on FormatException {
+      return DataResponse.error('Bad Response');
     } catch (error) {
-      return [];
+      return DataResponse.error('Unknown Error');
     }
   }
 }

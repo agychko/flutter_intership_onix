@@ -10,18 +10,24 @@ class ConverterScreenProvider extends ChangeNotifier {
   CurrenciesRepository(CurrenciesSource(), PreferencesSource());
 
   bool isLoading = false;
+  String? error;
   var topController = TextEditingController();
   var bottomController = TextEditingController();
   late Converter converter;
 
   ConverterScreenProvider() {
-    _getConverterData();
+    getConverterData();
   }
 
-  void _getConverterData() async {
+  void getConverterData() async {
     isLoading = true;
-    converter = await _currenciesRepository.getConverterData();
-    convert();
+    var converterData = await _currenciesRepository.getConverterData();
+    if (converterData.isSuccess()) {
+      converter = converterData.asSuccess().data;
+      error = null;
+    } else {
+      error = converterData.asError().errorMessage;
+    }
     isLoading = false;
     notifyListeners();
   }
