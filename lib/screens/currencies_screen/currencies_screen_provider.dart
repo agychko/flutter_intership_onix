@@ -10,16 +10,23 @@ class CurrenciesScreenProvider extends ChangeNotifier {
   CurrenciesRepository(CurrenciesSource(), PreferencesSource());
 
   bool isLoading = false;
+  String? error;
   List<Currency> currencies = List.empty(growable: false);
 
   CurrenciesScreenProvider() {
-    _getCurrencyList();
+    getCurrencyList();
   }
 
-  void _getCurrencyList() async {
+  void getCurrencyList() async {
     isLoading = true;
-    notifyListeners();
-    currencies = await _currenciesRepository.getCurrenciesList();
+    var currenciesData = await _currenciesRepository.getCurrenciesList();
+    if (currenciesData.isSuccess()) {
+      currencies = currenciesData.asSuccess().data;
+      error = null;
+    } else {
+      currencies = [];
+      error = currenciesData.asError().errorMessage;
+    }
     isLoading = false;
     notifyListeners();
   }

@@ -10,18 +10,24 @@ class ConverterScreenProvider extends ChangeNotifier {
   CurrenciesRepository(CurrenciesSource(), PreferencesSource());
 
   bool isLoading = false;
+  String? error;
   var topController = TextEditingController();
   var bottomController = TextEditingController();
   late Converter converter;
 
   ConverterScreenProvider() {
-    _getConverterData();
+    getConverterData();
   }
 
-  void _getConverterData() async {
+  void getConverterData() async {
     isLoading = true;
-    converter = await _currenciesRepository.getConverterData();
-    convert();
+    var converterData = await _currenciesRepository.getConverterData();
+    if (converterData.isSuccess()) {
+      converter = converterData.asSuccess().data;
+      error = null;
+    } else {
+      error = converterData.asError().errorMessage;
+    }
     isLoading = false;
     notifyListeners();
   }
@@ -56,8 +62,8 @@ class ConverterScreenProvider extends ChangeNotifier {
   void convert() async{
   (topController.text=='')?topController.text='0':topController.text=topController.text;
   bottomController.text = (double.parse(topController.text)
-      * converter.currencyTop.rateToUah
-      / converter.currencyDown.rateToUah).toStringAsFixed(4);
+      * converter.currencyDown.rate
+      / converter.currencyTop.rate).toStringAsFixed(4);
   topController.selection = TextSelection.fromPosition(
       TextPosition(offset: topController.text.length)
   );

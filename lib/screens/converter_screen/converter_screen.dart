@@ -1,3 +1,4 @@
+import 'package:first/screens/error_message/error_message.dart';
 import 'package:first/screens/converter_screen/converter_screen_provider.dart';
 import 'package:first/screens/converter_screen/currency_card.dart';
 import 'package:first/screens/settings_screen/settings_screen.dart';
@@ -12,8 +13,10 @@ class ConverterScreen extends StatefulWidget {
 }
 
 class ConverterScreenState extends State<ConverterScreen> {
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -44,20 +47,33 @@ class ConverterScreenState extends State<ConverterScreen> {
           child: Column(
             children: <Widget>[
               const SizedBox(height: 40),
-              Consumer<ConverterScreenProvider>(
-                builder: (context, provider, child) {
-                  if (provider.isLoading) {
-                    return
-                      Container();
-                    // const CircularProgressIndicator();
-                  }
-                  return
-                  CurrencyCard(currency:provider.converter.currencyTop,
-                    controller: provider.topController,
-                    onChanged: (currency) {
-                    provider.currencyTopChanged(currency);
-                    },);
-                }
+              Card(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: Consumer<ConverterScreenProvider>(
+                    builder: (context, provider, child) {
+                      if (provider.isLoading) {
+                        return
+                          // Container();
+                          const Center(child: CircularProgressIndicator());
+                      }
+                      if (provider.error != null) {
+                        return
+                          ErrorMessage(
+                          error: provider.error ?? '',
+                          onTap: () => provider.getConverterData(),
+                        );
+                      }
+                      return
+                      CurrencyCard(currency:provider.converter.currencyTop,
+                        controller: provider.topController,
+                        onChanged: (currency) {
+                        provider.currencyTopChanged(currency);
+                        },);
+                    }
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
@@ -90,21 +106,34 @@ class ConverterScreenState extends State<ConverterScreen> {
                   ],
                 ),
               ),
-              Consumer<ConverterScreenProvider>(
-                  builder: (context, provider, child) {
-                    if (provider.isLoading) {
-                      return
-                        // Container();
-                      const CircularProgressIndicator();
-                    }
-                    return
-                      CurrencyCard(currency:provider.converter.currencyDown,
-                        controller: provider.bottomController,
-                        onChanged: (currency ) {
-                        provider.currencyDownChanged(currency);
-                        },
-                      );
-                  }
+              Card(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: Consumer<ConverterScreenProvider>(
+                      builder: (context, provider, child) {
+                        if (provider.isLoading) {
+                          return
+                            // Container();
+                            const Center(child: CircularProgressIndicator());
+                        }
+                        if (provider.error != null) {
+                          return
+                            ErrorMessage(
+                              error: provider.error ?? '',
+                              onTap: () => provider.getConverterData(),
+                            );
+                        }
+                        return
+                          CurrencyCard(currency:provider.converter.currencyDown,
+                            controller: provider.bottomController,
+                            onChanged: (currency ) {
+                            provider.currencyDownChanged(currency);
+                            },
+                          );
+                      }
+                  ),
+                ),
               ),
             ],
           ),

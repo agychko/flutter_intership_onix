@@ -4,7 +4,7 @@ class Currency {
   final String icon;
   final String name;
   final String symbol;
-  final double rateToUah;
+  final double rate;
 
-  Currency(this.id,this.flag, this.icon, this.name, this.symbol, this.rateToUah);
+  Currency(this.id,this.flag, this.icon, this.name, this.symbol, this.rate);
 }
