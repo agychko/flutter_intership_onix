@@ -19,6 +19,26 @@ class CurrenciesRepository {
   Future<DataResponse<Converter>> getConverterData() async {
     //check database
     log('----Start');
+    var currencyResponse = await _currenciesSource.getCurrencies();
+    log('----Api Call');
+    if (currencyResponse.isSuccess()) {
+      //save to db
+      //var dbCurrencies =
+      //    CurrencyMapper.mapCurrencyToDb(currencyResponse.asSuccess().data);
+      var dbCurrencies =
+      CurrencyHiveDatabase.mapCurrencyToHive(currencyResponse.asSuccess().data);
+      log('----Saving Currencies to Database');
+      await _databaseSource.clearCurrencies(dbCurrencies);
+      await _databaseSource.saveCurrencies(dbCurrencies);
+      log('----Saved ${dbCurrencies.length} currencies to Database');
+      log('----In Database ${dbCurrencies.length} items.');
+      //create converter
+      var currencies = currencyResponse.asSuccess().data;
+      var converter = await _createConverter(currencies);
+      log('----Return Result From Api');
+      return DataResponse.success(converter);
+    }
+
     var dbCurrencies = await _databaseSource.getCurrencies();
     log('----Checked Database, ${dbCurrencies.length} items in database.');
     if (dbCurrencies.isNotEmpty) {
@@ -31,23 +51,6 @@ class CurrenciesRepository {
       return DataResponse.success(converter);
     }
 
-    var currencyResponse = await _currenciesSource.getCurrencies();
-    log('----Api Call');
-    if (currencyResponse.isSuccess()) {
-      //save to db
-      //var dbCurrencies =
-      //    CurrencyMapper.mapCurrencyToDb(currencyResponse.asSuccess().data);
-      var dbCurrencies =
-      CurrencyHiveDatabase.mapCurrencyToHive(currencyResponse.asSuccess().data);
-      log('----Saving Currencies to Database');
-      await _databaseSource.saveCurrencies(dbCurrencies);
-      log('----Saved ${dbCurrencies.length} currencies to Database');
-      //create converter
-      var currencies = currencyResponse.asSuccess().data;
-      var converter = await _createConverter(currencies);
-      log('----Return Result From Api');
-      return DataResponse.success(converter);
-    }
     log('----Api Call, Error: ${currencyResponse.asError().errorMessage}');
     return DataResponse.error(currencyResponse.asError().errorMessage);
   }
@@ -60,21 +63,44 @@ class CurrenciesRepository {
     return Converter(currencyTop, currencyDown);
   }
 
-  Future<DataResponse<Converter>> getConverterDat() async {
-    var currenciesData = await _currenciesSource.getCurrencies();
-    if (currenciesData.isSuccess()) {
-      var currencies = currenciesData.asSuccess().data;
-    var idTop = await _preferencesSource.getCurrencyTopId() ?? 0;
-    var idDown = await _preferencesSource.getCurrencyDownId() ?? 1;
-    var currencyTop = currencies.firstWhere((item) => (item.id == idTop));
-    var currencyDown = currencies.firstWhere((item) => (item.id == idDown));
-    return DataResponse.success(Converter(currencyTop, currencyDown));
-  }
-    return DataResponse.error(currenciesData.asError().errorMessage);
-  }
+  // Future<DataResponse<Converter>> getConverterDat() async {
+  //   var currenciesData = await _currenciesSource.getCurrencies();
+  //   if (currenciesData.isSuccess()) {
+  //     var currencies = currenciesData.asSuccess().data;
+  //   var idTop = await _preferencesSource.getCurrencyTopId() ?? 0;
+  //   var idDown = await _preferencesSource.getCurrencyDownId() ?? 1;
+  //   var currencyTop = currencies.firstWhere((item) => (item.id == idTop));
+  //   var currencyDown = currencies.firstWhere((item) => (item.id == idDown));
+  //   return DataResponse.success(Converter(currencyTop, currencyDown));
+  // }
+  //   return DataResponse.error(currenciesData.asError().errorMessage);
+  // }
 
-  Future<DataResponse<List<Currency>>> getCurrenciesList() =>
-      _currenciesSource.getCurrencies();
+  // Future<DataResponse<List<Currency>>> getCurrenciesLists() =>
+  //     _currenciesSource.getCurrencies();
+
+  Future<DataResponse<List<Currency>>> getCurrenciesList() async {
+
+    var currencyResponse = await _currenciesSource.getCurrencies();
+    if (currencyResponse.isSuccess()) {
+      //var dbCurrencies =
+      //    CurrencyHiveDatabase.mapCurrencyToDb(currencyResponse.asSuccess().data);
+      var dbCurrencies =
+      CurrencyHiveDatabase.mapCurrencyToHive(currencyResponse.asSuccess().data);
+      await _databaseSource.clearCurrencies(dbCurrencies);
+      await _databaseSource.saveCurrencies(dbCurrencies);
+      return DataResponse.success(currencyResponse.asSuccess().data);
+    }
+
+    var dbCurrencies = await _databaseSource.getCurrencies();
+    if (dbCurrencies.isNotEmpty) {
+      //var currencies = CurrencyMapper.mapDbToCurrency(dbCurrencies);
+      var currencies = CurrencyHiveDatabase.mapHiveToCurrency(dbCurrencies);
+      return DataResponse.success(currencies);
+    }
+
+    return DataResponse.error(currencyResponse.asError().errorMessage);
+  }
 
   Future<void> updateSelectedCurrencies(int idTop, int idDown) async {
     await _preferencesSource.setCurrencyTopId(idTop);

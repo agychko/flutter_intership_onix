@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -7,6 +8,7 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => SettingsScreenState();
 }
 class SettingsScreenState extends State <SettingsScreen> {
+  String dropdownValue = '15 sec';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,16 +85,22 @@ class SettingsScreenState extends State <SettingsScreen> {
               children: [
                 Expanded(flex: 3, child: Text('Update Interval', style: Theme.of(context).textTheme.headline6)),
                 Expanded(
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      fixedSize: const Size(110, 40),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          side: const BorderSide(color: Colors.grey, width: 0.5)
-                      ),
-                    ),
-                    child: const Text('30 Min', style: TextStyle(fontWeight: FontWeight.bold)),
-                    onPressed: () {},
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    style: const TextStyle(),
+                    elevation: 16,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                      });
+                    },
+                    items: <String>['15 sec', '30 sec', '1 min']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                 ),
               ],

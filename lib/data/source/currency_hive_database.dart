@@ -19,6 +19,12 @@ class CurrencyHiveDatabase {
     var box = await Hive.openBox<CurrencyHiveModel>(_boxName);
     await box.addAll(currencies);
   }
+
+  Future<void> clearCurrencies(List<CurrencyHiveModel> currencies) async {
+    var box = await Hive.openBox<CurrencyHiveModel>(_boxName);
+    await box.deleteAll(box.keys);
+  }
+
   static List<Currency> mapHiveToCurrency(List<CurrencyHiveModel> input) {
     var currencies = input.map((currency) {
       return Currency(
