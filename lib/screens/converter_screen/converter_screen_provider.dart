@@ -2,13 +2,13 @@ import 'package:first/data/model/converter.dart';
 import 'package:first/data/model/currency.dart';
 import 'package:first/data/repository/currencies_repository.dart';
 import 'package:first/data/source/currencies_source.dart';
-import 'package:first/data/source/currency_database.dart';
+import 'package:first/data/source/currency_hive_database.dart';
 import 'package:first/data/source/preferences_source.dart';
 import 'package:flutter/material.dart';
 
 class ConverterScreenProvider extends ChangeNotifier {
   final CurrenciesRepository _currenciesRepository =
-  CurrenciesRepository(CurrenciesSource(), PreferencesSource(), DatabaseSource());
+  CurrenciesRepository(CurrenciesSource(), PreferencesSource(), CurrencyHiveDatabase());
 
   bool isLoading = false;
   String? error;
