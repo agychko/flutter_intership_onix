@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -8,7 +10,9 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => SettingsScreenState();
 }
 class SettingsScreenState extends State <SettingsScreen> {
-  String dropdownValue = '15 sec';
+  int dropdownValue = 15;
+  final now = DateTime.now().millisecondsSinceEpoch;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +29,8 @@ class SettingsScreenState extends State <SettingsScreen> {
           IconButton(
             icon: const Icon(Icons.done),
             onPressed: (){
-              Navigator.pop(context, true);
+              Navigator.pop(context, dropdownValue);
+              log(dropdownValue.toString());
             },
           ),
         ],
@@ -85,22 +90,32 @@ class SettingsScreenState extends State <SettingsScreen> {
               children: [
                 Expanded(flex: 3, child: Text('Update Interval', style: Theme.of(context).textTheme.headline6)),
                 Expanded(
-                  child: DropdownButton<String>(
+                  child: DropdownButton(
                     value: dropdownValue,
-                    style: const TextStyle(),
-                    elevation: 16,
-                    onChanged: (String? newValue) {
+                    // style: const TextStyle(),
+                    items: const [
+                      DropdownMenuItem(
+                          child: Text('15 sec'),
+                        value: 15,
+                      ),
+                      DropdownMenuItem(
+                        child: Text('30 sec'),
+                        value: 30,
+                      ),
+                      DropdownMenuItem(
+                        child: Text('1 min'),
+                        value: 60,
+                      ),
+                    ],
+                    onChanged: (int? newValue) {
                       setState(() {
                         dropdownValue = newValue!;
+                        final updateTime = now+dropdownValue*1000;
+                        print(dropdownValue);
+                        print(now);
+                        print(updateTime);
                       });
                     },
-                    items: <String>['15 sec', '30 sec', '1 min']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
                   ),
                 ),
               ],

@@ -9,9 +9,6 @@ class CurrencyHiveDatabase {
 
   Future<List<CurrencyHiveModel>> getCurrencies() async {
     var box = await Hive.openBox<CurrencyHiveModel>(_boxName);
-    //box.put('asdasda', CurrencyHiveModel(id: 23,name: 'asdsa',symbol: 'sdf',rate: 2.0));
-    //var keys =   box.keys.toList();
-    //print('Curr_keys: ${keys.toString()}');
     return box.values.toList();
   }
 
