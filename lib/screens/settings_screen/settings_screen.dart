@@ -1,6 +1,8 @@
 
-import 'dart:developer';
-
+import 'package:first/data/repository/currencies_repository.dart';
+import 'package:first/data/source/currencies_source.dart';
+import 'package:first/data/source/currency_hive_database.dart';
+import 'package:first/data/source/preferences_source.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -10,8 +12,9 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => SettingsScreenState();
 }
 class SettingsScreenState extends State <SettingsScreen> {
-  int dropdownValue = 15;
-  final now = DateTime.now().millisecondsSinceEpoch;
+  final CurrenciesRepository _currenciesRepository =
+  CurrenciesRepository(CurrenciesSource(), PreferencesSource(), CurrencyHiveDatabase());
+  int _dropdownValue = 60;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +32,7 @@ class SettingsScreenState extends State <SettingsScreen> {
           IconButton(
             icon: const Icon(Icons.done),
             onPressed: (){
-              Navigator.pop(context, dropdownValue);
-              log(dropdownValue.toString());
+              Navigator.pop(context, true);
             },
           ),
         ],
@@ -91,7 +93,9 @@ class SettingsScreenState extends State <SettingsScreen> {
                 Expanded(flex: 3, child: Text('Update Interval', style: Theme.of(context).textTheme.headline6)),
                 Expanded(
                   child: DropdownButton(
-                    value: dropdownValue,
+                    // icon: const Icon(Icons.dangerous),
+                    value: _dropdownValue,
+                    alignment: AlignmentDirectional.center,
                     // style: const TextStyle(),
                     items: const [
                       DropdownMenuItem(
@@ -109,11 +113,9 @@ class SettingsScreenState extends State <SettingsScreen> {
                     ],
                     onChanged: (int? newValue) {
                       setState(() {
-                        dropdownValue = newValue!;
-                        final updateTime = now+dropdownValue*1000;
-                        print(dropdownValue);
-                        print(now);
-                        print(updateTime);
+                        _dropdownValue = newValue!;
+                        var initialTime = DateTime.now().millisecondsSinceEpoch;
+                        _currenciesRepository.updateCurrenciesTimeInterval(_dropdownValue, initialTime);
                       });
                     },
                   ),

@@ -1,5 +1,4 @@
 
-
 import 'dart:developer';
 
 import 'package:first/data/model/converter.dart';
@@ -19,7 +18,25 @@ class CurrenciesRepository {
   Future<DataResponse<Converter>> getConverterData() async {
     //check database
     log('----Start');
+    var dbCurrencies = await _databaseSource.getCurrencies();
+    log('----Checked Database, ${dbCurrencies.length} items in database.');
+    var updateInterval = await _preferencesSource.getUpdateInterval()??60;
+    var updateTime = await _preferencesSource.getUpdateTime()??1644418455937;
+    log('-----Update Interval is $updateInterval second');
+    var dt = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(updateTime.toInt())).inSeconds.toInt();
+    log('-----Last update $dt second ago');
+    if (dbCurrencies.isNotEmpty && dt < updateInterval.toInt()) {
+        //map from db to currency and return result
+        // var currencies = CurrencyMapper.mapDbToCurrency(dbCurrencies);
+        var currencies = CurrencyHiveDatabase.mapHiveToCurrency(dbCurrencies);
+        var converter = await _createConverter(currencies);
+        log('----Return Result From Database');
+        return DataResponse.success(converter);
+    }
     var currencyResponse = await _currenciesSource.getCurrencies();
+    var newUpdateTime = DateTime.now().millisecondsSinceEpoch;
+    await _preferencesSource.setUpdateTime(newUpdateTime);
+    log('-----New Update Time is $newUpdateTime');
     log('----Api Call');
     if (currencyResponse.isSuccess()) {
       //save to db
@@ -38,21 +55,8 @@ class CurrenciesRepository {
       log('----Return Result From Api');
       return DataResponse.success(converter);
     }
-
-    var dbCurrencies = await _databaseSource.getCurrencies();
-    log('----Checked Database, ${dbCurrencies.length} items in database.');
-    if (dbCurrencies.isNotEmpty) {
-
-      //map from db to currency and return result
-      // var currencies = CurrencyMapper.mapDbToCurrency(dbCurrencies);
-      var currencies = CurrencyHiveDatabase.mapHiveToCurrency(dbCurrencies);
-      var converter = await _createConverter(currencies);
-      log('----Return Result From Database');
-      return DataResponse.success(converter);
-    }
-
-    log('----Api Call, Error: ${currencyResponse.asError().errorMessage}');
-    return DataResponse.error(currencyResponse.asError().errorMessage);
+      log('----Api Call, Error: ${currencyResponse.asError().errorMessage}');
+      return DataResponse.error(currencyResponse.asError().errorMessage);
   }
 
   Future<Converter> _createConverter(List<Currency> currencies) async {
@@ -63,24 +67,24 @@ class CurrenciesRepository {
     return Converter(currencyTop, currencyDown);
   }
 
-  // Future<DataResponse<Converter>> getConverterDat() async {
-  //   var currenciesData = await _currenciesSource.getCurrencies();
-  //   if (currenciesData.isSuccess()) {
-  //     var currencies = currenciesData.asSuccess().data;
-  //   var idTop = await _preferencesSource.getCurrencyTopId() ?? 0;
-  //   var idDown = await _preferencesSource.getCurrencyDownId() ?? 1;
-  //   var currencyTop = currencies.firstWhere((item) => (item.id == idTop));
-  //   var currencyDown = currencies.firstWhere((item) => (item.id == idDown));
-  //   return DataResponse.success(Converter(currencyTop, currencyDown));
-  // }
-  //   return DataResponse.error(currenciesData.asError().errorMessage);
-  // }
-
-  // Future<DataResponse<List<Currency>>> getCurrenciesLists() =>
-  //     _currenciesSource.getCurrencies();
-
   Future<DataResponse<List<Currency>>> getCurrenciesList() async {
-
+    log('----Checking the list of currencies');
+    var dbCurrencies = await _databaseSource.getCurrencies();
+    log('----Checked Database, ${dbCurrencies.length} items in database.');
+    var updateInterval = await _preferencesSource.getUpdateInterval()??60;
+    var updateTime = await _preferencesSource.getUpdateTime()??1644418455937;
+    log('-----Update Interval is ${updateInterval.toInt()} second');
+    var dt = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(updateTime.toInt())).inSeconds.toInt();
+    log('-----Last update $dt second ago');
+    if (dbCurrencies.isNotEmpty && dt < updateInterval.toInt()) {
+      //var currencies = CurrencyMapper.mapDbToCurrency(dbCurrencies);
+      var currencies = CurrencyHiveDatabase.mapHiveToCurrency(dbCurrencies);
+      log('----Return Result From Database');
+      return DataResponse.success(currencies);
+    }
+    var newUpdateTime = DateTime.now().millisecondsSinceEpoch;
+    await _preferencesSource.setUpdateTime(newUpdateTime);
+    log('-------------Api Call');
     var currencyResponse = await _currenciesSource.getCurrencies();
     if (currencyResponse.isSuccess()) {
       //var dbCurrencies =
@@ -89,16 +93,10 @@ class CurrenciesRepository {
       CurrencyHiveDatabase.mapCurrencyToHive(currencyResponse.asSuccess().data);
       await _databaseSource.clearCurrencies(dbCurrencies);
       await _databaseSource.saveCurrencies(dbCurrencies);
+      log('----Return Result From Api');
       return DataResponse.success(currencyResponse.asSuccess().data);
     }
-
-    var dbCurrencies = await _databaseSource.getCurrencies();
-    if (dbCurrencies.isNotEmpty) {
-      //var currencies = CurrencyMapper.mapDbToCurrency(dbCurrencies);
-      var currencies = CurrencyHiveDatabase.mapHiveToCurrency(dbCurrencies);
-      return DataResponse.success(currencies);
-    }
-
+    log('----Api Call, Error: ${currencyResponse.asError().errorMessage}');
     return DataResponse.error(currencyResponse.asError().errorMessage);
   }
 
@@ -106,4 +104,10 @@ class CurrenciesRepository {
     await _preferencesSource.setCurrencyTopId(idTop);
     await _preferencesSource.setCurrencyDownId(idDown);
   }
+
+  Future<void> updateCurrenciesTimeInterval(int interval, int time) async {
+    await _preferencesSource.setUpdateInterval(interval);
+    await _preferencesSource.setUpdateTime(time);
+  }
+
 }
