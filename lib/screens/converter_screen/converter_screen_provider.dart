@@ -60,7 +60,7 @@ class ConverterScreenProvider extends ChangeNotifier {
     await _currenciesRepository.updateSelectedCurrencies(
         converter.currencyDown.id, converter.currencyTop.id);
   }
-  void convert() async{
+  void convert() {
   (topController.text=='')?topController.text='0':topController.text=topController.text;
   bottomController.text = (double.parse(topController.text)
       * converter.currencyDown.rate
