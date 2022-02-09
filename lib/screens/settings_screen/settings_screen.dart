@@ -95,31 +95,42 @@ class SettingsScreenState extends State <SettingsScreen> {
                   children: [
                     Expanded(flex: 3, child: Text('Update Interval', style: Theme.of(context).textTheme.headline6)),
                     Expanded(
-                      child: DropdownButton(
-                        value: _dropdownValue,
+                      child: Container (
                         alignment: AlignmentDirectional.center,
-                        items: const [
-                          DropdownMenuItem(
-                              child: Text('15 sec'),
-                            value: 15,
-                          ),
-                          DropdownMenuItem(
-                            child: Text('30 sec'),
-                            value: 30,
-                          ),
-                          DropdownMenuItem(
-                            child: Text('1 min'),
-                            value: 60,
-                          ),
-                        ],
-                        onChanged: (int? newValue) {
-                          setState(() {
-                            _dropdownValue = newValue!;
-                            var initialTime = DateTime.now().millisecondsSinceEpoch;
-                            provider.updateTimeInterval(_dropdownValue, initialTime);
-                            // Provider.of<SettingsScreenProvider>(context, listen: false).updateTimeInterval(_dropdownValue, initialTime);
-                          });
-                        },
+                        decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            side: const BorderSide(color: Colors.grey, width: 0.5)
+                        ),
+                    ),
+                        child: DropdownButton(
+                          value: _dropdownValue,
+                          underline: Container(),
+                          alignment: AlignmentDirectional.centerEnd,
+                          style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                          items: const [
+                            DropdownMenuItem(
+                                child: Text('15 sec'),
+                              value: 15,
+                            ),
+                            DropdownMenuItem(
+                              child: Text('30 sec'),
+                              value: 30,
+                            ),
+                            DropdownMenuItem(
+                              child: Text('1 min'),
+                              value: 60,
+                            ),
+                          ],
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              _dropdownValue = newValue!;
+                              var initialTime = DateTime.now().millisecondsSinceEpoch;
+                              provider.updateTimeInterval(_dropdownValue, initialTime);
+                              // Provider.of<SettingsScreenProvider>(context, listen: false).updateTimeInterval(_dropdownValue, initialTime);
+                            });
+                          },
+                        ),
                       ),
                     ),
                   ],
