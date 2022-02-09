@@ -12,8 +12,6 @@ class SettingsScreen extends StatefulWidget {
 }
 class SettingsScreenState extends State <SettingsScreen> {
 
-  int _dropdownValue = 30;
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -75,7 +73,7 @@ class SettingsScreenState extends State <SettingsScreen> {
             ),
             Consumer <SettingsScreenProvider>(
               builder: (context, provider, child){
-                // int _dropdownValue=provider.updateInterval;
+                int? _dropdownValue=provider.updateInterval;
               return Container(
                 height: 75,
                 margin: const EdgeInsets.all(10),
@@ -124,10 +122,9 @@ class SettingsScreenState extends State <SettingsScreen> {
                           ],
                           onChanged: (int? newValue) {
                             setState(() {
-                              _dropdownValue = newValue!;
+                              provider.updateInterval = newValue!;
                               var initialTime = DateTime.now().millisecondsSinceEpoch;
-                              provider.updateTimeInterval(_dropdownValue, initialTime);
-                              // Provider.of<SettingsScreenProvider>(context, listen: false).updateTimeInterval(_dropdownValue, initialTime);
+                              provider.updateTimeInterval(newValue, initialTime);
                             });
                           },
                         ),

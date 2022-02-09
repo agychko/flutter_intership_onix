@@ -27,7 +27,6 @@ class CurrenciesRepository {
     log('-----Last update $dt second ago');
     if (dbCurrencies.isNotEmpty && dt < updateInterval.toInt()) {
         //map from db to currency and return result
-        // var currencies = CurrencyMapper.mapDbToCurrency(dbCurrencies);
         var currencies = CurrencyHiveDatabase.mapHiveToCurrency(dbCurrencies);
         var converter = await _createConverter(currencies);
         log('----Return Result From Database');
@@ -36,12 +35,10 @@ class CurrenciesRepository {
     var currencyResponse = await _currenciesSource.getCurrencies();
     var newUpdateTime = DateTime.now().millisecondsSinceEpoch;
     await _preferencesSource.setUpdateTime(newUpdateTime);
-    log('-----New Update Time is $newUpdateTime');
+    log('-----New Update Time');
     log('----Api Call');
     if (currencyResponse.isSuccess()) {
       //save to db
-      //var dbCurrencies =
-      //    CurrencyMapper.mapCurrencyToDb(currencyResponse.asSuccess().data);
       var dbCurrencies =
       CurrencyHiveDatabase.mapCurrencyToHive(currencyResponse.asSuccess().data);
       log('----Saving Currencies to Database');
@@ -77,18 +74,16 @@ class CurrenciesRepository {
     var dt = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(updateTime.toInt())).inSeconds.toInt();
     log('-----Last update $dt second ago');
     if (dbCurrencies.isNotEmpty && dt < updateInterval.toInt()) {
-      //var currencies = CurrencyMapper.mapDbToCurrency(dbCurrencies);
       var currencies = CurrencyHiveDatabase.mapHiveToCurrency(dbCurrencies);
       log('----Return Result From Database');
       return DataResponse.success(currencies);
     }
     var newUpdateTime = DateTime.now().millisecondsSinceEpoch;
     await _preferencesSource.setUpdateTime(newUpdateTime);
+    log('-----New Update Time');
     log('-------------Api Call');
     var currencyResponse = await _currenciesSource.getCurrencies();
     if (currencyResponse.isSuccess()) {
-      //var dbCurrencies =
-      //    CurrencyHiveDatabase.mapCurrencyToDb(currencyResponse.asSuccess().data);
       var dbCurrencies =
       CurrencyHiveDatabase.mapCurrencyToHive(currencyResponse.asSuccess().data);
       await _databaseSource.clearCurrencies(dbCurrencies);
@@ -103,11 +98,6 @@ class CurrenciesRepository {
   Future<void> updateSelectedCurrencies(int idTop, int idDown) async {
     await _preferencesSource.setCurrencyTopId(idTop);
     await _preferencesSource.setCurrencyDownId(idDown);
-  }
-
-  Future<void> updateCurrenciesTimeInterval(int interval, int time) async {
-    await _preferencesSource.setUpdateInterval(interval);
-    await _preferencesSource.setUpdateTime(time);
   }
 
 }

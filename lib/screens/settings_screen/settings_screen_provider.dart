@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class SettingsScreenProvider extends ChangeNotifier {
   final PreferencesSource _preferencesSource = PreferencesSource();
-  late int updateInterval;
+  int? updateInterval;
 
   SettingsScreenProvider(){
     getUpdateInterval();
