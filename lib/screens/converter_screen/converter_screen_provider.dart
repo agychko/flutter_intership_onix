@@ -2,12 +2,13 @@ import 'package:first/data/model/converter.dart';
 import 'package:first/data/model/currency.dart';
 import 'package:first/data/repository/currencies_repository.dart';
 import 'package:first/data/source/currencies_source.dart';
+import 'package:first/data/source/currency_hive_database.dart';
 import 'package:first/data/source/preferences_source.dart';
 import 'package:flutter/material.dart';
 
 class ConverterScreenProvider extends ChangeNotifier {
   final CurrenciesRepository _currenciesRepository =
-  CurrenciesRepository(CurrenciesSource(), PreferencesSource());
+  CurrenciesRepository(CurrenciesSource(), PreferencesSource(), CurrencyHiveDatabase());
 
   bool isLoading = false;
   String? error;
@@ -59,7 +60,7 @@ class ConverterScreenProvider extends ChangeNotifier {
     await _currenciesRepository.updateSelectedCurrencies(
         converter.currencyDown.id, converter.currencyTop.id);
   }
-  void convert() async{
+  void convert() {
   (topController.text=='')?topController.text='0':topController.text=topController.text;
   bottomController.text = (double.parse(topController.text)
       * converter.currencyDown.rate

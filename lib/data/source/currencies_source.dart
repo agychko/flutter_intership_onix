@@ -30,7 +30,7 @@ class CurrenciesSource {
                 0,
                 'https://flagcdn.com/w80/ua.png',
                 '₴',
-                'Ukrainian hryvna',
+                'Ukrainian Hryvna',
                 'UAH',
                 rates.uAH!.toDouble()
             ),
@@ -47,7 +47,7 @@ class CurrenciesSource {
                 2,
                 'https://flagcdn.com/w80/us.png',
                 '\$',
-                'American dollar',
+                'American Dollar',
                 'USD',
                 rates.uSD!.toDouble()
             ),
@@ -55,20 +55,28 @@ class CurrenciesSource {
                     3,
                     'https://flagcdn.com/w80/pl.png',
                     'zł',
-                    'Polish zloty',
+                    'Polish Zloty',
                     'PLN',
                     rates.pLN!.toDouble()
                 ),
                 Currency(
                     4,
+                    'https://flagcdn.com/w80/cz.png',
+                    'Kč',
+                    'Czech Crown',
+                    'CZK',
+                    rates.cZK!.toDouble()
+                ),
+                Currency(
+                    5,
                     'https://flagcdn.com/w80/ru.png',
                     '₽',
-                    'Russian ruble',
+                    'Russian Ruble',
                     'RUB',
                     rates.rUB!.toDouble()
                 ),
                 Currency(
-                    5,
+                    6,
                     'https://flagcdn.com/w80/gb.png',
                     '£',
                     'Pound Sterling',
@@ -76,34 +84,34 @@ class CurrenciesSource {
                     rates.gBP!.toDouble()
                 ),
                 Currency(
-                    6,
+                    7,
                     'https://flagcdn.com/w80/ca.png',
                     'C\$',
-                    'Canadian dollar',
+                    'Canadian Dollar',
                     'CAD',
                     rates.cAD!.toDouble()
                 ),
                 Currency(
-                    7,
+                    8,
                     'https://flagcdn.com/w80/au.png',
                     'A\$',
-                    'Australian dollar',
+                    'Australian Dollar',
                     'AUD',
                     rates.aUD!.toDouble()
                 ),
                 Currency(
-                    8,
+                    9,
                     'https://flagcdn.com/w80/jp.png',
                     '¥',
-                    'Japanese yen',
+                    'Japanese Yen',
                     'JPY',
                     rates.jPY!.toDouble()
                 ),
                 Currency(
-                    9,
+                    10,
                     'https://flagcdn.com/w80/cn.png',
                     '¥',
-                    'Chinese yuan',
+                    'Chinese Yuan',
                     'CNY',
                     rates.cNY!.toDouble()
                 ),

@@ -1,4 +1,8 @@
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'settings_screen_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen ({Key? key}): super (key:key);
@@ -7,132 +11,166 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => SettingsScreenState();
 }
 class SettingsScreenState extends State <SettingsScreen> {
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading:  IconButton(
-            icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const Text('Setting'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.done),
-            onPressed: (){
-              Navigator.pop(context, true);
+    return ChangeNotifierProvider(
+      create: (context) => SettingsScreenProvider(),
+      child: Scaffold(
+        appBar: AppBar(
+          leading:  IconButton(
+              icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
             },
           ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Container(
-            height: 75,
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-            decoration: ShapeDecoration(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-              shadows: const [BoxShadow(
-                  color: Colors.grey,
-                blurRadius: 1,
-                offset: Offset(-1, 2)
-              )],
+          title: const Text('Setting'),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.done),
+              onPressed: (){
+                Navigator.pop(context, true);
+              },
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                Expanded(flex: 3, child: Text('Theme', style: Theme.of(context).textTheme.headline6,)),
-              Expanded(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    fixedSize: const Size(110, 40),
-                    shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                            side: const BorderSide(color: Colors.grey, width: 0.5)
-                    ),
-                  ),
-                  child: const Text('Light', style: TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: () {},
-                ),
+          ],
+        ),
+        body: Column(
+          children: [
+            Container(
+              height: 75,
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                shadows: const [BoxShadow(
+                    color: Colors.grey,
+                  blurRadius: 1,
+                  offset: Offset(-1, 2)
+                )],
               ),
-        ],
-            ),
-          ),
-          Container(
-            height: 75,
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-            decoration: ShapeDecoration(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-              shadows: const [BoxShadow(
-                  color: Colors.grey,
-                  blurRadius: 1,
-                  offset: Offset(-1, 2)
-              )],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(flex: 3, child: Text('Update Interval', style: Theme.of(context).textTheme.headline6)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                  Expanded(flex: 3, child: Text('Theme', style: Theme.of(context).textTheme.headline6,)),
                 Expanded(
                   child: TextButton(
                     style: TextButton.styleFrom(
                       fixedSize: const Size(110, 40),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          side: const BorderSide(color: Colors.grey, width: 0.5)
+                            borderRadius: BorderRadius.circular(5),
+                              side: const BorderSide(color: Colors.grey, width: 0.5)
                       ),
                     ),
-                    child: const Text('30 Min', style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: const Text('Light', style: TextStyle(fontWeight: FontWeight.bold)),
                     onPressed: () {},
                   ),
                 ),
-              ],
+          ],
+              ),
             ),
-          ),
-          Container(
-            height: 75,
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-            decoration: ShapeDecoration(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-              shadows: const [BoxShadow(
-                  color: Colors.grey,
-                  blurRadius: 1,
-                  offset: Offset(-1, 2)
-              )],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(flex: 3, child: Text('Language', style: Theme.of(context).textTheme.headline6)),
-                Expanded(
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      fixedSize: const Size(110, 40),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          side: const BorderSide(color: Colors.grey, width: 0.5)
+            Consumer <SettingsScreenProvider>(
+              builder: (context, provider, child){
+                int? _dropdownValue=provider.updateInterval;
+              return Container(
+                height: 75,
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                  shadows: const [BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 1,
+                      offset: Offset(-1, 2)
+                  )],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(flex: 3, child: Text('Update Interval', style: Theme.of(context).textTheme.headline6)),
+                    Expanded(
+                      child: Container (
+                        alignment: AlignmentDirectional.center,
+                        decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            side: const BorderSide(color: Colors.grey, width: 0.5)
+                        ),
+                    ),
+                        child: DropdownButton(
+                          value: _dropdownValue,
+                          underline: Container(),
+                          alignment: AlignmentDirectional.centerEnd,
+                          style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                          items: const [
+                            DropdownMenuItem(
+                                child: Text('15 sec'),
+                              value: 15,
+                            ),
+                            DropdownMenuItem(
+                              child: Text('30 sec'),
+                              value: 30,
+                            ),
+                            DropdownMenuItem(
+                              child: Text('1 min'),
+                              value: 60,
+                            ),
+                          ],
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              provider.updateInterval = newValue!;
+                              var initialTime = DateTime.now().millisecondsSinceEpoch;
+                              provider.updateTimeInterval(newValue, initialTime);
+                            });
+                          },
+                        ),
                       ),
                     ),
-                    child: const Text('English', style: TextStyle(fontWeight: FontWeight.bold)),
-                    onPressed: () {},
-                  ),
+                  ],
                 ),
-              ],
+              );
+  }
             ),
-          )
-        ],
+            Container(
+              height: 75,
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                shadows: const [BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 1,
+                    offset: Offset(-1, 2)
+                )],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(flex: 3, child: Text('Language', style: Theme.of(context).textTheme.headline6)),
+                  Expanded(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        fixedSize: const Size(110, 40),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            side: const BorderSide(color: Colors.grey, width: 0.5)
+                        ),
+                      ),
+                      child: const Text('English', style: TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

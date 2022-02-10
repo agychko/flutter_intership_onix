@@ -17,8 +17,8 @@ class CurrencyItem extends StatelessWidget{
           child: Image.network(currency.flag, fit: BoxFit.fill),
         ),
       ),
-      title: Text(currency.name),
-      subtitle: Text(currency.symbol),
+      title: Text('${currency.name} (${currency.symbol})'),
+      subtitle: Text('1 EUR = ${currency.rate.toStringAsFixed(2)} ${currency.symbol}'),
       trailing: IconButton(
         icon: const Icon(Icons.arrow_forward_ios),
         onPressed:(){
