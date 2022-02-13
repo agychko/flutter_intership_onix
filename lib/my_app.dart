@@ -1,8 +1,9 @@
 
 import 'package:first/screens/converter_screen/converter_screen.dart';
-import 'package:first/screens/converter_screen/converter_screen_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'screens/converter_screen/converter_bloc/converter_bloc.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -59,8 +60,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: ChangeNotifierProvider(
-          create: (context) => ConverterScreenProvider(),
+      home: BlocProvider(
+          create: (context) => ConverterBloc(),
           child: const ConverterScreen()
       ),
     );
