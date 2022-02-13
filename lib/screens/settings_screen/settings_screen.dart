@@ -1,7 +1,7 @@
 
+import 'package:first/screens/settings_screen/settings_bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'settings_screen_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen ({Key? key}): super (key:key);
@@ -13,8 +13,8 @@ class SettingsScreenState extends State <SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => SettingsScreenProvider(),
+    return BlocProvider(
+      create: (context) => SettingsBloc(),
       child: Scaffold(
         appBar: AppBar(
           leading:  IconButton(
@@ -70,9 +70,8 @@ class SettingsScreenState extends State <SettingsScreen> {
           ],
               ),
             ),
-            Consumer <SettingsScreenProvider>(
-              builder: (context, provider, child){
-                int? _dropdownValue=provider.updateInterval;
+            BlocBuilder<SettingsBloc, SettingsState>(
+              builder: (context, state){
               return Container(
                 height: 75,
                 margin: const EdgeInsets.all(10),
@@ -101,7 +100,7 @@ class SettingsScreenState extends State <SettingsScreen> {
                         ),
                     ),
                         child: DropdownButton(
-                          value: _dropdownValue,
+                          value: context.read<SettingsBloc>().updateInterval,
                           underline: Container(),
                           alignment: AlignmentDirectional.centerEnd,
                           style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
@@ -121,9 +120,9 @@ class SettingsScreenState extends State <SettingsScreen> {
                           ],
                           onChanged: (int? newValue) {
                             setState(() {
-                              provider.updateInterval = newValue!;
+                              context.read<SettingsBloc>().updateInterval = newValue!;
                               var initialTime = DateTime.now().millisecondsSinceEpoch;
-                              provider.updateTimeInterval(newValue, initialTime);
+                              context.read<SettingsBloc>().add(UpdateTimeInterval(newValue, initialTime));
                             });
                           },
                         ),
