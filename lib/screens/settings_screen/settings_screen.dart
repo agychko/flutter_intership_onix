@@ -1,15 +1,19 @@
-
 import 'package:first/screens/settings_screen/settings_bloc/settings_bloc.dart';
+import 'package:first/screens/settings_screen/settings_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen ({Key? key}): super (key:key);
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => SettingsScreenState();
 }
-class SettingsScreenState extends State <SettingsScreen> {
+
+class SettingsScreenState extends State<SettingsScreen> {
+
+  int language = 1;
+  int theme = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +21,8 @@ class SettingsScreenState extends State <SettingsScreen> {
       create: (context) => SettingsBloc(),
       child: Scaffold(
         appBar: AppBar(
-          leading:  IconButton(
-              icon: const Icon(Icons.arrow_back),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -28,7 +32,7 @@ class SettingsScreenState extends State <SettingsScreen> {
           actions: [
             IconButton(
               icon: const Icon(Icons.done),
-              onPressed: (){
+              onPressed: () {
                 Navigator.pop(context, true);
               },
             ),
@@ -36,137 +40,78 @@ class SettingsScreenState extends State <SettingsScreen> {
         ),
         body: Column(
           children: [
-            Container(
-              height: 75,
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-              decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                shadows: const [BoxShadow(
-                    color: Colors.grey,
-                  blurRadius: 1,
-                  offset: Offset(-1, 2)
-                )],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                  Expanded(flex: 3, child: Text('Theme', style: Theme.of(context).textTheme.headline6,)),
-                Expanded(
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      fixedSize: const Size(110, 40),
-                      shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                              side: const BorderSide(color: Colors.grey, width: 0.5)
-                      ),
-                    ),
-                    child: const Text('Light', style: TextStyle(fontWeight: FontWeight.bold)),
-                    onPressed: () {},
+            SettingsMenuItem(
+                nameMenuItem: 'Theme',
+                dropdownValue: theme,
+                dropdownItem: const [
+                  DropdownMenuItem(
+                    child: Text('Light'),
+                    value: 1,
                   ),
-                ),
-          ],
-              ),
-            ),
-            BlocBuilder<SettingsBloc, SettingsState>(
-              builder: (context, state){
-              return Container(
-                height: 75,
-                margin: const EdgeInsets.all(10),
-                padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                decoration: ShapeDecoration(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                  shadows: const [BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 1,
-                      offset: Offset(-1, 2)
-                  )],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(flex: 3, child: Text('Update Interval', style: Theme.of(context).textTheme.headline6)),
-                    Expanded(
-                      child: Container (
-                        alignment: AlignmentDirectional.center,
-                        decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            side: const BorderSide(color: Colors.grey, width: 0.5)
-                        ),
-                    ),
-                        child: DropdownButton(
-                          value: context.read<SettingsBloc>().updateInterval,
-                          underline: Container(),
-                          alignment: AlignmentDirectional.centerEnd,
-                          style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                          items: const [
-                            DropdownMenuItem(
-                                child: Text('15 sec'),
-                              value: 15,
-                            ),
-                            DropdownMenuItem(
-                              child: Text('30 sec'),
-                              value: 30,
-                            ),
-                            DropdownMenuItem(
-                              child: Text('1 min'),
-                              value: 60,
-                            ),
-                          ],
-                          onChanged: (int? newValue) {
-                            setState(() {
-                              context.read<SettingsBloc>().updateInterval = newValue!;
-                              var initialTime = DateTime.now().millisecondsSinceEpoch;
-                              context.read<SettingsBloc>().add(UpdateTimeInterval(newValue, initialTime));
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-  }
-            ),
-            Container(
-              height: 75,
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-              decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                shadows: const [BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 1,
-                    offset: Offset(-1, 2)
-                )],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(flex: 3, child: Text('Language', style: Theme.of(context).textTheme.headline6)),
-                  Expanded(
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        fixedSize: const Size(110, 40),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            side: const BorderSide(color: Colors.grey, width: 0.5)
-                        ),
-                      ),
-                      child: const Text('English', style: TextStyle(fontWeight: FontWeight.bold)),
-                      onPressed: () {},
-                    ),
+                  DropdownMenuItem(
+                    child: Text('Dark'),
+                    value: 2,
                   ),
                 ],
-              ),
-            )
+                onChanged: (newValue){
+                  setState(() {
+                    theme = newValue!;
+                  });
+                },
+            ),
+            BlocBuilder<SettingsBloc, SettingsState>(builder: (context, state) {
+              return SettingsMenuItem(
+                nameMenuItem: 'Update Interval',
+                  dropdownItem: const [
+                    DropdownMenuItem(
+                        child: Text('15 sec'),
+                      value: 15,
+                    ),
+                    DropdownMenuItem(
+                        child: Text('30 sec'),
+                      value: 30,
+                    ),
+                    DropdownMenuItem(
+                      child: Text('1 min'),
+                      value: 60,
+                    )
+                  ],
+                  dropdownValue: context.read<SettingsBloc>().updateInterval,
+                  onChanged: (newValue) {
+                    setState(() {
+                      context.read<SettingsBloc>().updateInterval =
+                      newValue!;
+                      var initialTime =
+                          DateTime.now().millisecondsSinceEpoch;
+                      context.read<SettingsBloc>().add(
+                          UpdateTimeInterval(newValue, initialTime));
+                    });
+                  },
+              );
+            }),
+            SettingsMenuItem(
+                nameMenuItem: 'Language',
+                dropdownValue: language,
+                dropdownItem: const [
+                  DropdownMenuItem(
+                      child: Text('English'),
+                    value: 1,
+                  ),
+                  DropdownMenuItem(
+                      child: Text('Русский'),
+                    value: 2,
+                  ),
+                  DropdownMenuItem(
+                      child: Text('Українська'),
+                    value: 3,
+                  ),
+                ],
+                onChanged: (newValue){
+                  setState(() {
+                    language = newValue!;
+                  });
+                },
+            ),
           ],
         ),
       ),
