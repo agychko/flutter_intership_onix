@@ -71,9 +71,11 @@ class ConverterScreenState extends State<ConverterScreen> {
                             controller: context.read<ConverterBloc>().topController,
                             onChanged: (currency) {
                               context.read<ConverterBloc>().add(CurrencyTopChanged(currency));
-                            },);
+                            },
+                            onInputValueChanged: (value) {context.read<ConverterBloc>().add(Convert(value));},
+                          );
                       }
-                      return const Text('404');
+                      return const Center(child:  Text('Internal Error'));
                     }
                   ),
                 ),
@@ -83,15 +85,15 @@ class ConverterScreenState extends State<ConverterScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<ConverterBloc>().add(Convert());
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(8),
-                      ),
-                      child: const Text('=', style: TextStyle(fontSize: 30)),
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     context.read<ConverterBloc>().add(Convert());
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     padding: const EdgeInsets.all(8),
+                    //   ),
+                    //   child: const Text('=', style: TextStyle(fontSize: 30)),
+                    // ),
                     ElevatedButton(
                       onPressed: () {
                         context.read<ConverterBloc>().add(SwitchCurrencies());
@@ -132,11 +134,11 @@ class ConverterScreenState extends State<ConverterScreen> {
                             CurrencyCard(currency: state.converter.currencyDown,
                               controller: context.read<ConverterBloc>().bottomController,
                               onChanged: (currency) {
-                                context.read<ConverterBloc>().add(CurrencyDownChanged(currency));
-                              },
+                                context.read<ConverterBloc>().add(CurrencyDownChanged(currency));},
+                              onInputValueChanged: (value) {context.read<ConverterBloc>().add(ConvertBack(value));},
                             );
                         }
-                        return const Text('404');
+                        return const Center(child: Text('Internal Error'));
                       }
                   ),
                 ),

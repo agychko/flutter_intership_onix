@@ -41,6 +41,9 @@ class CurrenciesScreenState extends State<CurrenciesScreen> {
               );
             }
             if (state is CurrenciesSuccess) {
+              if (state.currencies.isEmpty) {
+                return const Center(child: Text('No Currencies Found'));
+              }
               return ListView.separated(
                   separatorBuilder: (context, index) => const Divider(
                         color: Colors.grey,

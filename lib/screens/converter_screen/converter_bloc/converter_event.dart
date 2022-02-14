@@ -21,4 +21,11 @@ class CurrencyDownChanged extends ConverterEvent{
 
 class SwitchCurrencies extends ConverterEvent{}
 
-class Convert extends ConverterEvent{}
+class Convert extends ConverterEvent{
+  final String value;
+  Convert(this.value);
+}
+class ConvertBack extends ConverterEvent{
+  final String value;
+  ConvertBack(this.value);
+}

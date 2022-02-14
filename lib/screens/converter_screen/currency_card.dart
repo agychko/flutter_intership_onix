@@ -4,10 +4,11 @@ import 'package:first/screens/currencies_screen/currencies_screen.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyCard extends StatefulWidget {
-  const CurrencyCard({Key? key, required this.currency, required this.onChanged, required this.controller}) : super(key: key);
+  const CurrencyCard({Key? key, required this.currency, required this.onChanged, required this.controller, required this.onInputValueChanged}) : super(key: key);
   final Currency currency;
   final TextEditingController controller;
   final CurrencyCallback onChanged;
+  final InputValueChangedCallback onInputValueChanged;
 
   @override
   State<CurrencyCard> createState() => _CurrencyCardState();
@@ -53,6 +54,7 @@ class _CurrencyCardState extends State<CurrencyCard> {
             padding:
             const EdgeInsets.fromLTRB(16, 0, 5, 10),
             child: TextField(
+              onChanged: widget.onInputValueChanged,
               controller: widget.controller,
               keyboardType: TextInputType.number,
               style:
