@@ -1,9 +1,9 @@
+import 'package:first/screens/converter_screen/converter_bloc/converter_bloc.dart';
 import 'package:first/screens/error_message/error_message.dart';
-import 'package:first/screens/converter_screen/converter_screen_provider.dart';
 import 'package:first/screens/converter_screen/currency_card.dart';
 import 'package:first/screens/settings_screen/settings_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ConverterScreen extends StatefulWidget {
   const ConverterScreen({Key? key}) : super(key: key);
@@ -51,26 +51,31 @@ class ConverterScreenState extends State<ConverterScreen> {
                 child: SizedBox(
                   width: double.infinity,
                   height: 200,
-                  child: Consumer<ConverterScreenProvider>(
-                    builder: (context, provider, child) {
-                      if (provider.isLoading) {
+                  child: BlocBuilder<ConverterBloc, ConverterState>(
+                    builder: (context, state) {
+                      if (state is ConverterLoading) {
                         return
                           // Container();
                           const Center(child: CircularProgressIndicator());
                       }
-                      if (provider.error != null) {
+                      if (state is ConverterError) {
                         return
                           ErrorMessage(
-                          error: provider.error ?? '',
-                          onTap: () => provider.getConverterData(),
+                          error: state.error,
+                          onTap: () => context.read<ConverterBloc>().add(GetConverterData()),
                         );
                       }
-                      return
-                      CurrencyCard(currency:provider.converter.currencyTop,
-                        controller: provider.topController,
-                        onChanged: (currency) {
-                        provider.currencyTopChanged(currency);
-                        },);
+                      if (state is ConverterSuccess) {
+                        return
+                          CurrencyCard(currency: state.converter.currencyTop,
+                            controller: context.read<ConverterBloc>().topController,
+                            onChanged: (currency) {
+                              context.read<ConverterBloc>().add(CurrencyTopChanged(currency));
+                            },
+                            onInputValueChanged: (value) {context.read<ConverterBloc>().add(Convert(value));},
+                          );
+                      }
+                      return const Center(child:  Text('Internal Error'));
                     }
                   ),
                 ),
@@ -80,18 +85,18 @@ class ConverterScreenState extends State<ConverterScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     context.read<ConverterBloc>().add(Convert());
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     padding: const EdgeInsets.all(8),
+                    //   ),
+                    //   child: const Text('=', style: TextStyle(fontSize: 30)),
+                    // ),
                     ElevatedButton(
                       onPressed: () {
-                        Provider.of<ConverterScreenProvider>(context, listen: false).convert();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(8),
-                      ),
-                      child: const Text('=', style: TextStyle(fontSize: 30)),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Provider.of<ConverterScreenProvider>(context, listen: false).switchCurrencies();
+                        context.read<ConverterBloc>().add(SwitchCurrencies());
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(14),
@@ -110,27 +115,30 @@ class ConverterScreenState extends State<ConverterScreen> {
                 child: SizedBox(
                   width: double.infinity,
                   height: 200,
-                  child: Consumer<ConverterScreenProvider>(
-                      builder: (context, provider, child) {
-                        if (provider.isLoading) {
+                  child: BlocBuilder<ConverterBloc, ConverterState>(
+                      builder: (context, state) {
+                        if (state is ConverterLoading) {
                           return
                             // Container();
                             const Center(child: CircularProgressIndicator());
                         }
-                        if (provider.error != null) {
+                        if (state is ConverterError) {
                           return
                             ErrorMessage(
-                              error: provider.error ?? '',
-                              onTap: () => provider.getConverterData(),
+                              error: state.error,
+                              onTap: () => context.read<ConverterBloc>().add(GetConverterData()),
                             );
                         }
-                        return
-                          CurrencyCard(currency:provider.converter.currencyDown,
-                            controller: provider.bottomController,
-                            onChanged: (currency ) {
-                            provider.currencyDownChanged(currency);
-                            },
-                          );
+                        if (state is ConverterSuccess) {
+                          return
+                            CurrencyCard(currency: state.converter.currencyDown,
+                              controller: context.read<ConverterBloc>().bottomController,
+                              onChanged: (currency) {
+                                context.read<ConverterBloc>().add(CurrencyDownChanged(currency));},
+                              onInputValueChanged: (value) {context.read<ConverterBloc>().add(ConvertBack(value));},
+                            );
+                        }
+                        return const Center(child: Text('Internal Error'));
                       }
                   ),
                 ),

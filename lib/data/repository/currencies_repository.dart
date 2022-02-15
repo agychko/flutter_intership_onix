@@ -20,7 +20,7 @@ class CurrenciesRepository {
     log('----Start');
     var dbCurrencies = await _databaseSource.getCurrencies();
     log('----Checked Database, ${dbCurrencies.length} items in database.');
-    var updateInterval = await _preferencesSource.getUpdateInterval()??60;
+    var updateInterval = await _preferencesSource.getUpdateInterval()??15;
     var updateTime = await _preferencesSource.getUpdateTime()??1644418455937;
     log('-----Update Interval is $updateInterval second');
     var dt = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(updateTime.toInt())).inSeconds.toInt();
@@ -68,7 +68,7 @@ class CurrenciesRepository {
     log('----Checking the list of currencies');
     var dbCurrencies = await _databaseSource.getCurrencies();
     log('----Checked Database, ${dbCurrencies.length} items in database.');
-    var updateInterval = await _preferencesSource.getUpdateInterval()??60;
+    var updateInterval = await _preferencesSource.getUpdateInterval()??15;
     var updateTime = await _preferencesSource.getUpdateTime()??1644418455937;
     log('-----Update Interval is ${updateInterval.toInt()} second');
     var dt = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(updateTime.toInt())).inSeconds.toInt();

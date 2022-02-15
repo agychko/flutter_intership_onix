@@ -1,26 +1,24 @@
-
+import 'package:first/screens/currencies_screen/currencies_bloc/currencies_bloc.dart';
 import 'package:first/screens/currencies_screen/currency_item.dart';
 import 'package:first/screens/error_message/error_message.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'currencies_screen_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CurrenciesScreen extends StatefulWidget {
-  const CurrenciesScreen ({Key? key}) : super(key: key);
+  const CurrenciesScreen({Key? key}) : super(key: key);
 
   @override
   State<CurrenciesScreen> createState() => CurrenciesScreenState();
 }
-class CurrenciesScreenState extends State<CurrenciesScreen> {
 
+class CurrenciesScreenState extends State<CurrenciesScreen> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => CurrenciesScreenProvider(),
+    return BlocProvider(
+      create: (context) => CurrenciesBloc(),
       child: Scaffold(
         appBar: AppBar(
-          leading:  IconButton(
+          leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
@@ -29,36 +27,42 @@ class CurrenciesScreenState extends State<CurrenciesScreen> {
           title: const Text('Currencies'),
           centerTitle: true,
         ),
-
-        body: Consumer<CurrenciesScreenProvider>(
-          builder: (context, provider, child) {
-            if (provider.isLoading) {
+        body: BlocBuilder<CurrenciesBloc, CurrenciesState>(
+          // listener: (context, state) {},
+          builder: (context, state) {
+            if (state is CurrenciesLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-            if (provider.error != null) {
+            if (state is CurrenciesError) {
               return ErrorMessage(
-                error: provider.error ?? '',
-                onTap: () => provider.getCurrencyList(),
+                error: state.error,
+                onTap: () =>
+                    context.read<CurrenciesBloc>().add(GetCurrencyList()),
               );
             }
-            if (provider.currencies.isEmpty) {
-              return const Center(child: Text('No Currencies Found'));
-            }
-            return
-              ListView.separated(
-                  separatorBuilder: (context, index)=>const Divider(
-                    color: Colors.grey, height: 40, thickness: 0.5, indent: 20, endIndent: 20,
-                  ),
-                  itemCount: provider.currencies.length,
-                  itemBuilder: (context, index){
+            if (state is CurrenciesSuccess) {
+              if (state.currencies.isEmpty) {
+                return const Center(child: Text('No Currencies Found'));
+              }
+              return ListView.separated(
+                  separatorBuilder: (context, index) => const Divider(
+                        color: Colors.grey,
+                        height: 40,
+                        thickness: 0.5,
+                        indent: 20,
+                        endIndent: 20,
+                      ),
+                  itemCount: state.currencies.length,
+                  itemBuilder: (context, index) {
                     return CurrencyItem(
-                        currency: provider.currencies[index],
-                        onSelected: (currency) {
-                          Navigator.pop(context, currency);
-                        },
+                      currency: state.currencies[index],
+                      onSelected: (currency) {
+                        Navigator.pop(context, currency);
+                      },
                     );
-                  }
-              );
+                  });
+            }
+            return const Text('404');
           },
         ),
       ),
