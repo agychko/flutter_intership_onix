@@ -28,51 +28,53 @@ class _CurrencyCardState extends State<CurrencyCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(5, 30, 5, 30),
-      child: Column(
-        children: [
-          ListTile(
-            leading: SizedBox(
-              height: 70,
-              width: 70,
-              child: Card(
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.network(widget.currency.flag, fit: BoxFit.fill,),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(5, 30, 5, 30),
+        child: Column(
+          children: [
+            ListTile(
+              leading: SizedBox(
+                height: 70,
+                width: 70,
+                child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    child: Image.network(widget.currency.flag, fit: BoxFit.fill,),
+                ),
+              ),
+              title: Text(widget.currency.symbol),
+              subtitle: Text(widget.currency.name),
+              trailing: IconButton(
+                icon: const Icon(Icons.arrow_forward_ios),
+                onPressed: ()  {
+                  _onChangeCurrencyPressed(context);
+                },
               ),
             ),
-            title: Text(widget.currency.symbol),
-            subtitle: Text(widget.currency.name),
-            trailing: IconButton(
-              icon: const Icon(Icons.arrow_forward_ios),
-              onPressed: ()  {
-                _onChangeCurrencyPressed(context);
-              },
-            ),
-          ),
-          Padding(
-            padding:
-            const EdgeInsets.fromLTRB(16, 0, 5, 10),
-            child: TextField(
-              onChanged: widget.onInputValueChanged,
-              controller: widget.controller,
-              keyboardType: TextInputType.number,
-              style:
-              Theme.of(context).textTheme.headline5,
-              decoration: InputDecoration(
-                suffixIconConstraints:
-                const BoxConstraints(
-                    minHeight: 18, minWidth: 18),
-                suffixText: widget.currency.icon,
-                hintText: '0.00',
-                hintStyle: Theme.of(context)
-                    .textTheme
-                    .headline5,
-              ),
+            Padding(
+              padding:
+              const EdgeInsets.fromLTRB(16, 0, 5, 10),
+              child: TextField(
+                onChanged: widget.onInputValueChanged,
+                controller: widget.controller,
+                keyboardType: TextInputType.number,
+                style:
+                Theme.of(context).textTheme.headline5,
+                decoration: InputDecoration(
+                  suffixIconConstraints:
+                  const BoxConstraints(
+                      minHeight: 18, minWidth: 18),
+                  suffixText: widget.currency.icon,
+                  hintText: '0.00',
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .headline5,
+                ),
 
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
