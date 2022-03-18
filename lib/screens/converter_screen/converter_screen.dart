@@ -17,6 +17,7 @@ class ConverterScreenState extends State<ConverterScreen>
   late AnimationController _animationController;
   late Animation<Offset> _topAnimation;
   late Animation<Offset> _bottomAnimation;
+  late Animation<Offset> _animation;
 
   @override
   void initState (){
@@ -131,9 +132,18 @@ class ConverterScreenState extends State<ConverterScreen>
                     // ),
                     ElevatedButton(
                       onPressed: () {
-                        // _animationController.reverse();
-                        context.read<ConverterBloc>().add(SwitchCurrencies());
-                        // _animationController.forward();
+                        if (_animationController.isCompleted) {
+                          _animation=_bottomAnimation;
+                          _bottomAnimation=_topAnimation;
+                          _topAnimation=_animation;
+                          context.read<ConverterBloc>().add(SwitchCurrencies());
+                          _animationController.reverse();
+                        } else {
+                          _animation=_bottomAnimation;
+                          _bottomAnimation=_topAnimation;
+                          _topAnimation=_animation;
+                          _animationController.forward();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(14),
