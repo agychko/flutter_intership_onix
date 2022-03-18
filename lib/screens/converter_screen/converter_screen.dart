@@ -12,7 +12,28 @@ class ConverterScreen extends StatefulWidget {
   State<ConverterScreen> createState() => ConverterScreenState();
 }
 
-class ConverterScreenState extends State<ConverterScreen> {
+class ConverterScreenState extends State<ConverterScreen>
+  with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+
+  @override
+  void initState (){
+    super.initState();
+    _animationController=AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1000));
+    _animationController.addListener(() {
+      print('animationListener::value: ${_animationController.value}');
+    });
+    _animationController.addStatusListener((status) {
+      print('statusListener::value: $status');
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
