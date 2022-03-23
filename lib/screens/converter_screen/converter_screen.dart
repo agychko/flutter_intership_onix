@@ -17,30 +17,29 @@ class ConverterScreenState extends State<ConverterScreen>
   late AnimationController _animationController;
   late Animation<Offset> _topAnimation;
   late Animation<Offset> _bottomAnimation;
-  late Animation<Offset> _animation;
 
   @override
   void initState (){
     super.initState();
     _animationController=AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 3000));
+        vsync: this, duration: const Duration(milliseconds: 2000));
     _topAnimation = Tween<Offset>(
       begin: const Offset(-1.5, 0.0),
-      end: Offset.zero,
+      end: const Offset(1.5, 0.0),
     ).animate(CurvedAnimation(
       parent: _animationController,
-      curve: Curves.bounceIn,
+      curve: Curves.linear,
     ));
 
     _bottomAnimation = Tween<Offset>(
       begin: const Offset(1.5, 0.0),
-      end: Offset.zero,
+      end: const Offset(-1.5,0.0),
     ).animate(CurvedAnimation(
       parent: _animationController,
-      curve: Curves.bounceIn,
+      curve: Curves.linear,
     ));
+    _animationController.addStatusListener((status) {print('$status');});
 
-    _animationController.forward();
   }
 
   @override
@@ -100,6 +99,7 @@ class ConverterScreenState extends State<ConverterScreen>
                       );
                     }
                     if (state is ConverterSuccess) {
+                      _animationController.animateTo(0.5);
                       return
                         SlideTransition(
                           position: _topAnimation,
@@ -132,17 +132,13 @@ class ConverterScreenState extends State<ConverterScreen>
                     // ),
                     ElevatedButton(
                       onPressed: () {
+                        _animationController.forward();
+
                         if (_animationController.isCompleted) {
-                          _animation=_bottomAnimation;
-                          _bottomAnimation=_topAnimation;
-                          _topAnimation=_animation;
+                          // _animationController.forward();
                           context.read<ConverterBloc>().add(SwitchCurrencies());
-                          _animationController.reverse();
-                        } else {
-                          _animation=_bottomAnimation;
-                          _bottomAnimation=_topAnimation;
-                          _topAnimation=_animation;
-                          _animationController.forward();
+                          _animationController.forward(from: 0);
+
                         }
                       },
                       style: ElevatedButton.styleFrom(
