@@ -17,6 +17,7 @@ class ConverterScreenState extends State<ConverterScreen>
   late AnimationController _animationController;
   late Animation<Offset> _topAnimation;
   late Animation<Offset> _bottomAnimation;
+  late Animation<double> _animation;
 
   @override
   void initState (){
@@ -24,20 +25,31 @@ class ConverterScreenState extends State<ConverterScreen>
     _animationController=AnimationController(
         vsync: this, duration: const Duration(milliseconds: 2000));
     _topAnimation = Tween<Offset>(
-      begin: const Offset(-1.5, 0.0),
-      end: const Offset(1.5, 0.0),
+      begin: const Offset(-1.5, 0),
+      end: const Offset(1.5, 0),
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.linear,
     ));
 
     _bottomAnimation = Tween<Offset>(
-      begin: const Offset(1.5, 0.0),
-      end: const Offset(-1.5,0.0),
+      begin: const Offset(1.5, 0),
+      end: const Offset(-1.5, 0),
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.linear,
     ));
+
+    _animation = Tween<double>(
+      begin:0,
+        end:1,
+    ).animate(CurvedAnimation(curve: Curves.easeIn, parent: _animationController));
+
+    _animationController.addListener(() {
+      if (_animationController.value==1) {
+        _animationController.forward(from:0);
+      }
+    });
     _animationController.addStatusListener((status) {print('$status');});
 
   }
@@ -100,6 +112,11 @@ class ConverterScreenState extends State<ConverterScreen>
                     }
                     if (state is ConverterSuccess) {
                       _animationController.animateTo(0.5);
+                      _animationController.addListener(() {
+                        if (_animationController.isDismissed) {
+                          context.read<ConverterBloc>().add(SwitchCurrencies());
+                        }
+                      });
                       return
                         SlideTransition(
                           position: _topAnimation,
@@ -130,25 +147,22 @@ class ConverterScreenState extends State<ConverterScreen>
                     //   ),
                     //   child: const Text('=', style: TextStyle(fontSize: 30)),
                     // ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _animationController.forward();
-
-                        if (_animationController.isCompleted) {
-                          // _animationController.forward();
-                          context.read<ConverterBloc>().add(SwitchCurrencies());
-                          _animationController.forward(from: 0);
-
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(14),
-                      ),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.import_export),
-                          Text('Switch Currencies'),
-                        ],
+                    FadeTransition(
+                      opacity: _animation,
+                      child: ElevatedButton(
+                        onPressed: () {
+                            _animationController.animateTo(1);
+                            // context.read<ConverterBloc>().add(SwitchCurrencies());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.all(14),
+                        ),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.import_export),
+                            Text('Switch Currencies'),
+                          ],
+                        ),
                       ),
                     ),
                   ],
