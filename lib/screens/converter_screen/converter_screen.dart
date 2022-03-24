@@ -41,15 +41,15 @@ class ConverterScreenState extends State<ConverterScreen>
     ));
 
     _animation = Tween<double>(
-      begin:0,
-        end:1,
-    ).animate(CurvedAnimation(curve: Curves.easeIn, parent: _animationController));
+      begin:0.0,
+        end:1.0,
+    ).animate(CurvedAnimation(curve: Curves.linear, parent: _animationController));
 
-    _animationController.addListener(() {
-      if (_animationController.value==1) {
-        _animationController.forward(from:0);
-      }
-    });
+    // _animationController.addListener(() {
+    //   if (_animationController.value==1) {
+    //     _animationController.forward(from:0);
+    //   }
+    // });
     _animationController.addStatusListener((status) {print('$status');});
 
   }
@@ -113,8 +113,9 @@ class ConverterScreenState extends State<ConverterScreen>
                     if (state is ConverterSuccess) {
                       _animationController.animateTo(0.5);
                       _animationController.addListener(() {
-                        if (_animationController.isDismissed) {
+                        if (_animationController.value==1.0) {
                           context.read<ConverterBloc>().add(SwitchCurrencies());
+                          _animationController.forward(from: 0.0);
                         }
                       });
                       return
@@ -151,7 +152,7 @@ class ConverterScreenState extends State<ConverterScreen>
                       opacity: _animation,
                       child: ElevatedButton(
                         onPressed: () {
-                            _animationController.animateTo(1);
+                            _animationController.forward();
                             // context.read<ConverterBloc>().add(SwitchCurrencies());
                         },
                         style: ElevatedButton.styleFrom(
