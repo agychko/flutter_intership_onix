@@ -12,7 +12,53 @@ class ConverterScreen extends StatefulWidget {
   State<ConverterScreen> createState() => ConverterScreenState();
 }
 
-class ConverterScreenState extends State<ConverterScreen> {
+class ConverterScreenState extends State<ConverterScreen>
+  with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<Offset> _topAnimation;
+  late Animation<Offset> _bottomAnimation;
+  late Animation<double> _animation;
+
+  @override
+  void initState (){
+    super.initState();
+    _animationController=AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 2000));
+    _topAnimation = Tween<Offset>(
+      begin: const Offset(-1.5, 0),
+      end: const Offset(1.5, 0),
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.linear,
+    ));
+
+    _bottomAnimation = Tween<Offset>(
+      begin: const Offset(1.5, 0),
+      end: const Offset(-1.5, 0),
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.linear,
+    ));
+
+    _animation = Tween<double>(
+      begin:0.0,
+        end:1.0,
+    ).animate(CurvedAnimation(curve: Curves.linear, parent: _animationController));
+
+    // _animationController.addListener(() {
+    //   if (_animationController.value==1) {
+    //     _animationController.forward(from:0);
+    //   }
+    // });
+    _animationController.addStatusListener((status) {print('$status');});
+
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,37 +93,45 @@ class ConverterScreenState extends State<ConverterScreen> {
           child: Column(
             children: <Widget>[
               const SizedBox(height: 40),
-              Card(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                  child: BlocBuilder<ConverterBloc, ConverterState>(
-                    builder: (context, state) {
-                      if (state is ConverterLoading) {
-                        return
-                          // Container();
-                          const Center(child: CircularProgressIndicator());
-                      }
-                      if (state is ConverterError) {
-                        return
-                          ErrorMessage(
-                          error: state.error,
-                          onTap: () => context.read<ConverterBloc>().add(GetConverterData()),
-                        );
-                      }
-                      if (state is ConverterSuccess) {
-                        return
-                          CurrencyCard(currency: state.converter.currencyTop,
+              SizedBox(
+                width: double.infinity,
+                height: 210,
+                child: BlocBuilder<ConverterBloc, ConverterState>(
+                  builder: (context, state) {
+                    if (state is ConverterLoading) {
+                      return
+                        // Container();
+                        const Center(child: CircularProgressIndicator());
+                    }
+                    if (state is ConverterError) {
+                      return
+                        ErrorMessage(
+                        error: state.error,
+                        onTap: () => context.read<ConverterBloc>().add(GetConverterData()),
+                      );
+                    }
+                    if (state is ConverterSuccess) {
+                      _animationController.animateTo(0.5);
+                      _animationController.addListener(() {
+                        if (_animationController.value==1.0) {
+                          context.read<ConverterBloc>().add(SwitchCurrencies());
+                          _animationController.forward(from: 0.0);
+                        }
+                      });
+                      return
+                        SlideTransition(
+                          position: _topAnimation,
+                          child: CurrencyCard(currency: state.converter.currencyTop,
                             controller: context.read<ConverterBloc>().topController,
                             onChanged: (currency) {
                               context.read<ConverterBloc>().add(CurrencyTopChanged(currency));
                             },
                             onInputValueChanged: (value) {context.read<ConverterBloc>().add(Convert(value));},
-                          );
-                      }
-                      return const Center(child:  Text('Internal Error'));
+                          ),
+                        );
                     }
-                  ),
+                    return const Center(child:  Text('Internal Error'));
+                  }
                 ),
               ),
               Padding(
@@ -94,53 +148,58 @@ class ConverterScreenState extends State<ConverterScreen> {
                     //   ),
                     //   child: const Text('=', style: TextStyle(fontSize: 30)),
                     // ),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<ConverterBloc>().add(SwitchCurrencies());
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(14),
-                      ),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.import_export),
-                          Text('Switch Currencies'),
-                        ],
+                    FadeTransition(
+                      opacity: _animation,
+                      child: ElevatedButton(
+                        onPressed: () {
+                            _animationController.forward();
+                            // context.read<ConverterBloc>().add(SwitchCurrencies());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.all(14),
+                        ),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.import_export),
+                            Text('Switch Currencies'),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              Card(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                  child: BlocBuilder<ConverterBloc, ConverterState>(
-                      builder: (context, state) {
-                        if (state is ConverterLoading) {
-                          return
-                            // Container();
-                            const Center(child: CircularProgressIndicator());
-                        }
-                        if (state is ConverterError) {
-                          return
-                            ErrorMessage(
-                              error: state.error,
-                              onTap: () => context.read<ConverterBloc>().add(GetConverterData()),
-                            );
-                        }
-                        if (state is ConverterSuccess) {
-                          return
-                            CurrencyCard(currency: state.converter.currencyDown,
+              SizedBox(
+                width: double.infinity,
+                height: 210,
+                child: BlocBuilder<ConverterBloc, ConverterState>(
+                    builder: (context, state) {
+                      if (state is ConverterLoading) {
+                        return
+                          // Container();
+                          const Center(child: CircularProgressIndicator());
+                      }
+                      if (state is ConverterError) {
+                        return
+                          ErrorMessage(
+                            error: state.error,
+                            onTap: () => context.read<ConverterBloc>().add(GetConverterData()),
+                          );
+                      }
+                      if (state is ConverterSuccess) {
+                        return
+                          SlideTransition(
+                            position: _bottomAnimation,
+                            child: CurrencyCard(currency: state.converter.currencyDown,
                               controller: context.read<ConverterBloc>().bottomController,
                               onChanged: (currency) {
                                 context.read<ConverterBloc>().add(CurrencyDownChanged(currency));},
                               onInputValueChanged: (value) {context.read<ConverterBloc>().add(ConvertBack(value));},
-                            );
-                        }
-                        return const Center(child: Text('Internal Error'));
+                            ),
+                          );
                       }
-                  ),
+                      return const Center(child: Text('Internal Error'));
+                    }
                 ),
               ),
             ],

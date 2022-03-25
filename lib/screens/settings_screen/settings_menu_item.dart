@@ -30,7 +30,7 @@ class SettingsMenuItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(flex: 3, child: Text(nameMenuItem, style: Theme
+          Expanded(flex: 2, child: Text(nameMenuItem, style: Theme
               .of(context)
               .textTheme
               .headline6)),
