@@ -164,6 +164,24 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "firebase_auth",
+      "rootUri": "file:///C:/Android/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-3.3.11",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_auth_platform_interface",
+      "rootUri": "file:///C:/Android/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_platform_interface-6.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_auth_web",
+      "rootUri": "file:///C:/Android/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-3.3.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "firebase_core",
       "rootUri": "file:///C:/Android/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.13.1",
       "packageUri": "lib/",
@@ -178,6 +196,24 @@
     {
       "name": "firebase_core_web",
       "rootUri": "file:///C:/Android/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_database",
+      "rootUri": "file:///C:/Android/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database-9.0.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_database_platform_interface",
+      "rootUri": "file:///C:/Android/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database_platform_interface-0.2.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_database_web",
+      "rootUri": "file:///C:/Android/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database_web-0.2.0+7",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -274,6 +310,12 @@
     {
       "name": "http_parser",
       "rootUri": "file:///C:/Android/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///C:/Android/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -650,7 +692,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2022-03-28T15:57:28.946410Z",
+  "generated": "2022-03-28T22:15:07.132184Z",
   "generator": "pub",
   "generatorVersion": "2.16.2"
 }

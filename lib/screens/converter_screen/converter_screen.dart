@@ -50,7 +50,7 @@ class ConverterScreenState extends State<ConverterScreen>
     //     _animationController.forward(from:0);
     //   }
     // });
-    _animationController.addStatusListener((status) {print('$status');});
+    // _animationController.addStatusListener((status) {print('$status');});
 
   }
 

@@ -1,9 +1,11 @@
 
-import 'package:first/screens/converter_screen/converter_screen.dart';
+// import 'package:first/screens/converter_screen/converter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'screens/converter_screen/converter_bloc/converter_bloc.dart';
+// import 'screens/converter_screen/converter_bloc/converter_bloc.dart';
+import 'screens/user_screen/user_bloc/user_bloc.dart';
+import 'screens/user_screen/user_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -61,8 +63,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: BlocProvider(
-          create: (context) => ConverterBloc(),
-          child: const ConverterScreen()
+          create: (context) => UserBloc(),
+          child: const UserScreen()
+          // create: (context) => ConverterBloc(),
+          // child: const ConverterScreen()
       ),
     );
   }
