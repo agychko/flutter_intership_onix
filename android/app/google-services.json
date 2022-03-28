@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "299064197006",
+    "project_id": "flutter-internship-onix",
+    "storage_bucket": "flutter-internship-onix.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299064197006:android:3615b18c4cc1ac87fd6edf",
+        "android_client_info": {
+          "package_name": "com.example.first"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "299064197006-abldhi1sukre36mherldj65gl6jr37lb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGMWLdvhfZFYO1dcC6rBZ6ueWDg8z0Tbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "299064197006-abldhi1sukre36mherldj65gl6jr37lb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "299064197006-b5mr648slt9fsde6gh0c8fq3so6ijpil.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.first"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

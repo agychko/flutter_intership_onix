@@ -43,7 +43,7 @@ class ConverterScreenState extends State<ConverterScreen>
     _animation = Tween<double>(
       begin:0.0,
         end:1.0,
-    ).animate(CurvedAnimation(curve: Curves.linear, parent: _animationController));
+    ).animate(CurvedAnimation(curve: Curves.easeInOutCirc, parent: _animationController));
 
     // _animationController.addListener(() {
     //   if (_animationController.value==1) {
