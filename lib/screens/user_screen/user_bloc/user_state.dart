@@ -7,7 +7,10 @@ class UserInitial extends UserState {}
 
 class UserLoading extends UserState {}
 
-class UserDone extends UserState {}
+class UserDone extends UserState {
+  final bool needToOpenConverterScreen;
+  UserDone({required this.needToOpenConverterScreen});
+}
 
 class UserError extends UserState {
   final String error;

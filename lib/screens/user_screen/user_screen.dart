@@ -1,4 +1,6 @@
 
+import 'package:first/screens/converter_screen/converter_bloc/converter_bloc.dart';
+import 'package:first/screens/converter_screen/converter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,12 +24,12 @@ class UserScreenState extends State<UserScreen>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create User'),
+        title: const Text('Authorization'),
       ),
       body: BlocListener<UserBloc, UserState>(
         listener: (context, state) {
           if (state is UserDone) {
-            // _openUsedLogin();
+            _openConverterScreen();
           }
         },
         child: Center(
@@ -72,12 +74,12 @@ class UserScreenState extends State<UserScreen>{
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               context.read<UserBloc>().add(
-                                  CreateAccountEvent(
+                                  CreateUserEvent(
                                       email: _emailController.text,
                                       password: _passwordController.text));
                             }
                           },
-                          child: const Text('Create User'));
+                          child: const Text('Authorization'));
                     },
                   ),
                   const SizedBox(height: 10),
@@ -96,5 +98,12 @@ class UserScreenState extends State<UserScreen>{
         ),
       ),
     );
+  }
+  void _openConverterScreen() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => ConverterBloc(),
+          child: const ConverterScreen(),
+        )));
   }
 }
