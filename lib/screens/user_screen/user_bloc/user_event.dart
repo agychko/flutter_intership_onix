@@ -10,9 +10,9 @@ class CreateUserEvent extends UserEvent {
   CreateUserEvent({required this.email, required this.password});
 }
 
-// class LoginUserEvent extends UserEvent {
-//   final String email;
-//   final String password;
-//
-//   LoginUserEvent({required this.email, required this.password});
-// }
+class LoginUserEvent extends UserEvent {
+  final String email;
+  final String password;
+
+  LoginUserEvent({required this.email, required this.password});
+}

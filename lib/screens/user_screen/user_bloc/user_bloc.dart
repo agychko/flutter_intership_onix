@@ -10,65 +10,55 @@ part 'user_state.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserInitial()) {
     on<CreateUserEvent>((event, emit) => _createAccount(event, emit));
-    // on<LoginUserEvent>((event, emit) => _loginUser(event, emit));
+    on<LoginUserEvent>((event, emit) => _loginUser(event, emit));
   }
 
   void _createAccount(
       CreateUserEvent event, Emitter<UserState> emit) async {
     emit(UserLoading());
     try {
-      // UserCredential userCredential = await
+      UserCredential userCredential = await
       FirebaseAuth.instance
           .createUserWithEmailAndPassword(
           email: event.email, password: event.password);
-      emit(UserDone());
+
+      emit(UserDone(needToOpenConverterScreen: true));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         emit(UserError(error: 'Weak Password'));
       }
-      // else
+      else
         if (e.code == 'email-already-in-use') {
-
-        // emit(UserError(
-        //     error: 'The account already exists for that email.'));
-
-        FirebaseAuth.instance
-            .signInWithEmailAndPassword(
-            email: event.email, password: event.password);
-
+        emit(UserError(
+            error: 'The account already exists for that email.'));
       }
-
-        else if (e.code == 'wrong-password') {
-          emit(UserError(error: 'Wrong password provided for that user.'));
-        }
-
     } catch (e) {
       emit(UserError(error: e.toString()));
     }
   }
 
-  // void _loginUser(LoginUserEvent event, Emitter<UserState> emit) async {
-  //   emit(UserLoading());
-  //   try {
-  //
-  //     // UserCredential userCredential = await
-  //     FirebaseAuth.instance
-  //         .signInWithEmailAndPassword(
-  //         email: event.email, password: event.password);
-  //
-  //     // DatabaseReference reference =
-  //     // FirebaseDatabase.instance.ref("users/${userCredential.user?.uid}");
-  //     // var snapshot = await reference.get();
-  //     emit(UserDone(needToOpenConverterScreen: false));
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'user-not-found') {
-  //       emit(UserError(error: 'No user found for that email.'));
-  //     } else if (e.code == 'wrong-password') {
-  //       emit(UserError(error: 'Wrong password provided for that user.'));
-  //     }
-  //   } catch (e) {
-  //     emit(UserError(error: e.toString()));
-  //   }
-  // }
+  void _loginUser(LoginUserEvent event, Emitter<UserState> emit) async {
+    emit(UserLoading());
+    try {
+      UserCredential userCredential = await
+      FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+          email: event.email, password: event.password);
 
+      // DatabaseReference reference =
+      // FirebaseDatabase.instance.ref("users/${userCredential.user?.uid}");
+      // var snapshot = await reference.get();
+      // !snapshot.exists
+      emit(UserDone(needToOpenConverterScreen:userCredential.user!=null ));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        emit(UserError(error: 'No user found for that email.'));
+      } else
+        if (e.code == 'wrong-password') {
+        emit(UserError(error: 'Wrong password provided for that user.'));
+      }
+    } catch (e) {
+      emit(UserError(error: e.toString()));
+    }
+  }
 }

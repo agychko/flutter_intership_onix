@@ -74,7 +74,7 @@ class UserScreenState extends State<UserScreen>{
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               context.read<UserBloc>().add(
-                                  CreateUserEvent(
+                                  LoginUserEvent(
                                       email: _emailController.text,
                                       password: _passwordController.text));
                             }
