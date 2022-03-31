@@ -25,6 +25,7 @@ class UserScreenState extends State<UserScreen>{
     return Scaffold(
       appBar: AppBar(
         title: const Text('Authorization'),
+        centerTitle: true,
       ),
       body: BlocListener<UserBloc, UserState>(
         listener: (context, state) {
@@ -46,8 +47,8 @@ class UserScreenState extends State<UserScreen>{
                     decoration: const InputDecoration(
                         hintText: 'Email', border: OutlineInputBorder()),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Enter Email';
+                      if (value == null || value.isEmpty||!value.contains("@")||!value.contains(".")) {
+                        return 'Enter a valid Email';
                       }
                       return null;
                     },
@@ -86,7 +87,13 @@ class UserScreenState extends State<UserScreen>{
                   BlocBuilder<UserBloc, UserState>(
                     builder: (context, state) {
                       if (state is UserError) {
-                        return Text(state.error);
+                        if (state.error=='No user found for that email.') {
+                        context.read<UserBloc>().add(
+                            CreateUserEvent(
+                                email: _emailController.text,
+                                password: _passwordController.text));}
+                        else {
+                        return Text(state.error);}
                       }
                       return const SizedBox.shrink();
                     },

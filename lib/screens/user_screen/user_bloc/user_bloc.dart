@@ -15,14 +15,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   void _createAccount(
       CreateUserEvent event, Emitter<UserState> emit) async {
-    emit(UserLoading());
+    // emit(UserLoading());
     try {
       UserCredential userCredential = await
       FirebaseAuth.instance
           .createUserWithEmailAndPassword(
           email: event.email, password: event.password);
 
-      emit(UserDone(needToOpenConverterScreen: true));
+      emit(UserDone());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         emit(UserError(error: 'Weak Password'));
@@ -38,18 +38,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   void _loginUser(LoginUserEvent event, Emitter<UserState> emit) async {
-    emit(UserLoading());
+    // emit(UserLoading());
     try {
       UserCredential userCredential = await
       FirebaseAuth.instance
           .signInWithEmailAndPassword(
           email: event.email, password: event.password);
 
-      // DatabaseReference reference =
-      // FirebaseDatabase.instance.ref("users/${userCredential.user?.uid}");
-      // var snapshot = await reference.get();
-      // !snapshot.exists
-      emit(UserDone(needToOpenConverterScreen:userCredential.user!=null ));
+      emit(UserDone());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         emit(UserError(error: 'No user found for that email.'));
