@@ -70,7 +70,7 @@ class UserScreenState extends State<UserScreen>{
                       if (state is UserLoading) {
                         return const CircularProgressIndicator();
                       }
-                      return OutlinedButton(
+                      return ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               context.read<UserBloc>().add(
