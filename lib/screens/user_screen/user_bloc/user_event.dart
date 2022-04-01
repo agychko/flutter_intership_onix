@@ -3,6 +3,8 @@ part of 'user_bloc.dart';
 @immutable
 abstract class UserEvent {}
 
+class UserLoggedIn extends UserEvent{}
+
 class CreateUserEvent extends UserEvent {
   final String email;
   final String password;

@@ -11,11 +11,21 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserInitial()) {
     on<CreateUserEvent>((event, emit) => _createAccount(event, emit));
     on<LoginUserEvent>((event, emit) => _loginUser(event, emit));
+    on<UserLoggedIn>((event, emit) => _userLoggedIn(emit));
+
+    add(UserLoggedIn());
+  }
+
+  void _userLoggedIn(Emitter<UserState> emit) async {
+    var currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      emit(UserDone());
+    }
   }
 
   void _createAccount(
       CreateUserEvent event, Emitter<UserState> emit) async {
-    // emit(UserLoading());
+    emit(UserLoading());
     try {
       UserCredential userCredential = await
       FirebaseAuth.instance
