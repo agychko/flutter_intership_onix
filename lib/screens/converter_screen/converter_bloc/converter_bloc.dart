@@ -5,6 +5,7 @@ import 'package:first/data/model/currency.dart';
 import 'package:first/data/repository/currencies_repository.dart';
 import 'package:first/data/source/currencies_source.dart';
 import 'package:first/data/source/currency_hive_database.dart';
+import 'package:first/data/source/firebase_source.dart';
 import 'package:first/data/source/preferences_source.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ part 'converter_state.dart';
 class ConverterBloc extends Bloc<ConverterEvent, ConverterState> {
 
   final CurrenciesRepository _currenciesRepository =
-  CurrenciesRepository(CurrenciesSource(), PreferencesSource(), CurrencyHiveDatabase());
+  CurrenciesRepository(CurrenciesSource(), PreferencesSource(), CurrencyHiveDatabase(), FirebaseSource());
 
   var topController = TextEditingController();
   var bottomController = TextEditingController();
