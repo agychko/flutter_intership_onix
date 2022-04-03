@@ -2,35 +2,26 @@ import 'package:firebase_database/firebase_database.dart';
 
 class FirebaseSource{
 
-  Future<int?> getCurrencyTopId() async {
-    // var preferences = await _getPreferences();
-    // return preferences.getInt(_currencyTopId);
-    var ref = FirebaseDatabase.instance.ref();
-    var snapshot = await ref.child('_currencyTopId').get();
+  Future<Object?> getCurrencyTopId() async {
+    var reference = FirebaseDatabase.instance.ref('currencyTop/id');
+    var snapshot = await reference.get();
+    return snapshot.value;
   }
 
-  Future<int?> getCurrencyDownId() async {
-    // var preferences = await _getPreferences();
-    // return preferences.getInt(_currencyDownId);
-    // final ref = FirebaseDatabase.instance.ref();
-    // var snapshot = await ref.child('_currencyDownId').get();
-
-    DatabaseReference reference = FirebaseDatabase.instance.ref('_currencyDownId');
+  Future<Object?> getCurrencyDownId() async {
+    DatabaseReference reference = FirebaseDatabase.instance.ref('currencyDown/id');
     var snapshot = await reference.get();
+    return snapshot.value;
   }
 
   Future<void> setCurrencyTopId(int id) async {
-    // var preferences = await _getPreferences();
-    // preferences.setInt(_currencyTopId, id);
-    DatabaseReference ref = FirebaseDatabase.instance.ref("_currencyTopId");
-    await ref.update({"_currencyTopId": id,});
+    DatabaseReference reference = FirebaseDatabase.instance.ref("currencyTop");
+    await reference.update({"id": id,});
   }
 
   Future<void> setCurrencyDownId(int id) async {
-    // var preferences = await _getPreferences();
-    // preferences.setInt(_currencyDownId, id);
-    DatabaseReference ref = FirebaseDatabase.instance.ref("_currencyDownId");
-    await ref.update({"_currencyDownId": id,});
+    DatabaseReference reference = FirebaseDatabase.instance.ref("currencyDown");
+    await reference.update({"id": id,});
   }
 
 }
