@@ -23,7 +23,7 @@ class ConverterScreenState extends State<ConverterScreen>
   void initState (){
     super.initState();
     _animationController=AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 2000));
+        vsync: this, duration: const Duration(milliseconds: 1000));
     _topAnimation = Tween<Offset>(
       begin: const Offset(-1.5, 0),
       end: const Offset(1.5, 0),
@@ -40,10 +40,10 @@ class ConverterScreenState extends State<ConverterScreen>
       curve: Curves.linear,
     ));
 
-    _animation = Tween<double>(
-      begin:0.0,
-        end:1.0,
-    ).animate(CurvedAnimation(curve: Curves.easeInOutCirc, parent: _animationController));
+    _animation = Tween<double>(begin:1.0, end:0.0,).animate(
+        CurvedAnimation(
+            curve: const Interval(0.5, 1.0, curve: Curves.easeInOutCirc),
+            parent: _animationController));
 
     // _animationController.addListener(() {
     //   if (_animationController.value==1) {
