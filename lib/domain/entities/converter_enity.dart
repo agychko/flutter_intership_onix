@@ -1,5 +1,4 @@
-
-import 'package:first/data/model/currency.dart';
+import 'package:first/domain/entities/currency_enity.dart';
 
 class Converter {
   Currency currencyTop;

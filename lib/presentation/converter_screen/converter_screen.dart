@@ -1,5 +1,5 @@
 import 'package:first/presentation/converter_screen/converter_bloc/converter_bloc.dart';
-import 'package:first/presentation/error_message/error_message.dart';
+import 'package:first/util/error_message.dart';
 import 'package:first/presentation/converter_screen/currency_card.dart';
 import 'package:first/presentation/settings_screen/settings_screen.dart';
 import 'package:flutter/material.dart';

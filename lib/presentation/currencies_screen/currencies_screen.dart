@@ -1,6 +1,6 @@
 import 'package:first/presentation/currencies_screen/currencies_bloc/currencies_bloc.dart';
 import 'package:first/presentation/currencies_screen/currency_item.dart';
-import 'package:first/presentation/error_message/error_message.dart';
+import 'package:first/util/error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

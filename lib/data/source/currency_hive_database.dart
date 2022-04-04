@@ -1,4 +1,4 @@
-import 'package:first/data/model/currency.dart';
+import 'package:first/domain/entities/currency_enity.dart';
 import 'package:first/data/model/currency_hive_model.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';

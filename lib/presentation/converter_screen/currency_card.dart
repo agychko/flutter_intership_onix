@@ -1,5 +1,5 @@
-import 'package:first/data/model/callbacks.dart';
-import 'package:first/data/model/currency.dart';
+import 'package:first/util/callbacks.dart';
+import 'package:first/domain/entities/currency_enity.dart';
 import 'package:first/presentation/currencies_screen/currencies_screen.dart';
 import 'package:flutter/material.dart';
 
