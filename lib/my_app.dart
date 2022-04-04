@@ -1,11 +1,10 @@
-
-// import 'package:first/screens/converter_screen/converter_screen.dart';
+// import 'package:first/presentation/converter_screen/converter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// import 'screens/converter_screen/converter_bloc/converter_bloc.dart';
-import 'screens/user_screen/user_bloc/user_bloc.dart';
-import 'screens/user_screen/user_screen.dart';
+// import 'presentation/converter_screen/converter_bloc/converter_bloc.dart';
+import 'presentation/user_screen/user_bloc/user_bloc.dart';
+import 'presentation/user_screen/user_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -17,14 +16,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-
         textTheme: Theme.of(context).textTheme.apply(
-          bodyColor: const Color.fromRGBO(0, 60, 143, 1),
-          displayColor: const Color.fromRGBO(0, 60, 143, 1),
-          fontFamily: 'Montserrat',
-        ),
+              bodyColor: const Color.fromRGBO(0, 60, 143, 1),
+              displayColor: const Color.fromRGBO(0, 60, 143, 1),
+              fontFamily: 'Montserrat',
+            ),
         appBarTheme:
-        const AppBarTheme(backgroundColor: Color.fromRGBO(0, 60, 143, 1)),
+            const AppBarTheme(backgroundColor: Color.fromRGBO(0, 60, 143, 1)),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Color.fromRGBO(0, 60, 143, 1),
           unselectedItemColor: Color.fromRGBO(66, 165, 245, 1),
@@ -57,17 +55,16 @@ class MyApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor:
-            MaterialStateProperty.all(const Color.fromRGBO(0, 60, 143, 1)),
+                MaterialStateProperty.all(const Color.fromRGBO(0, 60, 143, 1)),
             elevation: MaterialStateProperty.all(20),
           ),
         ),
       ),
       home: BlocProvider(
-          create: (context) => UserBloc(),
-          child: const UserScreen()
+          create: (context) => UserBloc(), child: const UserScreen()
           // create: (context) => ConverterBloc(),
           // child: const ConverterScreen()
-      ),
+          ),
     );
   }
 }
