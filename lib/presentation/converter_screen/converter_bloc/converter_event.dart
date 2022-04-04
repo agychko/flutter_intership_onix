@@ -7,14 +7,14 @@ class GetConverterData extends ConverterEvent{}
 
 class CurrencyTopChanged extends ConverterEvent{
 
-final Currency currency;
+final CurrencyEntity currency;
 
 CurrencyTopChanged(this.currency);
 }
 
 class CurrencyDownChanged extends ConverterEvent{
 
-  final Currency currency;
+  final CurrencyEntity currency;
 
   CurrencyDownChanged(this.currency);
 }

@@ -1,12 +1,12 @@
 import 'package:first/util/callbacks.dart';
-import 'package:first/domain/entities/currency_enity.dart';
+import 'package:first/domain/entities/currency_entity.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyItem extends StatelessWidget {
   const CurrencyItem(
       {Key? key, required this.currency, required this.onSelected})
       : super(key: key);
-  final Currency currency;
+  final CurrencyEntity currency;
   final CurrencyCallback onSelected;
 
   @override

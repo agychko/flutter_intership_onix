@@ -1,28 +1,25 @@
 import 'package:bloc/bloc.dart';
-import 'package:first/domain/entities/converter_enity.dart';
-import 'package:first/domain/entities/currency_enity.dart';
-import 'package:first/data/repository/currencies_repository.dart';
-import 'package:first/data/source/currencies_source.dart';
-import 'package:first/data/source/currency_hive_database.dart';
-import 'package:first/data/source/firebase_source.dart';
-import 'package:first/data/source/preferences_source.dart';
+import 'package:first/domain/entities/converter_entity.dart';
+import 'package:first/domain/entities/currency_entity.dart';
+import 'package:first/domain/usecase/get_converter_data_use_case.dart';
+import 'package:first/domain/usecase/update_selected_currencies_use_case.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 part 'converter_event.dart';
 part 'converter_state.dart';
 
 class ConverterBloc extends Bloc<ConverterEvent, ConverterState> {
-  final CurrenciesRepository _currenciesRepository = CurrenciesRepository(
-      CurrenciesSource(),
-      PreferencesSource(),
-      CurrencyHiveDatabase(),
-      FirebaseSource());
+  final GetConverterDataUseCase _getConverterDataUseCase =
+      GetIt.instance<GetConverterDataUseCase>();
+  final UpdateSelectedCurrenciesUseCase _updateSelectedCurrenciesUseCase =
+      GetIt.instance<UpdateSelectedCurrenciesUseCase>();
 
   var topController = TextEditingController();
   var bottomController = TextEditingController();
   String topInitialValue = '';
   String downInitialValue = '';
-  late Converter converter;
+  late ConverterEntity converter;
 
   ConverterBloc() : super(ConverterInitial()) {
     on<GetConverterData>((event, emit) => _getConverterData(emit));
@@ -37,7 +34,7 @@ class ConverterBloc extends Bloc<ConverterEvent, ConverterState> {
 
   void _getConverterData(Emitter<ConverterState> emit) async {
     emit(ConverterLoading());
-    var converterData = await _currenciesRepository.getConverterData();
+    var converterData = await _getConverterDataUseCase();
     if (converterData.isSuccess()) {
       converter = converterData.asSuccess().data;
       emit(ConverterSuccess(converter));
@@ -48,7 +45,7 @@ class ConverterBloc extends Bloc<ConverterEvent, ConverterState> {
 
   void _currencyTopChanged(
       CurrencyTopChanged event, Emitter<ConverterState> emit) async {
-    await _currenciesRepository.updateSelectedCurrencies(
+    await _updateSelectedCurrenciesUseCase(
         event.currency.id, converter.currencyDown.id);
     converter.currencyTop = event.currency;
     emit(ConverterSuccess(converter));
@@ -57,7 +54,7 @@ class ConverterBloc extends Bloc<ConverterEvent, ConverterState> {
 
   void _currencyDownChanged(
       CurrencyDownChanged event, Emitter<ConverterState> emit) async {
-    await _currenciesRepository.updateSelectedCurrencies(
+    await _updateSelectedCurrenciesUseCase(
         converter.currencyTop.id, event.currency.id);
     converter.currencyDown = event.currency;
     emit(ConverterSuccess(converter));
@@ -69,7 +66,7 @@ class ConverterBloc extends Bloc<ConverterEvent, ConverterState> {
     var currencyDown = converter.currencyDown;
     converter.currencyTop = currencyDown;
     converter.currencyDown = currencyTop;
-    await _currenciesRepository.updateSelectedCurrencies(
+    await _updateSelectedCurrenciesUseCase(
         converter.currencyDown.id, converter.currencyTop.id);
     emit(ConverterSuccess(converter));
     _convert(Convert(downInitialValue), emit);

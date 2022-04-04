@@ -14,7 +14,7 @@ class ConverterError extends ConverterState {
 }
 
 class ConverterSuccess extends ConverterState {
-  final Converter converter;
+  final ConverterEntity converter;
 
   ConverterSuccess(this.converter);
 }

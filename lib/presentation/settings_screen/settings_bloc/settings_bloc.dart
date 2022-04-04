@@ -1,14 +1,13 @@
-
 import 'package:bloc/bloc.dart';
-import 'package:first/data/source/preferences_source.dart';
+import 'package:first/data/source/local/impl/preferences_source_impl.dart';
 import 'package:meta/meta.dart';
 
 part 'settings_event.dart';
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
+  final PreferencesSourceImpl _preferencesSource = PreferencesSourceImpl();
 
-  final PreferencesSource _preferencesSource = PreferencesSource();
   int? updateInterval;
 
   SettingsBloc() : super(SettingsInitial()) {
@@ -18,15 +17,15 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     add(GetUpdateInterval());
   }
 
-  void _getUpdateInterval(Emitter <SettingsState> emit) async{
+  void _getUpdateInterval(Emitter<SettingsState> emit) async {
     emit(SettingsInitial());
-    var interval = await _preferencesSource.getUpdateInterval()??15;
-    updateInterval=interval.toInt();
+    var interval = await _preferencesSource.getUpdateInterval() ?? 15;
+    updateInterval = interval.toInt();
   }
 
-  void _updateTimeInterval(UpdateTimeInterval event, Emitter<SettingsState> emit) async {
+  void _updateTimeInterval(
+      UpdateTimeInterval event, Emitter<SettingsState> emit) async {
     await _preferencesSource.setUpdateInterval(event.interval);
     await _preferencesSource.setUpdateTime(event.time);
   }
-
 }

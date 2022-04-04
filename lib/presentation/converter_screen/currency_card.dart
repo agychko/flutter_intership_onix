@@ -1,5 +1,5 @@
 import 'package:first/util/callbacks.dart';
-import 'package:first/domain/entities/currency_enity.dart';
+import 'package:first/domain/entities/currency_entity.dart';
 import 'package:first/presentation/currencies_screen/currencies_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +11,7 @@ class CurrencyCard extends StatefulWidget {
       required this.controller,
       required this.onInputValueChanged})
       : super(key: key);
-  final Currency currency;
+  final CurrencyEntity currency;
   final TextEditingController controller;
   final CurrencyCallback onChanged;
   final InputValueChangedCallback onInputValueChanged;

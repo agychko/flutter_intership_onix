@@ -13,6 +13,6 @@ class CurrenciesError extends CurrenciesState{
 }
 
 class CurrenciesSuccess extends CurrenciesState {
-  final List<Currency> currencies;
+  final List<CurrencyEntity> currencies;
   CurrenciesSuccess(this.currencies);
 }
