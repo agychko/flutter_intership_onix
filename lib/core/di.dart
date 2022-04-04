@@ -8,7 +8,6 @@ import 'package:first/data/source/remote/firebase_source.dart';
 import 'package:first/data/source/remote/impl/currencies_source_impl.dart';
 import 'package:first/data/source/remote/impl/firebase_source_impl.dart';
 import 'package:first/domain/repository/currencies_repository.dart';
-import 'package:first/domain/usecase/create_converter_use_case.dart';
 import 'package:first/domain/usecase/get_converter_data_use_case.dart';
 import 'package:first/domain/usecase/get_currencies_list_use_case.dart';
 import 'package:first/domain/usecase/update_selected_currencies_use_case.dart';
@@ -32,9 +31,6 @@ void setUpServiceLocator() {
 
   getIt.registerLazySingleton<GetConverterDataUseCase>(
       () => GetConverterDataUseCase(getIt<CurrenciesRepository>()));
-
-  getIt.registerLazySingleton<CreateConverterUseCase>(
-      () => CreateConverterUseCase(getIt<CurrenciesRepository>()));
 
   getIt.registerLazySingleton<GetCurrenciesListUseCase>(
       () => GetCurrenciesListUseCase(getIt<CurrenciesRepository>()));

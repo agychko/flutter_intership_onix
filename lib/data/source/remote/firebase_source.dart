@@ -1,11 +1,4 @@
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-
-abstract class FirebaseSource{
-  @protected
-  final currentUser = FirebaseAuth.instance.currentUser;
-
+abstract class FirebaseSource {
   Future<Object?> getCurrencyTopId();
 
   Future<Object?> getCurrencyDownId();
@@ -13,5 +6,4 @@ abstract class FirebaseSource{
   Future<void> setCurrencyTopId(int id);
 
   Future<void> setCurrencyDownId(int id);
-
 }
