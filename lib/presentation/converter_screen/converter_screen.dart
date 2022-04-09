@@ -4,6 +4,7 @@ import 'package:first/presentation/converter_screen/currency_card.dart';
 import 'package:first/presentation/settings_screen/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConverterScreen extends StatefulWidget {
   const ConverterScreen({Key? key}) : super(key: key);
@@ -66,7 +67,7 @@ class ConverterScreenState extends State<ConverterScreen>
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Converter'),
+        title: Text(AppLocalizations.of(context)!.converterTitle),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.update),
