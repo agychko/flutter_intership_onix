@@ -15,7 +15,7 @@
   "currencyJPY": "Japanese Yen",
   "currencyCNY": "Chinese Yuan",
   "settingsTitle": "Settings",
-  "settingsTheme": "Select App Theme",
+  "settingsTheme": "Theme",
   "settingsUpdateInterval": "Update Interval",
-  "settingsLanguage": "Select App Language"
+  "settingsLanguage": "Language"
 }

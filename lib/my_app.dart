@@ -1,11 +1,11 @@
-import 'package:first/presentation/converter_screen/converter_screen.dart';
+// import 'package:first/presentation/converter_screen/converter_screen.dart';
 import 'package:first/presentation/settings_screen/language_bloc/language_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'presentation/converter_screen/converter_bloc/converter_bloc.dart';
-// import 'presentation/user_screen/user_bloc/user_bloc.dart';
-// import 'presentation/user_screen/user_screen.dart';
+// import 'presentation/converter_screen/converter_bloc/converter_bloc.dart';
+import 'presentation/user_screen/user_bloc/user_bloc.dart';
+import 'presentation/user_screen/user_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
@@ -77,9 +77,9 @@ class MyApp extends StatelessWidget {
             supportedLocales: AppLocalizations.supportedLocales,
             locale: Locale(state.code),
             home: BlocProvider(
-                // create: (context) => UserBloc(), child: const UserScreen()
-                create: (context) => ConverterBloc(),
-                child: const ConverterScreen()),
+                create: (context) => UserBloc(), child: const UserScreen()
+                // create: (context) => ConverterBloc(), child: const ConverterScreen()
+                ),
           );
         },
       ),

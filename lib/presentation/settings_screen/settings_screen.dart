@@ -14,7 +14,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class SettingsScreenState extends State<SettingsScreen> {
-  int language = 1;
+  int language = 0;
   int theme = 1;
 
   @override
