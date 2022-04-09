@@ -161,9 +161,10 @@ class ConverterScreenState extends State<ConverterScreen>
                           padding: const EdgeInsets.all(14),
                         ),
                         child: Row(
-                          children: const [
-                            Icon(Icons.import_export),
-                            Text('Switch Currencies'),
+                          children: [
+                            const Icon(Icons.import_export),
+                            Text(AppLocalizations.of(context)!
+                                .converterSwitchCurrencies),
                           ],
                         ),
                       ),

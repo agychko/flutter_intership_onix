@@ -12,7 +12,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<LoginUserEvent>((event, emit) => _loginUser(event, emit));
     on<UserLoggedIn>((event, emit) => _userLoggedIn(emit));
 
-    add(UserLoggedIn());
+    // add(UserLoggedIn());
   }
 
   void _userLoggedIn(Emitter<UserState> emit) async {

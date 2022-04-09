@@ -2,6 +2,9 @@ import 'package:first/presentation/settings_screen/settings_bloc/settings_bloc.d
 import 'package:first/presentation/settings_screen/settings_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'language_bloc/language_cubit.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -26,7 +29,7 @@ class SettingsScreenState extends State<SettingsScreen> {
               Navigator.pop(context);
             },
           ),
-          title: const Text('Setting'),
+          title: Text(AppLocalizations.of(context)!.settingsTitle),
           centerTitle: true,
           actions: [
             IconButton(
@@ -40,7 +43,7 @@ class SettingsScreenState extends State<SettingsScreen> {
         body: Column(
           children: [
             SettingsMenuItem(
-              nameMenuItem: 'Theme',
+              nameMenuItem: AppLocalizations.of(context)!.settingsTheme,
               dropdownValue: theme,
               dropdownItem: const [
                 DropdownMenuItem(
@@ -60,7 +63,8 @@ class SettingsScreenState extends State<SettingsScreen> {
             ),
             BlocBuilder<SettingsBloc, SettingsState>(builder: (context, state) {
               return SettingsMenuItem(
-                nameMenuItem: 'Update Interval',
+                nameMenuItem:
+                    AppLocalizations.of(context)!.settingsUpdateInterval,
                 dropdownItem: const [
                   DropdownMenuItem(
                     child: Text('15 sec'),
@@ -88,25 +92,29 @@ class SettingsScreenState extends State<SettingsScreen> {
               );
             }),
             SettingsMenuItem(
-              nameMenuItem: 'Language',
+              nameMenuItem: AppLocalizations.of(context)!.settingsLanguage,
               dropdownValue: language,
-              dropdownItem: const [
+              dropdownItem: [
                 DropdownMenuItem(
-                  child: Text('English'),
+                  child: Text(AppLocalizations.supportedLocales
+                      .elementAt(0)
+                      .languageCode),
+                  value: 0,
+                ),
+                DropdownMenuItem(
+                  child: Text(AppLocalizations.supportedLocales
+                      .elementAt(1)
+                      .languageCode),
                   value: 1,
-                ),
-                DropdownMenuItem(
-                  child: Text('Русский'),
-                  value: 2,
-                ),
-                DropdownMenuItem(
-                  child: Text('Українська'),
-                  value: 3,
                 ),
               ],
               onChanged: (newValue) {
                 setState(() {
                   language = newValue!;
+                  String code = AppLocalizations.supportedLocales
+                      .elementAt(language)
+                      .languageCode;
+                  context.read<LanguageCubit>().changeLanguage(code);
                 });
               },
             ),
