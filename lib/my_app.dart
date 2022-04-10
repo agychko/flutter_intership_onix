@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, state) {
           return MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Converter',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primarySwatch: Colors.blue,

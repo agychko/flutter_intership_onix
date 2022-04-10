@@ -15,7 +15,10 @@
   "currencyJPY": "Японська єна",
   "currencyCNY": "Китайський юань",
   "settingsTitle": "Налаштування",
-  "settingsTheme": "Виберіть тему",
+  "settingsTheme": "Тема",
   "settingsUpdateInterval": "Інтервал оновлення",
-  "settingsLanguage": "Виберіть мову"
+  "settingsLanguage": "Мова",
+  "langArabic": "Arabic",
+  "langEnglish": "English",
+  "langUkrainian": "Українська"
 }

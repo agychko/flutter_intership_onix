@@ -14,7 +14,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class SettingsScreenState extends State<SettingsScreen> {
-  int language = 0;
+  int language = 1;
   int theme = 1;
 
   @override
@@ -106,6 +106,12 @@ class SettingsScreenState extends State<SettingsScreen> {
                       .elementAt(1)
                       .languageCode),
                   value: 1,
+                ),
+                DropdownMenuItem(
+                  child: Text(AppLocalizations.supportedLocales
+                      .elementAt(2)
+                      .languageCode),
+                  value: 2,
                 ),
               ],
               onChanged: (newValue) {

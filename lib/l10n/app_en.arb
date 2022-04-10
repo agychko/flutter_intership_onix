@@ -17,5 +17,8 @@
   "settingsTitle": "Settings",
   "settingsTheme": "Theme",
   "settingsUpdateInterval": "Update Interval",
-  "settingsLanguage": "Language"
+  "settingsLanguage": "Language",
+  "langArabic": "Arabic",
+  "langEnglish": "English",
+  "langUkrainian": "Українська"
 }
