@@ -14,11 +14,21 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class SettingsScreenState extends State<SettingsScreen> {
-  int language = 1;
   int theme = 1;
 
   @override
   Widget build(BuildContext context) {
+    int languageIndex = 0;
+    var currentLocale = Localizations.localeOf(context);
+    if (currentLocale.languageCode == 'ar') {
+      languageIndex = 0;
+    }
+    if (currentLocale.languageCode == 'en') {
+      languageIndex = 1;
+    }
+    if (currentLocale.languageCode == 'uk') {
+      languageIndex = 2;
+    }
     return BlocProvider(
       create: (context) => SettingsBloc(),
       child: Scaffold(
@@ -93,7 +103,7 @@ class SettingsScreenState extends State<SettingsScreen> {
             }),
             SettingsMenuItem(
               nameMenuItem: AppLocalizations.of(context)!.settingsLanguage,
-              dropdownValue: language,
+              dropdownValue: languageIndex,
               // context.read<LanguageState>().code,
               dropdownItem: [
                 DropdownMenuItem(
@@ -123,9 +133,9 @@ class SettingsScreenState extends State<SettingsScreen> {
               ],
               onChanged: (newValue) {
                 setState(() {
-                  language = newValue!;
+                  languageIndex = newValue!;
                   String code = AppLocalizations.supportedLocales
-                      .elementAt(language)
+                      .elementAt(languageIndex)
                       .languageCode;
                   context.read<LanguageCubit>().changeLanguage(code);
                 });
