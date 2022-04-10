@@ -94,23 +94,30 @@ class SettingsScreenState extends State<SettingsScreen> {
             SettingsMenuItem(
               nameMenuItem: AppLocalizations.of(context)!.settingsLanguage,
               dropdownValue: language,
+              // context.read<LanguageState>().code,
               dropdownItem: [
                 DropdownMenuItem(
-                  child: Text(AppLocalizations.supportedLocales
-                      .elementAt(0)
-                      .languageCode),
+                  child: Text(_getLanguageName(
+                      context,
+                      AppLocalizations.supportedLocales
+                          .elementAt(0)
+                          .languageCode)),
                   value: 0,
                 ),
                 DropdownMenuItem(
-                  child: Text(AppLocalizations.supportedLocales
-                      .elementAt(1)
-                      .languageCode),
+                  child: Text(_getLanguageName(
+                      context,
+                      AppLocalizations.supportedLocales
+                          .elementAt(1)
+                          .languageCode)),
                   value: 1,
                 ),
                 DropdownMenuItem(
-                  child: Text(AppLocalizations.supportedLocales
-                      .elementAt(2)
-                      .languageCode),
+                  child: Text(_getLanguageName(
+                      context,
+                      AppLocalizations.supportedLocales
+                          .elementAt(2)
+                          .languageCode)),
                   value: 2,
                 ),
               ],
@@ -128,5 +135,17 @@ class SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
     );
+  }
+
+  String _getLanguageName(BuildContext context, String code) {
+    switch (code) {
+      case 'ar':
+        return AppLocalizations.of(context)!.langArabic;
+      case 'en':
+        return AppLocalizations.of(context)!.langEnglish;
+      case 'uk':
+        return AppLocalizations.of(context)!.langUkrainian;
+    }
+    return '';
   }
 }
