@@ -3,6 +3,7 @@ import 'package:first/presentation/currencies_screen/currency_item.dart';
 import 'package:first/util/error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CurrenciesScreen extends StatefulWidget {
   const CurrenciesScreen({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class CurrenciesScreenState extends State<CurrenciesScreen> {
               Navigator.pop(context);
             },
           ),
-          title: const Text('Currencies'),
+          title: Text(AppLocalizations.of(context)!.currenciesTitle),
           centerTitle: true,
         ),
         body: BlocBuilder<CurrenciesBloc, CurrenciesState>(

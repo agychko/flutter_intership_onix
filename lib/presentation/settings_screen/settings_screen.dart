@@ -2,6 +2,9 @@ import 'package:first/presentation/settings_screen/settings_bloc/settings_bloc.d
 import 'package:first/presentation/settings_screen/settings_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'language_bloc/language_cubit.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -11,11 +14,21 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class SettingsScreenState extends State<SettingsScreen> {
-  int language = 1;
   int theme = 1;
 
   @override
   Widget build(BuildContext context) {
+    int languageIndex = 0;
+    var currentLocale = Localizations.localeOf(context);
+    if (currentLocale.languageCode == 'ar') {
+      languageIndex = 0;
+    }
+    if (currentLocale.languageCode == 'en') {
+      languageIndex = 1;
+    }
+    if (currentLocale.languageCode == 'uk') {
+      languageIndex = 2;
+    }
     return BlocProvider(
       create: (context) => SettingsBloc(),
       child: Scaffold(
@@ -26,7 +39,7 @@ class SettingsScreenState extends State<SettingsScreen> {
               Navigator.pop(context);
             },
           ),
-          title: const Text('Setting'),
+          title: Text(AppLocalizations.of(context)!.settingsTitle),
           centerTitle: true,
           actions: [
             IconButton(
@@ -40,7 +53,7 @@ class SettingsScreenState extends State<SettingsScreen> {
         body: Column(
           children: [
             SettingsMenuItem(
-              nameMenuItem: 'Theme',
+              nameMenuItem: AppLocalizations.of(context)!.settingsTheme,
               dropdownValue: theme,
               dropdownItem: const [
                 DropdownMenuItem(
@@ -60,7 +73,8 @@ class SettingsScreenState extends State<SettingsScreen> {
             ),
             BlocBuilder<SettingsBloc, SettingsState>(builder: (context, state) {
               return SettingsMenuItem(
-                nameMenuItem: 'Update Interval',
+                nameMenuItem:
+                    AppLocalizations.of(context)!.settingsUpdateInterval,
                 dropdownItem: const [
                   DropdownMenuItem(
                     child: Text('15 sec'),
@@ -88,25 +102,42 @@ class SettingsScreenState extends State<SettingsScreen> {
               );
             }),
             SettingsMenuItem(
-              nameMenuItem: 'Language',
-              dropdownValue: language,
-              dropdownItem: const [
+              nameMenuItem: AppLocalizations.of(context)!.settingsLanguage,
+              dropdownValue: languageIndex,
+              // context.read<LanguageState>().code,
+              dropdownItem: [
                 DropdownMenuItem(
-                  child: Text('English'),
+                  child: Text(_getLanguageName(
+                      context,
+                      AppLocalizations.supportedLocales
+                          .elementAt(0)
+                          .languageCode)),
+                  value: 0,
+                ),
+                DropdownMenuItem(
+                  child: Text(_getLanguageName(
+                      context,
+                      AppLocalizations.supportedLocales
+                          .elementAt(1)
+                          .languageCode)),
                   value: 1,
                 ),
                 DropdownMenuItem(
-                  child: Text('Русский'),
+                  child: Text(_getLanguageName(
+                      context,
+                      AppLocalizations.supportedLocales
+                          .elementAt(2)
+                          .languageCode)),
                   value: 2,
-                ),
-                DropdownMenuItem(
-                  child: Text('Українська'),
-                  value: 3,
                 ),
               ],
               onChanged: (newValue) {
                 setState(() {
-                  language = newValue!;
+                  languageIndex = newValue!;
+                  String code = AppLocalizations.supportedLocales
+                      .elementAt(languageIndex)
+                      .languageCode;
+                  context.read<LanguageCubit>().changeLanguage(code);
                 });
               },
             ),
@@ -114,5 +145,17 @@ class SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
     );
+  }
+
+  String _getLanguageName(BuildContext context, String code) {
+    switch (code) {
+      case 'ar':
+        return AppLocalizations.of(context)!.langArabic;
+      case 'en':
+        return AppLocalizations.of(context)!.langEnglish;
+      case 'uk':
+        return AppLocalizations.of(context)!.langUkrainian;
+    }
+    return '';
   }
 }

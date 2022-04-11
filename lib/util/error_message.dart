@@ -12,6 +12,6 @@ class ErrorMessage extends StatelessWidget {
     return Center(
         child: InkWell(
             onTap: onTap,
-            child: Text('Error Occurred:\n $error\nTap To Try Again.')));
+            child: Text('Error Occurred:\n$error\nTap To Try Again.')));
   }
 }

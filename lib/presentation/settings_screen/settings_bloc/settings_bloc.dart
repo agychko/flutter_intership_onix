@@ -19,8 +19,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   void _getUpdateInterval(Emitter<SettingsState> emit) async {
     emit(SettingsInitial());
-    var interval = await _preferencesSource.getUpdateInterval() ?? 15;
-    updateInterval = interval.toInt();
+    int interval = await _preferencesSource.getUpdateInterval() ?? 15;
+    updateInterval = interval;
   }
 
   void _updateTimeInterval(

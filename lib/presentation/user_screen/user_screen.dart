@@ -2,7 +2,7 @@ import 'package:first/presentation/converter_screen/converter_bloc/converter_blo
 import 'package:first/presentation/converter_screen/converter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'user_bloc/user_bloc.dart';
 
 class UserScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Authorization'),
+        title: Text(AppLocalizations.of(context)!.authorizationTitle),
         centerTitle: true,
       ),
       body: BlocListener<UserBloc, UserState>(
@@ -79,7 +79,8 @@ class UserScreenState extends State<UserScreen> {
                                   password: _passwordController.text));
                             }
                           },
-                          child: const Text('Authorization'));
+                          child: Text(AppLocalizations.of(context)!
+                              .authorizationTitle));
                     },
                   ),
                   const SizedBox(height: 10),
