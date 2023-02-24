@@ -35,7 +35,7 @@ class SettingsMenuItem extends StatelessWidget {
           Expanded(
               flex: 2,
               child: Text(nameMenuItem,
-                  style: Theme.of(context).textTheme.headline6)),
+                  style: Theme.of(context).textTheme.titleLarge)),
           Expanded(
             child: Container(
               alignment: AlignmentDirectional.center,

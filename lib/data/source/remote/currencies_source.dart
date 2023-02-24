@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 abstract class CurrenciesSource {
   @protected
-  final String baseUrl = 'http://api.exchangeratesapi.io/v1/';
+  // final String baseUrl = 'http://api.exchangeratesapi.io/v1/';
+  final String baseUrl = 'https://api.exchangerate.host/latest';
 
   Future<DataResponse<List<CurrencyEntity>>> getCurrencies();
 }

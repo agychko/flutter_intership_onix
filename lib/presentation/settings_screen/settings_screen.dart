@@ -57,12 +57,12 @@ class SettingsScreenState extends State<SettingsScreen> {
               dropdownValue: theme,
               dropdownItem: const [
                 DropdownMenuItem(
-                  child: Text('Light'),
                   value: 1,
+                  child: Text('Light'),
                 ),
                 DropdownMenuItem(
-                  child: Text('Dark'),
                   value: 2,
+                  child: Text('Dark'),
                 ),
               ],
               onChanged: (newValue) {
@@ -77,16 +77,16 @@ class SettingsScreenState extends State<SettingsScreen> {
                     AppLocalizations.of(context)!.settingsUpdateInterval,
                 dropdownItem: const [
                   DropdownMenuItem(
-                    child: Text('15 sec'),
                     value: 15,
+                    child: Text('15 sec'),
                   ),
                   DropdownMenuItem(
-                    child: Text('30 sec'),
                     value: 30,
+                    child: Text('30 sec'),
                   ),
                   DropdownMenuItem(
-                    child: Text('1 min'),
                     value: 60,
+                    child: Text('1 min'),
                   )
                 ],
                 dropdownValue: context.read<SettingsBloc>().updateInterval,
@@ -107,28 +107,28 @@ class SettingsScreenState extends State<SettingsScreen> {
               // context.read<LanguageState>().code,
               dropdownItem: [
                 DropdownMenuItem(
+                  value: 0,
                   child: Text(_getLanguageName(
                       context,
                       AppLocalizations.supportedLocales
                           .elementAt(0)
                           .languageCode)),
-                  value: 0,
                 ),
                 DropdownMenuItem(
+                  value: 1,
                   child: Text(_getLanguageName(
                       context,
                       AppLocalizations.supportedLocales
                           .elementAt(1)
                           .languageCode)),
-                  value: 1,
                 ),
                 DropdownMenuItem(
+                  value: 2,
                   child: Text(_getLanguageName(
                       context,
                       AppLocalizations.supportedLocales
                           .elementAt(2)
                           .languageCode)),
-                  value: 2,
                 ),
               ],
               onChanged: (newValue) {

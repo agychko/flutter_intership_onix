@@ -101,13 +101,13 @@ class _CurrencyCardState extends State<CurrencyCard> {
                 onChanged: widget.onInputValueChanged,
                 controller: widget.controller,
                 keyboardType: TextInputType.number,
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
                 decoration: InputDecoration(
                   suffixIconConstraints:
                       const BoxConstraints(minHeight: 18, minWidth: 18),
                   suffixText: widget.currency.icon,
                   hintText: '0.00',
-                  hintStyle: Theme.of(context).textTheme.headline5,
+                  hintStyle: Theme.of(context).textTheme.headlineSmall,
                 ),
               ),
             ),
